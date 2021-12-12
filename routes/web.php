@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-
+Route::get('/dashboard', [EducatorController::class, 'index'])->name('dashboard');
 /*
 |--------------------------------------------------------------------------
 | Route for Auth
