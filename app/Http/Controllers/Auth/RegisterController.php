@@ -23,8 +23,11 @@ class RegisterController extends Controller
             'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'type' => 'educator',
         ]);
         
+        
+
         return redirect()->route('dashboard');
     }
 }
