@@ -12,9 +12,14 @@
 </head>
 <body class="bg-gray-100">
     <nav class="p-6 bg-white flex justify-between mb-5 rounded-lg">
-        <ul class="flex items-center">
+        <ul class="flex items-center font-semibold">
             <li>
                 <a href="{{route('home')}}" class="p-3">Home</a>
+            </li>
+        </ul>
+        <ul class="flex items-center font-semibold">
+            <li>
+                <a href="" class="p-3">Logout</a>
             </li>
         </ul>
     </nav>

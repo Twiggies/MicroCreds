@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EducatorController;
+use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
@@ -32,6 +33,11 @@ Route::get('/educatorregister', function() {
 
 Route::post('/educatorregister', [RegisterController::class, 'store']);
 
+Route::get('/educatorlogin', function() {
+    return view('auth.educator_login');
+})->name('educatorlogin');
+
+Route::post('/educatorlogin', [LoginController::class, 'store']);
 /*
 |--------------------------------------------------------------------------
 | Route for Courses (Educator)

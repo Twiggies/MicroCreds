@@ -26,7 +26,10 @@ class RegisterController extends Controller
             'type' => 'educator',
         ]);
         
-        
+        auth()->attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
 
         return redirect()->route('dashboard');
     }

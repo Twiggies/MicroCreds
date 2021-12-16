@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    Educator Home
+    <div class="flex justify-center">
+        <div class="w-8/12 bg-white p-6">
+            Welcome! 
+        </div>
+    </div>
 @endsection

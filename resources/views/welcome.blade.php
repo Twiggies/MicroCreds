@@ -22,7 +22,7 @@
                 </button>
                 </div>
                 <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded" onclick="window.location.href='{{route('educatorlogin')}}'">
                         Login
                 </button>
                 </div>
