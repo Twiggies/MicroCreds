@@ -14,13 +14,26 @@
     <nav class="p-6 bg-white flex justify-between mb-5 rounded-lg">
         <ul class="flex items-center font-semibold">
             <li>
-                <a href="{{route('home')}}" class="p-3">Home</a>
+                <a href="{{route('dashboard')}}" class="p-3">Home</a>
             </li>
         </ul>
-        <ul class="flex items-center font-semibold">
+        <ul class="flex items-center">
+            @if (auth()->user())
             <li>
-                <a href="" class="p-3">Logout</a>
+                <form action="{{route('logout')}}" method="POST">
+                    @csrf
+                    <button class="p-3 font-semibold">Logout</button>
+                </form>
             </li>
+            @else 
+            <li>
+                <form action="{{route('educatorlogin')}}" method="GET">
+                    @csrf
+                    <button class="p-3 font-semibold">Login</button>
+                </form>
+            </li>
+            @endif
+            
         </ul>
     </nav>
     @yield('content')

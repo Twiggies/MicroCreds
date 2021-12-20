@@ -21,4 +21,11 @@ class LoginController extends Controller
         return redirect()->route('dashboard');
 
     }
+
+
+    public function logout() {
+        auth()->logout();
+
+        return redirect()->route('home');
+    }
 }

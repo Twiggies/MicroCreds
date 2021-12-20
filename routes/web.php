@@ -19,7 +19,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::get('/dashboard', [EducatorController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [EducatorController::class, 'index'])
+->name('dashboard')
+->middleware('auth');
 /*
 |--------------------------------------------------------------------------
 | Route for Auth
@@ -27,9 +29,7 @@ Route::get('/dashboard', [EducatorController::class, 'index'])->name('dashboard'
 | Routes for Authentication such as Register/Login 
 |
 */
-Route::get('/educatorregister', function() {
-    return view('auth.educator_register');
-})->name('educatorregister');
+Route::get('/educatorregister', [RegisterController::class, 'index'])->name('educatorregister');
 
 Route::post('/educatorregister', [RegisterController::class, 'store']);
 
@@ -38,6 +38,8 @@ Route::get('/educatorlogin', function() {
 })->name('educatorlogin');
 
 Route::post('/educatorlogin', [LoginController::class, 'store']);
+
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 /*
 |--------------------------------------------------------------------------
 | Route for Courses (Educator)
