@@ -21,11 +21,11 @@ class CreateCoursesTable extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
             $table->text('description');
-            $table->binary('image');
+            $table->string('image')->nullable();
             $table->text('duration');
         });
 
-        DB::statement("ALTER TABLE courses ADD image MEDIUMBLOB");
+        
 
     }
 

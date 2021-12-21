@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CourseController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,7 +50,9 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 |
 */
 
-Route::get('/createdcourses', function () {
-    return view('courses.created_courses');
-});
+Route::get('/createdcourses', [CourseController::class, 'viewCourses'])->name('createdcourses');
+
+Route::get('/addnewcourse', [CourseController::class, 'addCourse'])->name('addcourse');
+
+Route::post('/addnewcourse', [CourseController::class, 'addNewCourse'])->name('addnewcoursereq');
 
