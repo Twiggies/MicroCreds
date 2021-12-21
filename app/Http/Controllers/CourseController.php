@@ -27,7 +27,7 @@ class CourseController extends Controller
             'coursename' => 'required',
             'description' => 'required',
             'duration' => 'required',
-            'image' => 'nullable | image',
+            'image' => 'nullable | image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
         if ($request->hasFile('image')) {
