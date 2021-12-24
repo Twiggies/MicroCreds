@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
@@ -15,7 +16,9 @@ class CourseController extends Controller
     }
 
     public function viewCourses() {
-        return view('courses.created_courses');
+        $user = Auth::user();
+        $data = $user->courses()->get();
+        return view('courses.created_courses', compact('data'));
     }
 
     public function addCourse() {
@@ -53,5 +56,10 @@ class CourseController extends Controller
             ]);
         }
         return redirect()->route('createdcourses');
+    }
+
+    public function viewCourse($id) {
+        $data = Auth::user()->courses()->find($id);
+        return view('courses.dashboard', compact('data'));
     }
 }

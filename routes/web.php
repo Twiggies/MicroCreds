@@ -56,3 +56,5 @@ Route::get('/addnewcourse', [CourseController::class, 'addCourse'])->name('addco
 
 Route::post('/addnewcourse', [CourseController::class, 'addNewCourse'])->name('addnewcoursereq');
 
+Route::get('/course/{id}', [CourseController::class, 'viewCourse'])->name('viewcourse');
+
