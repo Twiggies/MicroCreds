@@ -11,6 +11,8 @@
 
 </head>
 <body class="bg-gray-100">
+    <div id="app">
+    
     <nav class="p-6 bg-white flex justify-between mb-5 rounded-lg">
         <ul class="flex items-center font-semibold">
             <li>
@@ -37,5 +39,7 @@
         </ul>
     </nav>
     @yield('content')
+</div>
+<script src="{{mix('/js/app.js')}}"></script>
 </body>
 </html>
