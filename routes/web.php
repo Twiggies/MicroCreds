@@ -62,4 +62,4 @@ Route::get('/course/{id}', [CourseController::class, 'viewCourse'])->name('viewc
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

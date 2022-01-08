@@ -15,9 +15,15 @@
     
     <nav class="p-6 bg-white flex justify-between mb-5 rounded-lg">
         <ul class="flex items-center font-semibold">
+            @if (auth()->user())
             <li>
                 <a href="{{route('dashboard')}}" class="p-3">Home</a>
             </li>
+            @else
+            <li>
+                <a href="{{route('home')}}" class="p-3">Home</a>
+            </li>
+            @endif
         </ul>
         <ul class="flex items-center">
             @if (auth()->user())
@@ -27,7 +33,7 @@
                     <button class="p-3 font-semibold">Logout</button>
                 </form>
             </li>
-            @else 
+            @else
             <li>
                 <form action="{{route('educatorlogin')}}" method="GET">
                     @csrf
