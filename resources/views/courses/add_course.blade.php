@@ -42,7 +42,7 @@
             <div>
                 <span>Duration</span>
                         <input type="text"  name="duration" id="duration"
-                        class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full h-128 @error('duration') border-red-500 @enderror" value="{{old('duration')}}"></textarea>
+                        class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full h-128 @error('duration') border-red-500 @enderror" value="{{old('duration')}}">
                         @error('duration')
                             <div class="text-red-500 mt-2 text-sm text-left">
                                 {{ $message }}
@@ -50,6 +50,7 @@
                         @enderror
             </div>
             <div class="my-4 text-right">
+                <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
                 <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded rounded font-large w-auto">
                     Create
                 </button>

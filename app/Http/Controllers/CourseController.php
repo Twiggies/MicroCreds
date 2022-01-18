@@ -17,8 +17,12 @@ class CourseController extends Controller
 
     public function viewCourses() {
         $user = Auth::user();
-        $data = $user->courses()->get();
+        if ($data = $user->courses()->get()) {
         return view('courses.created_courses', compact('data'));
+        }
+        else {
+            return view('courses.created_courses');
+        }
     }
 
     public function addCourse() {
@@ -60,6 +64,11 @@ class CourseController extends Controller
 
     public function viewCourse($id) {
         $data = Auth::user()->courses()->find($id);
-        return view('courses.dashboard', compact('data'));
+        if ($modules = $data->modules()->get()) {
+        return view('courses.dashboard', compact('data', 'modules'));
+        }
+        else {
+            return view('courses.dashboard', compact('data'));
+        }
     }
 }

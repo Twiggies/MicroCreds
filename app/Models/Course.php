@@ -15,4 +15,8 @@ class Course extends Model
         'image',
         'duration',
     ];
+
+    public function modules() {
+        return $this->hasMany(Module::class);
+    }
 }

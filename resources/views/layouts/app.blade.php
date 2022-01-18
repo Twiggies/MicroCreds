@@ -5,10 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MicroCreds</title>
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-
+    <script>
+        window.onload = function() {
+    if (window.jQuery) {  
+        // jQuery is loaded  
+        alert("Yeah!");
+    } else {
+        // jQuery is not loaded
+        alert("Doesn't Work");
+    }
+}
+    </script>
 </head>
 <body class="bg-gray-100">
     <div id="app">

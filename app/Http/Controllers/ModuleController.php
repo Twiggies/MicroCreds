@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Module;
+use Illuminate\Support\Facades\DB;
+use App\Models\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ModuleController extends Controller
 {
@@ -16,9 +19,13 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id, $moduleid)
     {
         //
+        
+        $data = Auth::user()->courses()->find($id)->modules()->find($moduleid);
+        return view('modules.module_dashboard', compact('id', 'data'));
+        
     }
 
     /**
@@ -26,9 +33,10 @@ class ModuleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
         //
+        return view('modules.add_module', compact('id'));
     }
 
     /**
@@ -40,6 +48,19 @@ class ModuleController extends Controller
     public function store(Request $request)
     {
         //
+        
+        $request->validate([
+            'modulename' => 'required',
+            'description' => 'required'
+        ]);
+
+        $request->user()->courses()->find($request->id)->modules()->create([
+            'name' => $request->modulename,
+            'description' => $request->description,
+            
+        ]);
+        
+        return redirect()->route('viewcourse', $request->id);
     }
 
     /**
