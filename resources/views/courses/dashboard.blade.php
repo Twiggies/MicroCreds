@@ -3,9 +3,9 @@
 @section('content')
 <div class="flex flex-wrap justify-center">
     <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg font-mono text-2xl font-semibold">
-        <span>{{$data['name']}}</span>
+        <span>{{$data['name']}}</span>  
         <ul class="flex items-center">
-            <a class="px-3 border border-gray-500">Edit</a>
+            <a class="px-3 border border-gray-500" href="{{route('editcourse', $data['id'])}}">Edit</a>
             <a class="px-3 border border-gray-500">Students</a>
         </ul>
     </div>

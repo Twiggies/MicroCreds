@@ -3,10 +3,11 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ModuleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,10 @@ Route::post('/addnewcourse', [CourseController::class, 'addNewCourse'])->name('a
 
 Route::get('/course/{id}', [CourseController::class, 'viewCourse'])->name('viewcourse');
 
+Route::get('/editcourse/{id}',[CourseController::class, 'editCourse'])->name('editcourse');
+
+Route::put('/editcourse/{id}', [CourseController::class, 'updateCourse'])->name('updatecourse');
+
 /*
 |--------------------------------------------------------------------------
 | Route for Modules (Educator)
@@ -73,6 +78,24 @@ Route::post('/course/{id}/addmodule', [ModuleController::class, 'store'])->name(
 
 Route::get('/course/{id}/viewmodule={moduleid}', [ModuleController::class, 'index'])->name('viewmodule');
 
+Route::get('/editmodule/{moduleid}', [ModuleController::class, 'edit'])->name('editmodule');
+
+Route::put('/editmodule/{moduleid}', [ModuleController::class, 'update'])->name('updatemodule');
+
+/*
+|--------------------------------------------------------------------------
+| Route for Modules (Educator)
+|--------------------------------------------------------------------------
+| Routes for Educator navigating to modules related pages
+|
+*/
+Route::get('/course/{id}/viewmodule={moduleid}/addlesson', [LessonController::class, 'create'])->name('addlesson');
+
+Route::get('/editlesson/{lessonid}', [LessonController::class, 'edit'])->name('editlesson');
+
+Route::put('/editlesson/{lessonid}', [LessonController::class, 'store'])->name('updatelesson');
+
+Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonController::class, 'index'])->name('viewlesson');
 Auth::routes();
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

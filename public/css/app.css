@@ -17,6 +17,16 @@ Use a better box model (opinionated).
 ::after {
   box-sizing: border-box;
 }
+/* For summernote override unordered and order list */
+.note-editable ul{
+  list-style: disc !important;
+  list-style-position: inside !important;
+}
+
+.note-editable ol {
+  list-style: decimal !important;
+  list-style-position: inside !important;
+}
 
 /**
 Use a more readable tab size (opinionated).
@@ -344,6 +354,7 @@ ul {
   margin: 0;
   padding: 0;
 }
+
 
 /**
  * Tailwind custom reset styles

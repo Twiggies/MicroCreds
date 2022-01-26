@@ -2,10 +2,14 @@
 
 namespace Database\Factories;
 
+
+
+use App\Models\Course;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class CourseFactory extends Factory
 {
+    protected $model = Course::class;
     /**
      * Define the model's default state.
      *
@@ -15,6 +19,9 @@ class CourseFactory extends Factory
     {
         return [
             //
+            'name' => $this->faker->text(20),
+            'description'=> $this->faker->text(200),
+            'duration'=> $this->faker->randomNumber(2)
         ];
     }
 }

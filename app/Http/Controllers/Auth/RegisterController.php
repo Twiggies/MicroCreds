@@ -26,7 +26,7 @@ class RegisterController extends Controller
             'password' => ['required', 'max:20'],
         ]);
 
-        User::create([
+        $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
             'email' => $request->email,
@@ -34,11 +34,17 @@ class RegisterController extends Controller
             'type' => 'educator',
         ]);
         
+        $token = $user->createToken('usertoken', ['educator'])->plainTextToken;
         auth()->attempt([
             'email' => $request->email,
             'password' => $request->password,
         ]);
-
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        //return response()
+        $request->session()->put('user', $user);
         return redirect()->route('dashboard');
     }
 }

@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+<example-component></example-component>
     <div class="flex flex-wrap justify-center h-96">
         <div class="w-8/12 bg-white p-6 rounded-lg">
             Welcome, {{ucfirst(auth()->user()->firstname)}}

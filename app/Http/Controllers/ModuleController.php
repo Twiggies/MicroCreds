@@ -23,8 +23,13 @@ class ModuleController extends Controller
     {
         //
         
-        $data = Auth::user()->courses()->find($id)->modules()->find($moduleid);
-        return view('modules.module_dashboard', compact('id', 'data'));
+        $module = Auth::user()->courses()->find($id)->modules()->find($moduleid);
+        if ($lessons = $module->lessons()->get()) {
+        return view('modules.module_dashboard', compact('id', 'module', 'lessons'));
+        }
+        else {
+            return view('modules.module_dashboard', compact('id', 'module'));
+        }
         
     }
 
@@ -80,9 +85,11 @@ class ModuleController extends Controller
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function edit(Module $module)
+    public function edit($id)
     {
         //
+        $module = Module::find($id);
+        return view('modules.edit_module', compact('module'));
     }
 
     /**
@@ -92,9 +99,16 @@ class ModuleController extends Controller
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Module $module)
+    public function update(Request $request)
     {
         //
+        $module = Module::find($request->moduleid);
+        $module->name = $request->modulename;
+        $module->description = $request->description;
+        $module->update();
+        $moduleid = $request->moduleid;
+        $id = $module->course_id;
+        return redirect()->route('viewmodule', compact('id', 'moduleid'))->with('status', 'Course details updated successfully');
     }
 
     /**

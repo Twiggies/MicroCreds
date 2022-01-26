@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -18,14 +21,26 @@ class LoginController extends Controller
             return back()->with('status', 'Invalid Login Credentials');
         }
 
+        $user = User::where('email', $request->email)->first();
+
+        $token = $user->createToken('usertoken', ['educator'])->plainTextToken;
+        $response = [
+            'user' => $user,
+            'token' => $token
+        ];
+        $request->session()->put('user', $user);
+        //return $request->session()->all();
         return redirect()->route('dashboard');
 
     }
 
 
-    public function logout() {
+    public function logout(Request $request) {
+        
+        auth()->user()->tokens()->delete();
+        Session::flush();
         auth()->logout();
-
+        
         return redirect()->route('home');
     }
 }
