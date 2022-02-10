@@ -15,7 +15,7 @@
                     </div>
          @enderror
          <ul class="flex items-right">
-            <a class="px-3 border border-gray-500" href="">Manage Quiz</a>
+            <a class="px-3 border border-gray-500" href="{{route('managequiz', $lessonid)}}">Manage Quiz</a>
             <a class="px-3 border border-gray-500" href="">Attach Materials</a>
          </ul>
     </div> 
@@ -25,7 +25,7 @@
             <div>
                 <div class="my-4 text-right">
                     <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
-                    <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded rounded font-large w-auto">
+                    <button type="submit" class="bg-green-400 text-white font-bold p-2rounded font-large w-auto">
                         Save
                     </button>
                 </div>

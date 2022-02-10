@@ -69,5 +69,7 @@
             $("#lessoncontent ol").addClass('list-decimal');
           });
 </script>
+
+@yield('scripts')
 </body>
 </html>

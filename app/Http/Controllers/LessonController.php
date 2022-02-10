@@ -71,7 +71,10 @@ class LessonController extends Controller
 
     public function edit($lessonid) {
         $lesson = Lesson::find($lessonid);
-        return view('lessons.edit_lesson', compact('lessonid', 'lesson'));
+        $moduleid = $lesson->module_id;
+        $module = Module::find($moduleid);
+        $id = $module->course_id;
+        return view('lessons.edit_lesson', compact('id', 'moduleid','lessonid', 'lesson'));
     }
 
     

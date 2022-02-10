@@ -8,6 +8,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,9 +85,9 @@ Route::put('/editmodule/{moduleid}', [ModuleController::class, 'update'])->name(
 
 /*
 |--------------------------------------------------------------------------
-| Route for Modules (Educator)
+| Route for Lesson (Educator)
 |--------------------------------------------------------------------------
-| Routes for Educator navigating to modules related pages
+| Routes for Educator navigating to lessons related pages
 |
 */
 Route::get('/course/{id}/viewmodule={moduleid}/addlesson', [LessonController::class, 'create'])->name('addlesson');
@@ -96,6 +97,20 @@ Route::get('/editlesson/{lessonid}', [LessonController::class, 'edit'])->name('e
 Route::put('/editlesson/{lessonid}', [LessonController::class, 'store'])->name('updatelesson');
 
 Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonController::class, 'index'])->name('viewlesson');
+
+/*
+|--------------------------------------------------------------------------
+| Route for Quiz (Educator)
+|--------------------------------------------------------------------------
+| Routes for Educator navigating to quiz related pages
+|
+*/
+Route::get('/lesson/{lessonid}/managequiz', [QuizController::class, 'create'])->name('managequiz');
+
+Route::put('/lesson/{lessonid}/managequiz', [QuizController::class, 'store'])->name('managequiz');
+
 Auth::routes();
+
+
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

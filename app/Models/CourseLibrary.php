@@ -5,11 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Option extends Model
+class CourseLibrary extends Model
 {
     use HasFactory;
-    protected $fillable = [
-        'option',
-        'is_answer'
-    ];
 }

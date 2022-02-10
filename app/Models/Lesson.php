@@ -14,4 +14,7 @@ class Lesson extends Model
         'content',
         
     ];
+    public function quizzes() {
+        return $this->hasMany(Quiz::class);
+    }
 }
