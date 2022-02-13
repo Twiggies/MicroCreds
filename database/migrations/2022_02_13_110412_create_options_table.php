@@ -16,7 +16,7 @@ class CreateOptionsTable extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('quiz_id')->references('id')->on('quiz')->onDelete('cascade');
+            $table->foreignId('quiz_id')->references('id')->on('quizzes')->onDelete('cascade');
             $table->text('option');
             $table->boolean('is_answer');
         });

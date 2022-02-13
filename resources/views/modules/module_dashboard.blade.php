@@ -5,13 +5,13 @@
     <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg font-mono text-2xl font-semibold">
         <span>{{$module['name']}}</span>
         <ul class="flex items-center">
-            <a class="px-3 border border-gray-500 border-2" href="{{route('editmodule', $module['id'])}}">Edit</a>
+            <a class="px-3 border hover:text-white hover:bg-blue-500 border-gray-500 border-2" href="{{route('editmodule', $module['id'])}}">Edit</a>
         </ul>
     </div>
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
         <form action="{{route('addlesson', [$id, 'moduleid' => $module['id']])}}" method="get">
             @csrf
-            <button class="w-13 border-2" >Add a lesson</button>
+            <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold  hover:text-white py-2 px-4 border border-blue-500 rounded-full" >Add a lesson</button>
         </form>
         <div>
             @foreach ($lessons as $lesson)

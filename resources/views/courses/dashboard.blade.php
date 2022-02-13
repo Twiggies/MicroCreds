@@ -5,14 +5,14 @@
     <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg font-mono text-2xl font-semibold">
         <span>{{$data['name']}}</span>  
         <ul class="flex items-center">
-            <a class="px-3 border border-gray-500" href="{{route('editcourse', $data['id'])}}">Edit</a>
-            <a class="px-3 border border-gray-500">Students</a>
+            <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500" href="{{route('editcourse', $data['id'])}}">Edit</a>
+            <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500">Students</a>
         </ul>
     </div>
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
         <form action="{{route('addmodule', $data['id'])}}" method="get">
             @csrf
-            <button class="w-13 border-2" >Add a module</button>
+            <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold  hover:text-white py-2 px-4 border border-blue-500 rounded-full" >Add a module</button>
         </form>
         <div>
             @foreach ($modules as $item)

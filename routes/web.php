@@ -8,6 +8,7 @@ use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EducatorController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\CourseLibraryController;
 use App\Http\Controllers\QuizController;
 
 /*
@@ -107,10 +108,20 @@ Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonContro
 */
 Route::get('/lesson/{lessonid}/managequiz', [QuizController::class, 'create'])->name('managequiz');
 
-Route::put('/lesson/{lessonid}/managequiz', [QuizController::class, 'store'])->name('managequiz');
+Route::get('fetchquiz-{lessonid}', [QuizController::class, 'index'])->name('getquiz');
+
+Route::put('/lesson/{lessonid}/managequiz', [QuizController::class, 'store'])->name('updatequiz');
 
 Auth::routes();
 
+/*
+|--------------------------------------------------------------------------
+| Route for CourseLibrary (Educator)
+|--------------------------------------------------------------------------
+| Routes for Educator navigating to course library related pages
+|
+*/
+Route::get('/courselibraries', [CourseLibraryController::class, 'index'])->name('courselibraries');
 
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -11,7 +11,7 @@
         
     </div>
     <div class="w-8/12 justify-between py-4 px-10 h-auto rounded-lg">
-        <form action="{{route('managequiz', $lessonid)}}" method="post" enctype="multipart/form-data">
+        <form id="quizform" enctype="multipart/form-data">
         @csrf
         @method('PUT')
         <div class="w-10/12" id="managequizarea">
@@ -43,27 +43,97 @@
 <script type="text/javascript">
     $(document).ready(function(){
         var questions= [];
-        
-        $('.addNewQues').on('click', function(){
-        addNewQues();
-        });
+        $.ajax({
+            type: 'GET',
+            url: "{{route('getquiz', $lessonid)}}",
+            success: function(response) {
+                var data = response.quiz;
+                for (var i = 0; i < data.length; i++) {
+                    questions.push({
+                        question: data[i].question,
+                        options: data[i].options,
+                        is_removed: false
 
+                    });
+                    
+                    $('#managequizarea').append(
+                    '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
+                    '<div class="flex text-right"><a href="#" id='+ i +' class="deleteQues">Delete</a></div>'+
+                    '<table id=question-'+i+'>'+
+                    '<thead>'+
+                    '<tr>' +
+                    '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+i+' id=question-'+i+'></th>'+
+                    '</tr>'+
+                    '<tr>'+
+                        '<th class="text-left"><span>*Select the correct choice by ticking the checkboxes</span></th>'+
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody class="w-10/12" id=manageoptionsarea-'+i+'></tbody>'+
+                    '</div>'
+                    );
+       
+                }
+                console.log(questions);
+            }
+        });
+        
+
+
+                $('.addNewQues').on('click', function(){
+                addNewQues();
+                });
+
+                $('body').on('click', '.addNewChoice', 
+                addNewChoice
+                );
+
+                $('body').on('click', '.deleteQues',
+                deleteQuestion
+                );
+
+                $('body').on('click', '.checkbox', function() {
+                    
+                        var i = $(this).attr('name');
+                        var j = $(this).index('.checkbox')+1;
+                        for (var x = 0; x < i-1; x++) {
+                            j -= questions[x].options.length;
+                        }
+                        questions[i-1].options[j-1].is_answer = !questions[i-1].options[j-1].is_answer;
+                        console.log(questions);
+                    
+                });
+                
+                $('body').on('change', '.choice', function() {
+                    var i = $(this).attr('name');
+                    var j = $(this).index('.choice')+1;
+                    for (var x = 0; x < i-1; x++) {
+                        j -= questions[x].options.length;
+                    }
+                    questions[i-1].options[j-1].option = this.value;
+                    console.log(questions);
+                });
+                
+                $('body').on('change', '.question', function() {
+                    var i = $(this).index('.question')+1;
+                    questions[i-1].question = this.value;
+                    console.log(questions);
+                });
         function addNewQues() {
             questions.push({
                 question: "",
                 options : [
-                    {option: 'Option 1', is_answer: false},
-                    {option: 'Option 2', is_answer: true}
-                ]
+                    {option: 'Option 1', is_answer: false}
+                ],
+                is_removed: false
             })
             var i = questions.length;
             $('#managequizarea').append(
-                '<div class="flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
+                '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
                 '<div class="flex text-right"><a href="#" id='+ i +' class="deleteQues">Delete</a></div>'+
                 '<table id=question-'+i+'>'+
                 '<thead>'+
                 '<tr>' +
-                '<th class="text-left"><input class="w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+i+' id=question-'+i+'></th>'+
+                '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+i+' id=question-'+i+'></th>'+
                 '</tr>'+
                 '<tr>'+
                     '<th class="text-left"><span>*Select the correct choice by ticking the checkboxes</span></th>'+
@@ -74,13 +144,18 @@
 
 
             );
-                
+                $('#manageoptionsarea-'+ i ).append(
+                    '<div class="w-9/12">' +
+                        '<a href="#" id=' + i +  ' class="addNewChoice">+Add new choice</a>' +
+                    '</div>'
+                    );
+
                     $('#manageoptionsarea-' + i).append(
                         
                     
                     '<tr>' +
-                        '<td class="flex"><input  class="h-6 w-6 mt-3 mr-3" type="checkbox" name=option-' + i + '-' + questions[i-1].options.length + ' id=option-' + i + '-' + questions[i-1].options.length + '>' +
-                        '<input class="w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=textoption-' + i + '-' + questions[i-1].options.length + ' id=textoption-' + i + '-' + questions[i-1].options.length +  ' placeholder="Option">' +
+                        '<td class="flex"><input  class="checkbox h-6 w-6 mt-3 mr-3" type="checkbox" name=' + i + ' id=option-' + i + '-' + questions[i-1].options.length + '>' +
+                        '<input class="choice w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=' + i + ' id=textoption-' + i + '-' + questions[i-1].options.length +  ' placeholder="Option">' +
                         '</td>' +
                     '</tr>'
                     
@@ -88,30 +163,22 @@
                 
                     );
                 
-                $('#manageoptionsarea-'+ i + ' tr').append(
-                '<div class="w-9/12">' +
-                    '<a href="#" id=' + i +  ' class="addNewChoice">+Add new choice</a>' +
-                '</div>'
-                );
-                $('.addNewChoice').on('click', 
-                addNewChoice
-                );
-
-                $('.deleteQues').on('click', 
-                deleteQuestion
-                );
+                
+                
         };
 
         function addNewChoice() {
             var i = $(this).attr('id');
+            
             questions[i-1].options.push({
                     option: 'Option ' + (questions[i-1].options.length+1), 
-                    is_answer: false
+                    is_answer: false,
+                   
             });
             $('#manageoptionsarea-' + i).append(
                     '<tr>' +
-                        '<td class="flex"><input  class="h-6 w-6 mt-3 mr-3" type="checkbox" name=option-' + i + '-' + questions[i-1].options.length + ' id=option-' + i + '-' + questions[i-1].options.length + '>' +
-                        '<input class="w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=textoption-' + i + '-' + questions[i-1].options.length + ' id=textoption-' + i + '-' + questions[i-1].options.length +  ' placeholder="Option">' +
+                        '<td class="flex"><input  class="checkbox h-6 w-6 mt-3 mr-3" type="checkbox" name=' + i + ' id=option-' + i + '-' + questions[i-1].options.length + '>' +
+                        '<input class="choice w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=' + i + ' id=textoption-' + i + '-' + questions[i-1].options.length +  ' placeholder="Option">' +
                         '</td>' +
                     '</tr>'
                 );
@@ -121,12 +188,32 @@
         function deleteQuestion() {
             var i = $(this).attr('id');
             console.log(i);
-            questions.splice(i-1,i-1);
+            questions[i-1].is_removed = true;
             $('#q' + i).remove();
         };
-    });
-    
+        
 
+        $('#quizform').submit(function(e) {
+            e.preventDefault();
+            console.log(JSON.stringify(questions));
+            $.ajaxSetup({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+            });
+            $.ajax({
+                type:"PUT",
+                data: {questions:JSON.stringify(questions)},
+                url: "{{route('updatequiz', $lessonid)}}",
+                success: function(response) {
+                    alert(response);
+                },
+                error: (error) => {
+                     console.log(JSON.stringify(error));
+                }
+            });
+        });
+    });
     
     
 

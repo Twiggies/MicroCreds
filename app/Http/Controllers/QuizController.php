@@ -6,6 +6,7 @@ use App\Models\Quiz;
 use App\Models\Lesson;
 use App\Models\Module;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
@@ -21,7 +22,14 @@ class QuizController extends Controller
     public function index($lessonid)
     {
         //
-        
+        $quizzes = Lesson::find($lessonid)->quiz()->get();
+        foreach ($quizzes as $quiz) {
+            $quiz->options = $quiz->options()->get();
+        }
+        return response()->json([
+            'quiz' => $quizzes,
+            
+        ], 200);
     }
 
     /**
@@ -48,7 +56,25 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         //
-        dd($request);
+        $user = Auth::user();
+        $lesson = Lesson::find($request->lessonid);
+        $datas = $request->questions;
+        foreach (json_decode($datas) as $data) {
+            
+            if ($data->is_removed != true) {
+                $quiz = $lesson->quiz()->create([
+                    'question' => $data->question
+                ]);
+                foreach($data->options as $option) {
+                    $quiz->options()->create([
+                        'option' => $option->option,
+                        'is_answer' => $option->is_answer
+                    ]);
+                }
+            }
+        }
+
+        return response('Request received');
     }
 
     /**

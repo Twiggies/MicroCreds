@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourselibraryTable extends Migration
+class CreateCourselibrarybridgeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateCourselibraryTable extends Migration
      */
     public function up()
     {
-        Schema::create('courselibrary', function (Blueprint $table) {
+        Schema::create('courselibrarybridge', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('name');
-            $table->text('description');
+            $table->foreignId('course_id')->constrained()->onDelete('cascade');
+            $table->foreignId('library_id')->references('id')->on('courselibrary')->onDelete('cascade');
         });
     }
 
@@ -29,6 +28,6 @@ class CreateCourselibraryTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courselibrary');
+        Schema::dropIfExists('courselibrarybridge');
     }
 }
