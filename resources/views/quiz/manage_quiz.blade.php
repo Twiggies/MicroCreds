@@ -50,6 +50,7 @@
                 var data = response.quiz;
                 for (var i = 0; i < data.length; i++) {
                     questions.push({
+                        id: data[i].id,
                         question: data[i].question,
                         options: data[i].options,
                         is_removed: false
@@ -57,20 +58,39 @@
                     });
                     
                     $('#managequizarea').append(
-                    '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
-                    '<div class="flex text-right"><a href="#" id='+ i +' class="deleteQues">Delete</a></div>'+
-                    '<table id=question-'+i+'>'+
+                    '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + (i+1) +'>' +
+                    '<div class="flex text-right"><a href="#" id='+ (i+1) +' class="deleteQues">Delete</a></div>'+
+                    '<table id=question-'+(i+1)+'>'+
                     '<thead>'+
                     '<tr>' +
-                    '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+i+' id=question-'+i+'></th>'+
+                    '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+(i+1)+' id=question-'+(i+1)+' value='+ questions[i].question + '></th>'+
                     '</tr>'+
                     '<tr>'+
                         '<th class="text-left"><span>*Select the correct choice by ticking the checkboxes</span></th>'+
                     '</tr>' +
                     '</thead>' +
-                    '<tbody class="w-10/12" id=manageoptionsarea-'+i+'></tbody>'+
+                    '<tbody class="w-10/12" id=manageoptionsarea-'+(i+1)+'></tbody>'+
                     '</div>'
                     );
+                    $('#manageoptionsarea-'+ (i+1) ).append(
+                    '<div class="w-9/12">' +
+                        '<a href="#" id=' + (i+1) +  ' class="addNewChoice">+Add new choice</a>' +
+                    '</div>'
+                    );
+
+                    for (var j = 0; j < data[i].options.length; j++) {
+                       
+
+                    $('#manageoptionsarea-' + (i+1)).append(
+                        
+                    
+                    '<tr>' +
+                        '<td class="flex"><input  class="checkbox h-6 w-6 mt-3 mr-3" type="checkbox" name=' + (i+1) + ' id=option-' + (i+1) + '-' + questions[i].options.length + '>' +
+                        '<input class="choice w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=' + (i+1) + ' id=textoption-' + (i+1) + '-' + questions[i].options.length + ' value=' + questions[i].options[j].option + ' placeholder="Option">' +
+                        '</td>' +
+                    '</tr>'
+                    );
+                    }
        
                 }
                 console.log(questions);

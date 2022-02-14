@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Quiz;
 use App\Models\Lesson;
 use App\Models\Module;
+use App\Models\Option;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,12 +57,23 @@ class QuizController extends Controller
     public function store(Request $request)
     {
         //
-        $user = Auth::user();
         $lesson = Lesson::find($request->lessonid);
         $datas = $request->questions;
         foreach (json_decode($datas) as $data) {
-            
-            if ($data->is_removed != true) {
+            if ($data->id) {
+                if ($data->is_removed != true) {
+                    $quiz = Quiz::find($data->id);
+                    $quiz->question = $data->question;
+                    foreach ($data->options as $options) {
+                        $option = Option::find($options->id);
+                        $option->option = $options->option;
+                        $option->is_answer = $option->is_answer;
+                        $option->update();
+                    }
+                    $quiz->update();
+                }
+            }
+            if ($data->is_removed != true && !$data->id) {
                 $quiz = $lesson->quiz()->create([
                     'question' => $data->question
                 ]);
