@@ -11,5 +11,8 @@
         </div><div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
             <a href="{{route('courselibraries')}}">Course Libraries</a>
         </div>
+        <div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
+            <a href="{{route('materials')}}">Materials</a>
+        </div>
     </div>
 @endsection

@@ -9,7 +9,7 @@
             <div>
                 <span>Course Name</span>
                     <textarea name="coursename" id="coursename"
-                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('firstname') border-red-500 @enderror" value="{{old('coursename')}}"></textarea>
+                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('coursename') border-red-500 @enderror" value="{{old('coursename')}}"></textarea>
                     @error('coursename')
                         <div class="text-red-500 mt-2 text-sm text-left">
                             {{ $message }}

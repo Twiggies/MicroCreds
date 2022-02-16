@@ -9,7 +9,7 @@
                 <div>
                     <span>Module Name</span>
                         <input type="text" name="modulename" id="modulename"
-                        class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('firstname') border-red-500 @enderror" value="{{old('modulename')}}">
+                        class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('modulename') border-red-500 @enderror" value="{{old('modulename')}}">
                         @error('modulename')
                             <div class="text-red-500 mt-2 text-sm text-left">
                                 {{ $message }}

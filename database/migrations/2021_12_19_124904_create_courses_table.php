@@ -20,9 +20,9 @@ class CreateCoursesTable extends Migration
             $table->timestamps(); //created at
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('image')->nullable();
-            $table->text('duration');
+            $table->text('duration')->nullable();
         });
 
         

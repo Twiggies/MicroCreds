@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateCourselibrarybridgeTable extends Migration
+class CreateCredentialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,15 @@ class CreateCourselibrarybridgeTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_libraries_bridge', function (Blueprint $table) {
+        Schema::create('credentials', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');
-            $table->foreignId('library_id')->references('id')->on('course_libraries')->onDelete('cascade');
+            $table->text('institute_name');
+            $table->string('institute_logo')->nullable();
+            $table->text('certificate_name');
+            $table->string('educator_signature')->nullable();
+            $table->text('educator_title')->nullable();
         });
     }
 
@@ -28,6 +32,6 @@ class CreateCourselibrarybridgeTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('courselibrarybridge');
+        Schema::dropIfExists('credentials');
     }
 }

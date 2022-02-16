@@ -52,4 +52,8 @@ class User extends Authenticatable
     public function libraries() {
         return $this->hasMany(CourseLibrary::class);
     }
+
+    public function materials() {
+        return $this->hasMany(Material::class);
+    }
 }

@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Course;
-use App\Models\CourseLibrary;
+use App\Models\Material;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
-
-class CourseLibraryController extends Controller
+class MaterialController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +17,8 @@ class CourseLibraryController extends Controller
     {
         //
         $user = Auth::user();
-        $libraries = $user->libraries()->get();
-        return view('course_libraries.course_libraries', compact('libraries'));
+        $materials = $user->materials()->get();
+        return view('materials.materials', compact('materials'));
     }
 
     /**
@@ -32,7 +29,6 @@ class CourseLibraryController extends Controller
     public function create()
     {
         //
-        return view('course_libraries.add_library');
     }
 
     /**
@@ -44,39 +40,43 @@ class CourseLibraryController extends Controller
     public function store(Request $request)
     {
         //
-        $request->validate([
-            'libraryname' => 'required | max:40'
-        ]);
-
         $user = Auth::user();
-        $library = $user->libraries()->create([
-            'name' => $request->libraryname,
-            'description' => $request->description,
-        ]);
         
-        return $this->index();
+            $request->validate([
+                'material' => 'required|mimes:pdf,doc,docx,ppt,pptx|max:2048'
+            ]);
+            if ($request->hasFile('material')) {
+            $destination_path = 'public/files/materials';
+            $file = $request->file('material');
+            $file_name = $file->getClientOriginalName();
+            $path = $request->file('material')->storeAs($destination_path, $file_name);
+            $user->materials()->create([
+                'file' => $file_name,
+            ]);
+            return response('File uploaded successfully');
+            }
+            
+        
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CourseLibrary  $courseLibrary
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function show($courseLibrary)
+    public function show(Material $material)
     {
         //
-        $library = CourseLibrary::find($courseLibrary);
-        return view('course_libraries.view_library', compact('library'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CourseLibrary  $courseLibrary
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function edit(CourseLibrary $courseLibrary)
+    public function edit(Material $material)
     {
         //
     }
@@ -85,10 +85,10 @@ class CourseLibraryController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CourseLibrary  $courseLibrary
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseLibrary $courseLibrary)
+    public function update(Request $request, Material $material)
     {
         //
     }
@@ -96,10 +96,10 @@ class CourseLibraryController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CourseLibrary  $courseLibrary
+     * @param  \App\Models\Material  $material
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseLibrary $courseLibrary)
+    public function destroy(Material $material)
     {
         //
     }

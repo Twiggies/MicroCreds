@@ -2,14 +2,15 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\QuizController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\ModuleController;
 use App\Http\Controllers\EducatorController;
+use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseLibraryController;
-use App\Http\Controllers\QuizController;
 
 /*
 |--------------------------------------------------------------------------
@@ -123,5 +124,22 @@ Auth::routes();
 */
 Route::get('/courselibraries', [CourseLibraryController::class, 'index'])->name('courselibraries');
 
+Route::get('/addnewlibrary', [CourseLibraryController::class, 'create'])->name('addlibrary');
+
+Route::post('/addnewlibrary', [CourseLibraryController::class, 'store'])->name('createlibrary');
+
+Route::get('/viewlibrary/{library}', [CourseLibraryController::class, 'show'])->name('viewlibrary');
+
+
+/*
+|--------------------------------------------------------------------------
+| Route for Materials (Educator)
+|--------------------------------------------------------------------------
+| Routes for Educator navigating to materials related pages
+|
+*/
+Route::get('/materials', [MaterialController::class, 'index'])->name('materials');
+
+Route::post('/materials', [MaterialController::class, 'store'])->name('addmaterial');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

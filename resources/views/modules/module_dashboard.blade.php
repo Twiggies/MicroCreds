@@ -14,6 +14,7 @@
             <button class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold  hover:text-white py-2 px-4 border border-blue-500 rounded-full" >Add a lesson</button>
         </form>
         <div>
+            @if ($lessons)
             @foreach ($lessons as $lesson)
             <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
                 <a href="{{route('viewlesson', [$id, 'moduleid'=>$module['id'],'lessonid' => $lesson->id])}}">{{$lesson->name}}</a>
@@ -22,6 +23,12 @@
                 </ul>
             </div>
             @endforeach
+            @else
+            <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
+                <span>You have no modules.</span>
+            </div>
+            @endif
+            
         </div>
     </div>
 </div>

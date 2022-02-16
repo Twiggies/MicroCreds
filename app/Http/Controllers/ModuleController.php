@@ -24,12 +24,10 @@ class ModuleController extends Controller
         //
         
         $module = Auth::user()->courses()->find($id)->modules()->find($moduleid);
-        if ($lessons = $module->lessons()->get()) {
+        $lessons = $module->lessons()->get();
         return view('modules.module_dashboard', compact('id', 'module', 'lessons'));
-        }
-        else {
-            return view('modules.module_dashboard', compact('id', 'module'));
-        }
+        
+        
         
     }
 
