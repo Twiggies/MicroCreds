@@ -15,7 +15,7 @@
         @csrf
         @method('PUT')
         <div class="w-10/12" id="managequizarea">
-                
+            
             
             
         </div>
@@ -58,12 +58,12 @@
                     });
                     
                     $('#managequizarea').append(
-                    '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + (i+1) +'>' +
-                    '<div class="flex text-right"><a href="#" id='+ (i+1) +' class="deleteQues">Delete</a></div>'+
+                    '<div class="shadow-lg questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + (i+1) +'>' +
+                    '<div class="flex text-right"><span id='+ (i+1) +' class="deleteQues cursor-pointer p-3 h-auto">&times;</span></div>'+
                     '<table id=question-'+(i+1)+'>'+
                     '<thead>'+
                     '<tr>' +
-                    '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+(i+1)+' id=question-'+(i+1)+' value='+ questions[i].question + '></th>'+
+                    '<th class="text-left"><input class="question w-full bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=question-'+(i+1)+' id=question-'+(i+1)+' value="'+ questions[i].question + '"></th>'+
                     '</tr>'+
                     '<tr>'+
                         '<th class="text-left"><span>*Select the correct choice by ticking the checkboxes</span></th>'+
@@ -85,11 +85,17 @@
                         
                     
                     '<tr>' +
-                        '<td class="flex"><input  class="checkbox h-6 w-6 mt-3 mr-3" type="checkbox" name=' + (i+1) + ' id=option-' + (i+1) + '-' + questions[i].options.length + '>' +
-                        '<input class="choice w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=' + (i+1) + ' id=textoption-' + (i+1) + '-' + questions[i].options.length + ' value=' + questions[i].options[j].option + ' placeholder="Option">' +
+                        '<td class="flex"><input  class="checkbox h-6 w-6 mt-3 mr-3" type="checkbox" name=' + (i+1) + ' id=option-' + (i+1) + '-' + (j+1) + '>' +
+                        '<input class="choice w-3/4 bg-gray-100 border-2 border-gray-500 p-2 rounded-lg" type="text" name=' + (i+1) + ' id=textoption-' + (i+1) + '-' + (j+1) + ' value=' + questions[i].options[j].option + ' placeholder="Option">' +
                         '</td>' +
                     '</tr>'
                     );
+
+                    if (questions[i].options[j].is_answer == 1) {
+                        
+                            $('#option-'+(i+1)+'-'+(j+1)).prop('checked', true);
+                        }
+                    
                     }
        
                 }
@@ -148,8 +154,8 @@
             })
             var i = questions.length;
             $('#managequizarea').append(
-                '<div class="questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
-                '<div class="flex text-right"><a href="#" id='+ i +' class="deleteQues">Delete</a></div>'+
+                '<div class="shadow-lg questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
+                '<div class="flex text-right"><span id='+ i +' class="deleteQues cursor-pointer p-3">&times;</span></div>'+
                 '<table id=question-'+i+'>'+
                 '<thead>'+
                 '<tr>' +

@@ -56,4 +56,12 @@ class User extends Authenticatable
     public function materials() {
         return $this->hasMany(Material::class);
     }
+
+    public function enrolls() {
+        return $this->hasMany(Enrollment::class);
+    }
+
+    public function isEducator() {
+        return $this->type;
+    }
 }

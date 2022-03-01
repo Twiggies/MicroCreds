@@ -30,12 +30,12 @@
             <div class="flex-auto col-start-5 col-end-6 bg-gray-300 text-center float-left p-5 ml-3 rounded-lg">
                 <div class="text-4xl mb-3">Learner</div>
                 <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded my-10">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded my-10" onclick="window.location.href='{{route('studentregister')}}'">
                         Register
                 </button>
                 </div>
                 <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded">
+                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded" onclick="window.location.href='{{route('studentlogin')}}'">
                         Login
                 </button>
                 </div>

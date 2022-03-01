@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,12 +19,24 @@ class CourseController extends Controller
 
     public function viewCourses() {
         $user = Auth::user();
-        if ($data = $user->courses()->get()) {
+        if ($data = $user->courses()->paginate(5)) {
         return view('courses.created_courses', compact('data'));
         }
         else {
             return view('courses.created_courses');
         }
+    }
+
+    public function browse() {
+
+        $data = Course::where('status', 'inactive')->paginate(10);
+        return view('courses.browse_courses', compact('data'));
+    }
+
+    public function details($course_id) {
+        $course = Course::find($course_id);
+        return view('courses.course_details', compact('course'));
+        
     }
 
     public function index() {
@@ -56,6 +69,7 @@ class CourseController extends Controller
                     'description' => $request->description,
                     'duration' => $request->duration,
                     'image' => $image_name,
+                    'status' => 'inactive',
                 ]);
         }
 
@@ -64,7 +78,7 @@ class CourseController extends Controller
             'name' => $request->coursename,
             'description' => $request->description,
             'duration' => $request->duration,
-            
+            'status' => 'inactive',
             ]);
         }
         return redirect()->route('createdcourses');
@@ -86,12 +100,14 @@ class CourseController extends Controller
     }
 
     public function viewCourse($id) {
-        $data = Auth::user()->courses()->find($id);
-        if ($modules = $data->modules()->get()) {
-        return view('courses.dashboard', compact('data', 'modules'));
+        $data = Course::find($id);
+        $modules = $data->modules()->get();
+        if (session()->get('isEducator') == true) {
+            return view('courses.dashboard', compact('data', 'modules'));
         }
         else {
-            return view('courses.dashboard', compact('data'));
+            return view('courses.student_dashboard', compact('data', 'modules'));
         }
+        
     }
 }

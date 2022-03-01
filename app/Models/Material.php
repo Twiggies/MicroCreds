@@ -13,5 +13,7 @@ class Material extends Model
         'file',
     ];
 
-
+    public function material_link() {
+        return $this->hasMany(MaterialBridge::class);
+    }
 }

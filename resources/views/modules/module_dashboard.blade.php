@@ -1,13 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+<div class="grid grid-cols-4">
+    <div class="col-start-4 col-end-5">
+    <a class="mx-2 my-2 transition duration-150 ease-in-out text-indigo-700 px-6 py-2 text-lg focus:outline-none" href="{{route('viewcourse', $id)}}">Go back to dashboard</a>
+    </div>
+</div>
 <div class="flex flex-wrap justify-center ">
+    
     <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg font-mono text-2xl font-semibold">
         <span>{{$module['name']}}</span>
         <ul class="flex items-center">
-            <a class="px-3 border hover:text-white hover:bg-blue-500 border-gray-500 border-2" href="{{route('editmodule', $module['id'])}}">Edit</a>
+            <a class="px-3  hover:text-white hover:bg-blue-500 border-gray-500 border-2" href="{{route('editmodule', [$id, $moduleid])}}">Edit</a>
         </ul>
     </div>
+    
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
         <form action="{{route('addlesson', [$id, 'moduleid' => $module['id']])}}" method="get">
             @csrf
@@ -19,7 +26,7 @@
             <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
                 <a href="{{route('viewlesson', [$id, 'moduleid'=>$module['id'],'lessonid' => $lesson->id])}}">{{$lesson->name}}</a>
                 <ul class="flex items-center">
-                    <a href="{{route('editlesson', ['lessonid' => $lesson->id])}}">Edit</a>
+                    <a href="{{route('editlesson', [$id, 'moduleid'=>$module['id'], 'lessonid' => $lesson->id])}}">Edit</a>
                 </ul>
             </div>
             @endforeach

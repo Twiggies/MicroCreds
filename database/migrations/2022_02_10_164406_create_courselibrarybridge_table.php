@@ -13,7 +13,7 @@ class CreateCourselibrarybridgeTable extends Migration
      */
     public function up()
     {
-        Schema::create('course_libraries_bridge', function (Blueprint $table) {
+        Schema::create('course_libraries_bridges', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
             $table->foreignId('course_id')->constrained()->onDelete('cascade');

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\CourseLibraryBridge;
+use App\Models\Enrollment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class CourseLibraryBridge extends Controller
+class EnrollmentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,15 +37,24 @@ class CourseLibraryBridge extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth::user();
+        $id = $user->id;
+        $course = $request->course_id;
+        Enrollment::create([
+            'user_id' => $id,
+            'course_id' => $course,
+        ]);
+
+        return redirect()->route('viewcourse', ['id' => $course]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\CourseLibraryBridge  $courseLibraryBridge
+     * @param  \App\Models\Enrollment  $enrollment
      * @return \Illuminate\Http\Response
      */
-    public function show(CourseLibraryBridge $courseLibraryBridge)
+    public function show(Enrollment $enrollment)
     {
         //
     }
@@ -52,10 +62,10 @@ class CourseLibraryBridge extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\CourseLibraryBridge  $courseLibraryBridge
+     * @param  \App\Models\Enrollment  $enrollment
      * @return \Illuminate\Http\Response
      */
-    public function edit(CourseLibraryBridge $courseLibraryBridge)
+    public function edit(Enrollment $enrollment)
     {
         //
     }
@@ -64,10 +74,10 @@ class CourseLibraryBridge extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\CourseLibraryBridge  $courseLibraryBridge
+     * @param  \App\Models\Enrollment  $enrollment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseLibraryBridge $courseLibraryBridge)
+    public function update(Request $request, Enrollment $enrollment)
     {
         //
     }
@@ -75,10 +85,10 @@ class CourseLibraryBridge extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\CourseLibraryBridge  $courseLibraryBridge
+     * @param  \App\Models\Enrollment  $enrollment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseLibraryBridge $courseLibraryBridge)
+    public function destroy(Enrollment $enrollment)
     {
         //
     }

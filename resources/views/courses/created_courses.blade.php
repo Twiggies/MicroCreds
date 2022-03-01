@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="flex flex-wrap justify-center h-96">
+<div class="flex flex-wrap justify-center h-auto">
     <div class="w-8/12 bg-white p-6 rounded-lg font-mono text-2xl font-semibold">
         Created Courses
     </div>
@@ -17,6 +17,9 @@
                     
                 </div>
             @endforeach
+        </div>
+        <div> 
+            {{$data->links()}}
         </div>
     </div>
     </div>

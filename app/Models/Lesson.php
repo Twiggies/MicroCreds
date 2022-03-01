@@ -17,4 +17,8 @@ class Lesson extends Model
     public function quiz() {
         return $this->hasMany(Quiz::class);
     }
+
+    public function material_link() {
+        return $this->hasMany(MaterialBridge::class);
+    }
 }

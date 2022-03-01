@@ -10,10 +10,12 @@ class Course extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'name',
         'description',
         'image',
         'duration',
+        'status'
     ];
 
     public function modules() {
@@ -22,5 +24,9 @@ class Course extends Model
 
     public function bridge() {
         return $this->hasMany(CourseLibraryBridge::class);
+    }
+
+    public function enrolls() {
+        return $this->hasMany(Enrollment::class);
     }
 }

@@ -23,9 +23,9 @@ class ModuleController extends Controller
     {
         //
         
-        $module = Auth::user()->courses()->find($id)->modules()->find($moduleid);
+        $module = Course::find($id)->modules()->find($moduleid);
         $lessons = $module->lessons()->get();
-        return view('modules.module_dashboard', compact('id', 'module', 'lessons'));
+        return view('modules.module_dashboard', compact('id','moduleid', 'module', 'lessons'));
         
         
         
@@ -83,11 +83,11 @@ class ModuleController extends Controller
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, $moduleid)
     {
         //
         $module = Module::find($id);
-        return view('modules.edit_module', compact('module'));
+        return view('modules.edit_module', compact('id', 'moduleid', 'module'));
     }
 
     /**

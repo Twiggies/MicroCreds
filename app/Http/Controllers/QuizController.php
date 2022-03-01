@@ -27,6 +27,8 @@ class QuizController extends Controller
         foreach ($quizzes as $quiz) {
             $quiz->options = $quiz->options()->get();
         }
+
+
         return response()->json([
             'quiz' => $quizzes,
             
@@ -60,7 +62,7 @@ class QuizController extends Controller
         $lesson = Lesson::find($request->lessonid);
         $datas = $request->questions;
         foreach (json_decode($datas) as $data) {
-            if ($data->id) {
+            if (isset($data->id)) {
                 if ($data->is_removed != true) {
                     $quiz = Quiz::find($data->id);
                     $quiz->question = $data->question;
@@ -72,8 +74,11 @@ class QuizController extends Controller
                     }
                     $quiz->update();
                 }
+                else if ($data->is_removed == true) {
+                    Quiz::findOrFail($data->id)->delete();
+                }
             }
-            if ($data->is_removed != true && !$data->id) {
+            else if ($data->is_removed != true && !isset($data->id)) {
                 $quiz = $lesson->quiz()->create([
                     'question' => $data->question
                 ]);
@@ -84,6 +89,7 @@ class QuizController extends Controller
                     ]);
                 }
             }
+            
         }
 
         return response('Request received');

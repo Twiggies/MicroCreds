@@ -4,7 +4,7 @@
     <div class="mt-10 flex justify-center">
         <div class="w-3/12 bg-white p-4 rounded-lg">
             <div class="text-center text-xl">Register Account</div>
-            <form action="{{ route('educatorregister') }}" method="post">
+            <form action="{{ route('educator_register_request') }}" method="post">
                 @csrf
                 <div class="my-3 text-center">
                     <label for="firstname" class="sr-only">First Name</label>

@@ -6,6 +6,8 @@ use App\Models\Module;
 use Illuminate\Support\Facades\DB;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Material;
+use App\Models\MaterialBridge;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +26,13 @@ class LessonController extends Controller
     {
         //
         $lesson = Lesson::find($lessonid);
-        return view('lessons.lesson', compact('id', 'moduleid', 'lessonid', 'lesson'));
+        $materials_link = $lesson->material_link()->get();
+        $materials = [];
+        foreach ($materials_link as $link) {
+            $material = Material::find($link->materials_id);
+            $materials[] = $material;
+        }
+        return view('lessons.lesson', compact('id', 'moduleid', 'lessonid', 'lesson', 'materials'));
         
     }
 
@@ -54,7 +62,7 @@ class LessonController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $id, $moduleid, $lessonid)
     {
         //
         $lesson = Lesson::find($request->lessonid);
@@ -69,12 +77,19 @@ class LessonController extends Controller
         
     }
 
-    public function edit($lessonid) {
+    public function edit($id, $moduleid, $lessonid) {
         $lesson = Lesson::find($lessonid);
         $moduleid = $lesson->module_id;
         $module = Module::find($moduleid);
         $id = $module->course_id;
-        return view('lessons.edit_lesson', compact('id', 'moduleid','lessonid', 'lesson'));
+        $materials_link = $lesson->material_link()->get();
+        $attached = [];
+        foreach ($materials_link as $link) {
+            $material = Material::find($link->materials_id);
+            $attached[] = $material;
+        }
+        $materials = Auth::user()->materials()->get();
+        return view('lessons.edit_lesson', compact('id', 'moduleid','lessonid', 'lesson', 'materials', 'attached'));
     }
 
     

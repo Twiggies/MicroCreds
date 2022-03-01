@@ -25,7 +25,7 @@
 </head>
 <body class="bg-gray-100">
     <div id="app">
-    <nav class="p-6 bg-white flex justify-between mb-5 rounded-lg">
+    <nav class="p-6 bg-gray-800 text-white  flex justify-between mb-5">
         <ul class="flex items-center font-semibold">
             @if (auth()->user())
             <li>
@@ -42,7 +42,7 @@
             <li>
                 <form action="{{route('logout')}}" method="POST">
                     @csrf
-                    <button class="p-3 font-semibold">Logout</button>
+                    <button class=" rounded-lg hover:text-black hover:bg-white transition duration-300 p-3 font-semibold">Logout</button>
                 </form>
             </li>
             @else
@@ -64,7 +64,7 @@
 <script>
     $('#summernote').summernote({
       placeholder: 'New Lesson',
-      tabsize: 2,
+      tabsize: 2,   
       height: 600,
       toolbar: [
         ['style', ['style']],

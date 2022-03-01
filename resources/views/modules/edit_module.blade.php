@@ -4,7 +4,7 @@
 <div class="flex flex-wrap justify-center h-auto items-center">
     <div class="w-8/12 bg-white p-6 mt-10 h-full rounded-lg">
         <div>
-            <form action="{{route('editmodule', $module->id)}}" method="POST" enctype="multipart/form-data">
+            <form action="{{route('editmodule', [$id, $moduleid])}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div>
