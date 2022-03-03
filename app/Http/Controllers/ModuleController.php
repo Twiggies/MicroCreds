@@ -25,7 +25,12 @@ class ModuleController extends Controller
         
         $module = Course::find($id)->modules()->find($moduleid);
         $lessons = $module->lessons()->get();
+        if (session()->get('isEducator') == true) {
         return view('modules.module_dashboard', compact('id','moduleid', 'module', 'lessons'));
+        }
+        else {
+            return view('modules.module_student_dashboard', compact('id','moduleid', 'module', 'lessons'));
+        }
         
         
         

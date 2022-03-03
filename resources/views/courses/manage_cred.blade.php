@@ -14,7 +14,7 @@
                   <div class="mt-1 flex rounded-md shadow-sm">
                     
                     <input type="text" name="institute" id="institute" class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm 
-                    border-gray-300 @error('institute') border-red-500 @enderror" value="{{$credential->institute_name}}"
+                    border-gray-300 @error('institute') border-red-500 @enderror" @if ($credential != null) value="{{$credential->institute_name}}" @else value="" @endif
                     placeholder="Institute">
                   </div>
                   @error('institute')
@@ -28,7 +28,13 @@
               <div>
                 <label for="certificate" class="block text-sm font-medium text-gray-700"> Course name on certificate</label>
                 <div class="mt-1 mb-5">
-                  <input type="text" id="certificate" name="certificate" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Name" value="{{$credential->certificate_name}}">
+                  <input type="text" id="certificate" name="certificate" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Name" 
+                  @if ($credential != null) 
+                  value="{{$credential->certificate_name}}"
+                  @else
+                  value=""
+                  @endif
+                  >
                 </div>
                 
               </div>
@@ -36,8 +42,13 @@
               <div>
                 <label for="position" class="block text-sm font-medium text-gray-700"> Educator Information </label>
                 <div class="mt-1 mb-5">
-                  <input type="text" id="position" name="position" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Title/Position" value=
-                  {{$credential->educator_title}}>
+                  <input type="text" id="position" name="position" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Title/Position" 
+                  @if ($credential != null)
+                  value={{$credential->educator_title}}
+                  @else 
+                  value=""
+                  @endif
+                  >
                 </div>
                 
               </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseLibraryController;
 use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ProgressController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +35,10 @@ Route::get('/', function () {
 Route::get('/dashboard', [EducatorController::class, 'index'])
 ->name('dashboard')
 ->middleware('auth');
+
+Route::get('/add-new-admin', function() {
+    return view('admin.addnewadmin');
+});
 
 Route::get('/student_dashboard', [StudentController::class, 'index'])->name('student_dashboard')->middleware('auth');
 /*
@@ -87,7 +93,7 @@ Route::get('/coursedetails/{course_id}', [CourseController::class, 'details'])->
 
 Route::post('/coursedetails/{course_id}', [EnrollmentController::class, 'store'])->name('enroll');
 
-
+Route::get('/enrolled-courses', [CourseController::class, 'enrolled'])->name('enrolledcourses');
 /*
 |--------------------------------------------------------------------------
 | Route for Modules (Educator)
@@ -124,6 +130,8 @@ Route::middleware('course_access')->group(function () {
     Route::put('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-edit', [LessonController::class, 'store'])->name('updatelesson');
 
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonController::class, 'index'])->name('viewlesson');
+
+    Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/complete', [ProgressController::class, 'store'])->name('completelesson');
 });
 
 
@@ -177,6 +185,8 @@ Route::get('/lessonmaterials', [MaterialController::class, 'fetch'])->name('fetc
 
 Route::post('/{lessonid}/attachmaterials', [MaterialController::class, 'attach'])->name('attachmaterials');
 
+Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-edit/{material_id}-deattach', [MaterialController::class, 'deattach'])->name('deattach');
+
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('create-cert-file', [CredentialController::class, 'index']);
@@ -186,3 +196,12 @@ Route::get('/course/{id}/managecred', [CredentialController::class, 'create'])->
 Route::put('/course/{id}/managecred', [CredentialController::class, 'store'])->name('savecred');
 
 Route::get('/course/{id}/generated-pdf', [CredentialController::class, 'generate'])->name('generate');
+
+/*
+======================
+Admin Modules
+======================
+*/
+Route::get('/admin-login', [AdminController::class, 'index']);
+
+Route::post('/add-admin', [AdminController::class, 'store'])->name('createadmin');

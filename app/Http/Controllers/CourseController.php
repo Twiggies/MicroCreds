@@ -101,7 +101,7 @@ class CourseController extends Controller
 
     public function viewCourse($id) {
         $data = Course::find($id);
-        $modules = $data->modules()->get();
+        $modules = $data->modules;
         if (session()->get('isEducator') == true) {
             return view('courses.dashboard', compact('data', 'modules'));
         }
@@ -109,5 +109,16 @@ class CourseController extends Controller
             return view('courses.student_dashboard', compact('data', 'modules'));
         }
         
+    }
+
+    public function enrolled(Request $request) {
+        $user = Auth::user();
+        $enrollments = $user->enrolls()->get();
+        $enrolled = [];
+        foreach ($enrollments as $enroll) {
+            $course = Course::find($enroll->course_id);
+            $enrolled[] = $course;
+        }
+        return view('courses.enrolled_courses', compact('enrolled'));
     }
 }

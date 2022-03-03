@@ -19,7 +19,7 @@ class CourseFactory extends Factory
     {
         return [
             //
-            'user_id' => '3',
+            'user_id' => '1',
             'name' => $this->faker->text(20),
             'description'=> $this->faker->text(200),
             'duration'=> $this->faker->randomNumber(2),

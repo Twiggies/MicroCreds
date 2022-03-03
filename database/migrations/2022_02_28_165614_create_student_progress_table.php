@@ -18,7 +18,7 @@ class CreateStudentProgressTable extends Migration
             $table->timestamps();
             $table->foreignId('lesson_id')->references('id')->on('lessons')->onDelete('cascade');
             $table->foreignId('module_id')->referenes('id')->on('modules')->onDelete('cascade');
-            $table->foreignId('course_id')->references('id')->on('course')->onDelete('cascade');
+            $table->foreignId('course_id')->references('id')->on('courses')->onDelete('cascade');
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

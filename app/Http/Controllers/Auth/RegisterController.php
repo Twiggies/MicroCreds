@@ -30,6 +30,10 @@ class RegisterController extends Controller
             'password' => ['required', 'max:20'],
         ]);
 
+        if (User::where('email', $request->email)->first()) {
+            return back()->with('status', 'Email has been registered');
+        }
+        
         $user = User::create([
             'firstname' => $request->firstname,
             'lastname' => $request->lastname,
@@ -59,6 +63,10 @@ class RegisterController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'password' => ['required', 'max:20'],
         ]);
+
+        if (User::where('email', $request->email)->first()) {
+            return back()->with('status', 'Email has been registered');
+        }
 
         $user = User::create([
             'firstname' => $request->firstname,

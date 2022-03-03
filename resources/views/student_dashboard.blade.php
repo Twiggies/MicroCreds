@@ -7,9 +7,9 @@
             Welcome, {{ucfirst(auth()->user()->firstname)}}
         </div>
         <div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
-            <a href="browsecourses">Browse Courses</a>
+            <a href="{{route('browsecourses')}}">Browse Courses</a>
         </div><div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
-            <a href="">Enrolled Courses</a>
+            <a href="{{route('enrolledcourses')}}">Enrolled Courses</a>
         </div>
         <div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
             <a href="">My Credentials</a>

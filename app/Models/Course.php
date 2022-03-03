@@ -25,6 +25,7 @@ class Course extends Model
     public function bridge() {
         return $this->hasMany(CourseLibraryBridge::class);
     }
+    
 
     public function enrolls() {
         return $this->hasMany(Enrollment::class);

@@ -22,7 +22,7 @@ class LoginController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
-
+        if ($user->type == "educator") {
         $token = $user->createToken('usertoken', ['educator'])->plainTextToken;
         $response = [
             'user' => $user,
@@ -32,6 +32,11 @@ class LoginController extends Controller
         $request->session()->put('isEducator', true);
         //return $request->session()->all();
         return redirect()->route('dashboard');
+        }
+        else {
+            return back()->with('status', 'Invalid Login Credentials');
+        }
+
 
     }
 
@@ -50,16 +55,21 @@ class LoginController extends Controller
         }
 
         $user = User::where('email', $request->email)->first();
+        if ($user->type == "student") {
 
-        $token = $user->createToken('usertoken', ['student'])->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-        $request->session()->put('user', $user);
-        $request->session()->put('isEducator', false);
-        //return $request->session()->all();
-        return redirect()->route('student_dashboard');
+            $token = $user->createToken('usertoken', ['student'])->plainTextToken;
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+            $request->session()->put('user', $user);
+            $request->session()->put('isEducator', false);
+            //return $request->session()->all();
+            return redirect()->route('student_dashboard');
+        }
+        else {
+            return back()->with('status', 'Invalid Login Credentials');
+        }
     }
 
     public function logout(Request $request) {

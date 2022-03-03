@@ -25,7 +25,7 @@
 </head>
 <body class="bg-gray-100">
     <div id="app">
-    <nav class="p-6 bg-gray-800 flex justify-between mb-5">
+    <nav class="p-6 bg-gray-800 text-white flex justify-between mb-5">
         <ul class="flex items-center font-semibold">
             @if (auth()->user())
             <li>

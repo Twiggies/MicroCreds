@@ -19,8 +19,8 @@
         </form>
         <div>
             @foreach ($modules as $item)
-                <div onclick="location.href='{{route('viewmodule', ['id' => $data['id'], 'moduleid' => $item->id])}}'" class="cursor-pointer
-                    hover:bg-blue-500 transition duration-300 hover:text-white hover:border-blue-500 w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
+                <div onclick="location.href='{{route('viewmodule', ['id' => $data['id'], 'moduleid' => $item->id])}}'" class="shadow-md cursor-pointer
+                    hover:bg-blue-500 transition duration-300 hover:text-white hover:border-blue-500 w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-800 border-1 font-mono text-2xl font-semibold">
                     <a href="{{route('viewmodule', ['id' => $data['id'], 'moduleid' => $item->id])}}">{{$item->name}}</a>
                 </div>
             @endforeach

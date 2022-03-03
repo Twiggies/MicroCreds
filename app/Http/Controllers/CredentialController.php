@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use PDF;
+use App\Models\Course;
 use setasign\Fpdi\Fpdi;
 use App\Models\Credential;
 use Illuminate\Http\Request;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Auth;
 
 class CredentialController extends Controller
 {
@@ -45,11 +48,18 @@ class CredentialController extends Controller
     }
 
     public function generate(Request $request) {
-        $name = "Hee";
-        $institute = "MMU";
-        $educator = "John Doe";
-        $position = "Professor/Supervisor";
-        $course = "Java Development Beginner Level ";
+        $user = Auth::user();
+        $course_id = $request->id;
+        $course = Course::find($course_id);
+        $author_id = $course->user_id;
+        $author = User::find($author_id);
+        $name = ucfirst($user->firstname).' '.ucfirst($user->lastname);
+        
+        $credential = Credential::where('course_id', $course_id)->first();
+        $institute = $credential->institute_name;
+        $educator = ucfirst($author->firstname).' '.ucfirst($author->lastname);
+        $position = $credential->educator_title;
+        $course = $credential->certificate_name;
         $outputFile = 'public/'.'cert.pdf';
         $this->createPDF('public/template.pdf', $outputFile, $name, $institute,$educator, $position, $course);
 
@@ -71,7 +81,7 @@ class CredentialController extends Controller
         $fpdi->setFont("helvetica", "", 14);
         $fpdi->setXY(90,130);
         $fpdi->MultiCell(120,7,$course,0,'C');
-        $fpdi->setXY(80,180);
+        $fpdi->setXY(80,175);
         $fpdi->MultiCell(50,5,$educator,0,'C');
         $fpdi->setXY(80,185);
         $fpdi->setFont("helvetica", "", 13);

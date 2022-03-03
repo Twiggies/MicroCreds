@@ -2,18 +2,34 @@
 
 @section('content')
 <div class="flex flex-wrap justify-center">
-    <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg font-mono text-2xl font-semibold">
-        <span>{{$data['name']}}</span>  
-        <ul class="flex items-center">
+    <div class="flex justify-between w-8/12 bg-white p-4 rounded-lg ">
+        <span class="font-mono text-2xl font-semibold">{{$data['name']}}</span>  
+            @php
+                $total = 0;
+                foreach ($data->modules as $module)  {
+                    $total += $module->lessons->count();
+                }
+                
+            @endphp
+        <span class="font-semibold">Progress: {{Auth::user()->progress()->where('course_id' , $data['id'])->count()}} out of {{$total}}
+            
+       </span>
+        <ul class="flex items-center font-mono text-2xl font-semibold">
             <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500">Students</a>
-            <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500">Credentials</a>
+            <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500" href="{{route('generate', ['id' => $data['id']])}}">Credentials</a>
         </ul>
     </div>
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
         <div>
-            @foreach ($modules as $item)
-                <div class="w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
-                    <a href="{{route('viewmodule', ['id' => $data['id'], 'moduleid' => $item->id])}}">{{$item->name}}</a>
+            @foreach ($modules as $module)
+                <div class="w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold shadow-lg 
+                @if (Auth::user()->progress()->where('module_id', $module->id)->count() == $module->lessons->count())
+                    bg-green-300 hover:bg-green-500
+                @else
+                    bg-red-300 hover:bg-red-400
+                @endif
+                ">
+                    <a href="{{route('viewmodule', ['id' => $data['id'], 'moduleid' => $module->id])}}">{{$module->name}}</a>
                 </div>
             @endforeach
         </div>

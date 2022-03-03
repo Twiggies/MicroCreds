@@ -18,6 +18,10 @@ class Lesson extends Model
         return $this->hasMany(Quiz::class);
     }
 
+    public function module() {
+        return $this->belongsTo(Module::class);
+    }
+
     public function material_link() {
         return $this->hasMany(MaterialBridge::class);
     }

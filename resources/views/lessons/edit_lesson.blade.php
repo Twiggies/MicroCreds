@@ -24,8 +24,8 @@
                     </div>
          @enderror
     </div>
-    @foreach ($materials as $material)
-    <div>{{$material->file}}</div>
+    @foreach ($attached as $attachfile)
+    <div>{{$attachfile->file}} <a onclick ="location.href='{{route('deattach', [$id, $moduleid, $lessonid, 'material_id' => $attachfile->id])}}'" class="cursor-pointer underline text-red-500 hover:text-red-800">Remove</a></div>
     @endforeach
     <div class="w-full bg-white p-6 mt-3 h-full rounded-lg">
         <textarea id="summernote" name="content">{!!$lesson->content!!}</textarea>
@@ -170,5 +170,7 @@ function attach() {
         }
     })
 }
+
+
     </script>
 @endsection

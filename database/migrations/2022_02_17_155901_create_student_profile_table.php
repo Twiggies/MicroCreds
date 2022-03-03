@@ -18,7 +18,9 @@ class CreateStudentProfileTable extends Migration
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->longText('about')->nullable();
+            $table->string('linkedin')->nullable();
             $table->string('picture')->nullable();
+            $table->longText('completed_course')->nullable();
         });
     }
 

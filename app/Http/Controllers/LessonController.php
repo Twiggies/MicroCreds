@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Module;
-use Illuminate\Support\Facades\DB;
 use App\Models\Course;
 use App\Models\Lesson;
+use App\Models\Module;
 use App\Models\Material;
-use App\Models\MaterialBridge;
+use App\Models\Progress;
 use Illuminate\Http\Request;
+use App\Models\MaterialBridge;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class LessonController extends Controller
@@ -25,6 +26,9 @@ class LessonController extends Controller
     public function index($id, $moduleid, $lessonid)
     {
         //
+        $user = Auth::user();
+        $module = Module::find($moduleid);
+        $lessons = $module->lessons()->simplePaginate(1);
         $lesson = Lesson::find($lessonid);
         $materials_link = $lesson->material_link()->get();
         $materials = [];
@@ -32,7 +36,13 @@ class LessonController extends Controller
             $material = Material::find($link->materials_id);
             $materials[] = $material;
         }
-        return view('lessons.lesson', compact('id', 'moduleid', 'lessonid', 'lesson', 'materials'));
+        if (session()->get('isEducator') == true) {
+            return view('lessons.lesson', compact('id', 'moduleid', 'lessonid', 'lesson', 'materials'));
+        }
+        else {
+            $progress = Progress::where('user_id', $user->id)->where('lesson_id', $lessonid)->first();
+            return view('lessons.student_lesson', compact('id', 'moduleid', 'lessonid', 'lesson', 'materials', 'progress', 'lessons'));
+        }
         
     }
 

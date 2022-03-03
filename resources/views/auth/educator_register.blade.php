@@ -4,6 +4,11 @@
     <div class="mt-10 flex justify-center">
         <div class="w-3/12 bg-white p-4 rounded-lg">
             <div class="text-center text-xl">Register Account</div>
+            @if (session('status'))
+                <div class="bg-red-400 p-3 rounded-lg mb-3 text-center">
+                    {{session('status')}}
+                </div>
+            @endif
             <form action="{{ route('educator_register_request') }}" method="post">
                 @csrf
                 <div class="my-3 text-center">

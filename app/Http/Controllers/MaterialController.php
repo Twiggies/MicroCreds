@@ -43,6 +43,13 @@ class MaterialController extends Controller
         return response('Attached', 200);
     }
 
+    public function deattach(Request $request) {
+        $material_id = $request->material_id;
+        $lessonid = $request->lessonid;
+        MaterialBridge::where('materials_id', $material_id)->where('lesson_id', $lessonid)->first()->delete();
+        return redirect()->back();
+    }
+
     public function download($file) {
         $document = Material::where('file', $file)->first();
         $author_id = $document->user_id;

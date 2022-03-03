@@ -10,9 +10,10 @@
         <div class="flex flex-wrap items-center lg:justify-between justify-center">
             <!-- Card 1 -->
             @foreach ($data as $course)
-            <div tabindex="0" class="focus:outline-none mx-2 w-72 xl:mb-0 mb-8">
+            <div tabindex="0" class="focus:outline-none mx-2 my-2 w-72 xl:mb-0 mb-8 shadow-md">
                 <div>
-                    <img alt="person capturing an image" src="https://cdn.tuk.dev/assets/templates/classified/Bitmap (1).png" tabindex="0" class="focus:outline-none w-full h-44" />
+                    <img alt="course stock image" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380" 
+                    tabindex="0" class="focus:outline-none w-full h-44" />
                 </div>
                 <div class="bg-white">
                     <div class="flex items-center justify-between px-4 pt-4">
