@@ -12,7 +12,7 @@
             <a href="{{route('enrolledcourses')}}">Enrolled Courses</a>
         </div>
         <div class="w-1/3 bg-white p-6 mt-10 h-full rounded-lg">
-            <a href="">My Credentials</a>
+            <a href="{{route('listcert')}}">My Credentials</a>
         </div>
     </div>
 @endsection

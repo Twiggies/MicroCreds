@@ -16,7 +16,7 @@
        </span>
         <ul class="flex items-center font-mono text-2xl font-semibold">
             <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500">Students</a>
-            <a class="px-3 border hover:bg-blue-500 hover:text-white border-gray-500" href="{{route('generate', ['id' => $data['id']])}}">Credentials</a>
+            
         </ul>
     </div>
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">

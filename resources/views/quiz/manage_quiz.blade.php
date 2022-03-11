@@ -172,7 +172,7 @@
             );
                 $('#manageoptionsarea-'+ i ).append(
                     '<div class="w-9/12">' +
-                        '<a href="#" id=' + i +  ' class="addNewChoice">+Add new choice</a>' +
+                        '<a id=' + i +  ' class="addNewChoice">+Add new choice</a>' +
                     '</div>'
                     );
 
@@ -230,9 +230,10 @@
             $.ajax({
                 type:"PUT",
                 data: {questions:JSON.stringify(questions)},
-                url: "{{route('updatequiz', $lessonid)}}",
+                url: "{{route('updatequiz', [$id, $moduleid, $lessonid])}}",
                 success: function(response) {
                     alert(response);
+                    location.reload();
                 },
                 error: (error) => {
                      console.log(JSON.stringify(error));

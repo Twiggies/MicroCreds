@@ -20,9 +20,14 @@
             @if ($lessons)
             @foreach ($lessons as $lesson)
             <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold shadow-lg
-            @if (Auth::user()->progress->where('lesson_id', $lesson->id)->first())
+                @if (Auth::user()->progress->where('lesson_id', $lesson->id)->first())
+                    @if (Auth::user()->progress->where('lesson_id', $lesson->id)->where('quiz_completed',1)->first())
                     bg-green-300 hover:bg-green-500
+                    @else
+                    bg-yellow-200 hover:bg-yellow-300
+                    @endif
                 @else
+
                     bg-red-300 hover:bg-red-400
                 @endif">
                 <a href="{{route('viewlesson', [$id, 'moduleid'=>$module['id'],'lessonid' => $lesson->id])}}">{{$lesson->name}}</a>

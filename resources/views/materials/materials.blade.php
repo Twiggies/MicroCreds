@@ -2,12 +2,12 @@
 
 @section('content')
     <div>
-        <form id="file-form" method="post" enctype="multipart/form-data">
+        <form class="mb-5" id="file-form" method="post" enctype="multipart/form-data">
             @csrf
-            <label for="material">Add Materials</label>
+            <label class="ml-6 mx-2 my-2 font-semibold bg-white transition duration-150 ease-in-out hover:border-gray-900 hover:text-gray-900 rounded border border-gray-800 text-gray-800 px-8 py-3 text-sm hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-gray-800" for="material">Add Materials</label>
             
             <input id="material" name="material" type="file" class="hidden"/></form>
-        <a href="">Delete Materials</a>
+        
         <!-- This example requires Tailwind CSS v2.0+ -->
 <div class="flex flex-col">
   <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

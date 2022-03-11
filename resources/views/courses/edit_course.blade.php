@@ -52,7 +52,7 @@
             </div>
             <div class="my-4 text-right">
                 <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
-                <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded rounded font-large w-auto">
+                <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded  font-large w-auto">
                     Update
                 </button>
             </div>

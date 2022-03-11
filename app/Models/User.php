@@ -65,6 +65,10 @@ class User extends Authenticatable
         return $this->hasMany(Progress::class);
     }
 
+    public function achievement() {
+        return $this->hasMany(Achievement::class);
+    }
+
     public function isEducator() {
         return $this->type;
     }

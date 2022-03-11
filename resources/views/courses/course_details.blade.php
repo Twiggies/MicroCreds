@@ -9,7 +9,8 @@
             <p class="text-gray-800 dark:text-white lg:text-4xl text-3xl font-extrabold leading-9">{{$course->name}}</p>
         </div>
         <div class="flex justify-center items-center mt-10 ">
-            <img class="w-full" src="https://i.ibb.co/181DvLN/Project-Cover-6.png" alt="laptops" />
+            <img class="w-full" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380"
+             alt="laptops" />
         </div>
       </div>
       <div class="flex justify-center lg:w-2/5 mt-10 md:mt-0">
@@ -21,15 +22,20 @@
                 </div>
                 <div class="absolute -mt-20 w-full flex justify-center">
                     <div class="h-32 w-32">
-                        <img src="https://cdn.tuk.dev/assets/photo-1530577197743-7adf14294584.jfif" alt="Display Picture of Silene Tokyo" role="img" class="rounded-full object-cover h-full w-full shadow-md" />
+                      @if ($educator_profile->picture != null)
+                        <img src="{{asset('storage/images/profile/'.$educator_profile->user_id.'/'.$educator_profile->picture)}}" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md" />
+                      @else 
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md">
+                      @endif
                     </div>
                 </div>
                 <div class="px-6 mt-16">
-                    <h1 class="font-bold text-3xl text-center mb-1">Silene Tokyo</h1>
+                    <h1 class="font-bold text-3xl text-center mb-1">{{$educator->firstname.' '.$educator->lastname}}</h1>
                     <p class="text-gray-800 text-sm text-center">Product Design Head</p>
-                    <p class="text-center text-gray-600 text-base pt-3 font-normal">The emphasis on innovation and technology in our companies has resulted in a few of them establishing global benchmarks in product design and development.</p>
+                    <hr>
+                    <p class="text-center text-gray-600 text-base pt-3 font-normal text-3xl">About</p>
                     <div class="w-full flex justify-center pt-5 pb-5">
-                        
+                      {{$educator_profile->about}}
                     </div>
                 </div>
             </div>
@@ -48,7 +54,7 @@
         </div>
         <div class="mt-8 flex justify-start items-start flex-col">
           <div>
-            <p class="text-gray-800 dark:text-white lg:text-base text-sm font-semibold leading-none">Breakdown of milestones</p>
+            <p class="text-gray-800 dark:text-white lg:text-base text-sm font-semibold leading-none">Estimated Duration of Course</p>
           </div>
           <div class="text-gray-800 dark:text-white mt-4 lg:text-base text-sm leading-normal">
             <ul>

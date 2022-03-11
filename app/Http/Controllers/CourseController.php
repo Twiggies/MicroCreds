@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Course;
+use App\Models\Profile;
 use App\Models\Enrollment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -35,7 +37,9 @@ class CourseController extends Controller
 
     public function details($course_id) {
         $course = Course::find($course_id);
-        return view('courses.course_details', compact('course'));
+        $educator = User::find($course->user_id);
+        $educator_profile = Profile::where('user_id',$course->user_id)->first();
+        return view('courses.course_details', compact('course', 'educator_profile', 'educator'));
         
     }
 
@@ -56,7 +60,11 @@ class CourseController extends Controller
             'description' => 'required',
             'duration' => 'required',
             'image' => 'nullable | image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-        ]);
+        ],
+        [
+            'image.max' => "Image should only be 2MB max in size",
+        ]
+        );
 
         if ($request->hasFile('image')) {
             $destination_path = 'public/images/courses_thumbnail';

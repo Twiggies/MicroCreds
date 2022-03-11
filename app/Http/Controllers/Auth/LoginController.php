@@ -78,6 +78,6 @@ class LoginController extends Controller
         Session::flush();
         auth()->logout();
         
-        return redirect()->route('home');
+        return redirect()->route('adminlogin');
     }
 }

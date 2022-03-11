@@ -53,6 +53,7 @@ class RegisterController extends Controller
         ];
         //return response()
         $request->session()->put('user', $user);
+        $request->session()->put('isEducator', true);
         return redirect()->route('dashboard');
     }
 
@@ -87,6 +88,7 @@ class RegisterController extends Controller
         ];
         //return response()
         $request->session()->put('user', $user);
+        $request->session()->put('isEducator', false);
         return redirect()->route('student_dashboard');
     }
 }

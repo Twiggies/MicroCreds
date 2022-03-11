@@ -15,6 +15,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CourseLibraryController;
 use App\Http\Controllers\CredentialController;
 use App\Http\Controllers\EnrollmentController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProgressController;
 
 /*
@@ -41,6 +42,12 @@ Route::get('/add-new-admin', function() {
 });
 
 Route::get('/student_dashboard', [StudentController::class, 'index'])->name('student_dashboard')->middleware('auth');
+
+Route::get('/profile', [ProfileController::class, 'index'])->name('myprofile')->middleware('auth');
+
+Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile')->middleware('auth');
+
+Route::put('/editprofile', [ProfileController::class, 'update'])->name('saveprofile')->middleware('auth');
 /*
 |--------------------------------------------------------------------------
 | Route for Auth
@@ -66,7 +73,7 @@ Route::post('/studentlogin', [LoginController::class,'student_login'])->name('st
 
 Route::post('/educatorlogin', [LoginController::class, 'store']);
 
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 /*
 |--------------------------------------------------------------------------
 | Route for Courses (Educator)
@@ -132,6 +139,8 @@ Route::middleware('course_access')->group(function () {
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonController::class, 'index'])->name('viewlesson');
 
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/complete', [ProgressController::class, 'store'])->name('completelesson');
+    
+    Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/completequiz', [ProgressController::class, 'complete'])->name('completequiz');
 });
 
 
@@ -142,11 +151,17 @@ Route::middleware('course_access')->group(function () {
 | Routes for Educator navigating to quiz related pages
 |
 */
-Route::get('/lesson/{lessonid}/managequiz', [QuizController::class, 'create'])->name('managequiz');
+Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/managequiz', [QuizController::class, 'create'])->name('managequiz');
 
-Route::get('fetchquiz-{lessonid}', [QuizController::class, 'index'])->name('getquiz');
+Route::get('quiz-{lessonid}', [QuizController::class, 'index'])->name('getquiz');
 
-Route::put('/lesson/{lessonid}/managequiz', [QuizController::class, 'store'])->name('updatequiz');
+Route::put('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/managequiz', [QuizController::class, 'store'])->name('updatequiz');
+
+Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/quiz', [QuizController::class, 'show'])->name('showquiz');
+
+
+
+Route::post('/checkanswer', [QuizController::class, 'check'])->name('checkanswer');
 
 Auth::routes();
 
@@ -197,11 +212,23 @@ Route::put('/course/{id}/managecred', [CredentialController::class, 'store'])->n
 
 Route::get('/course/{id}/generated-pdf', [CredentialController::class, 'generate'])->name('generate');
 
+Route::get('/earned-certificates', [CredentialController::class, 'list'])->name('listcert');
+
+Route::get('/download-certificate/{cert_name}', [CredentialController::class, 'download'])->name('downloadcert');
+
 /*
 ======================
 Admin Modules
 ======================
 */
-Route::get('/admin-login', [AdminController::class, 'index']);
+Route::get('/admin-login', [AdminController::class, 'index'])->name('adminlogin');
+
+Route::post('/admin-login', [AdminController::class, 'login'])->name('loginadmin');
+
+Route::get('/admin-logout', [AdminController::class, 'logout'])->name('logoutadmin');
+
+Route::get('/admin-list', [AdminController::class, 'admins'])->name('adminlist');
 
 Route::post('/add-admin', [AdminController::class, 'store'])->name('createadmin');
+
+Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');

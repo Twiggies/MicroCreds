@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Progress;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,26 @@ class ProgressController extends Controller
             'quiz_completed' => false,
         ]);
 
-        return redirect()->back();
+        $course = Course::find($request->id); 
+        foreach ($course->modules as $module) {
+            foreach ($module->lessons as $lesson) {
+            if (!Auth::user()->progress()->where('lesson_id' , $lesson->id)->first()) {
+                return redirect()->back();
+            }
+        }
+        }
+
+        
+
+        return redirect()->route('generate', ['id' => $request->id]);
+    }
+
+    public function complete(Request $request) {
+        $progress = Progress::where('lesson_id', $request->lessonid)->first();
+        $progress->quiz_completed = 1;
+        $progress->update();
+
+        return response('Successful');
     }
 
     /**

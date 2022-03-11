@@ -40,7 +40,7 @@ class QuizController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($lessonid)
+    public function create($id, $moduleid, $lessonid)
     {
         //
         $lesson = Lesson::find($lessonid);
@@ -69,7 +69,12 @@ class QuizController extends Controller
                     foreach ($data->options as $options) {
                         $option = Option::find($options->id);
                         $option->option = $options->option;
-                        $option->is_answer = $option->is_answer;
+                        if ($options->is_answer == 1) {
+                        $option->is_answer = 1;
+                        }
+                        else {
+                            $option->is_answer = 0;
+                        }
                         $option->update();
                     }
                     $quiz->update();
@@ -101,9 +106,28 @@ class QuizController extends Controller
      * @param  \App\Models\quiz  $quiz
      * @return \Illuminate\Http\Response
      */
-    public function show(quiz $quiz)
+    public function show(Request $request, $id, $moduleid, $lessonid) 
     {
         //
+        $quizzes = Lesson::find($request->lessonid)->quiz;
+        
+        foreach ($quizzes as $quiz) {
+            $quiz->options = $quiz->options;
+        }
+        //dd($quizzes);
+        return view('quiz.quiz', compact('quizzes', 'id', 'moduleid', 'lessonid'));
+    }
+
+    public function check(Request $request) {
+        $answer = Option::find($request->answer_id);
+        if ($answer->is_answer == 1) {
+
+            return response()->json(['response' => 'Correct answer', 'is_answer' => true]);
+        }
+        
+            $correct_answers = Option::where('quiz_id', $answer->quiz_id)->where('is_answer', 1)->get();
+            return response()->json(['response' => 'Incorrect answer', 'correct_answers' => $correct_answers, 'is_answer' => false]);
+        
     }
 
     /**

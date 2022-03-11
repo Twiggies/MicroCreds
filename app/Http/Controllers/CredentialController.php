@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Achievement;
 use PDF;
 use App\Models\Course;
 use setasign\Fpdi\Fpdi;
@@ -9,6 +10,8 @@ use App\Models\Credential;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 
 class CredentialController extends Controller
 {
@@ -60,10 +63,21 @@ class CredentialController extends Controller
         $educator = ucfirst($author->firstname).' '.ucfirst($author->lastname);
         $position = $credential->educator_title;
         $course = $credential->certificate_name;
-        $outputFile = 'public/'.'cert.pdf';
+        $destination_path = 'storage/files/certificates/'.$user->id.'/';
+        if (!File::exists($destination_path)) {
+            File::makeDirectory($destination_path, $mode=0777, true, true);
+        }
+        $outputFile = $destination_path.$course.'.pdf';
+        
         $this->createPDF('public/template.pdf', $outputFile, $name, $institute,$educator, $position, $course);
 
-        return response()->file($outputFile);
+        Achievement::create([
+            'user_id' => $user->id,
+            'cert_name' => $course,
+        ]);
+
+        //return response()->file($outputFile);
+        return redirect()->back();
     }
 
     public function createPDF($file, $outputFile, $name, $institute, $educator, $position, $course) {
@@ -90,6 +104,19 @@ class CredentialController extends Controller
         $fpdi->setFont("helvetica", "", 15);
         $fpdi->MultiCell(70,2,$institute,0,'C');
 
-        return $fpdi->Output($outputFile,'F');
+        return $fpdi->Output('F',$outputFile);
     }
+
+    public function download($cert_name) {
+        $document = Achievement::where('cert_name', $cert_name)->first();
+        $user_id = $document->user_id;
+        return Storage::download('public/files/certificates/'.$user_id.'/'.$cert_name);
+    }
+
+    public function list(Request $request) {
+        $user = Auth::user();
+        $earned_certificates = $user->achievement;
+        return view('achievement.achievement', compact('earned_certificates'));
+    }
+
 }
