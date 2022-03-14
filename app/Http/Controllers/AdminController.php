@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Admin;
+use App\Models\Course;
+use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -11,6 +14,11 @@ use Illuminate\Support\Facades\Session;
 
 class AdminController extends Controller
 {
+
+    public function __construct() 
+    {
+        $this->middleware('adminauth')->except(['index', 'login']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -19,6 +27,7 @@ class AdminController extends Controller
     public function index()
     {
         //
+        
         return view('admin.login');
     }
 
@@ -40,14 +49,34 @@ class AdminController extends Controller
         $admin = Admin::where('username', $request->username)->first();
         $request->session()->put('admin', $admin);
         $request->session()->put('isAdmin', true);
-
+        
         return redirect()->route('admin_dashboard');
     }
 
-    public function admins() {
-        return view('admin.admin_list');
+    public function admins(Request $request) {
+        $admins = Admin::all();
+        return view('admin.admin_list', compact('admins'));
     }
 
+    public function educators(Request $request) {
+        $educators = User::where('type', 'educator')->get();
+        return view('admin.educator_list', compact('educators'));
+    }
+
+    public function students(Request $request) {
+        $students = User::where('type', 'student')->get();
+        return view('admin.student_list', compact('students'));
+    }
+
+    public function editeducator(Request $request) {
+        $educator = User::find($request->user_id);
+        $profile = Profile::where('user_id', $request->user_id)->first();
+        if (!$profile) {
+            $request->session()->now('message', 'This user has not set up their profile yet. Therefore only their name and email are available.');
+            $request->session()->now('message-type', 'bg-red-400');
+        }
+        return view('admin.edit_educator', compact('profile','educator'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -57,6 +86,16 @@ class AdminController extends Controller
     {
         //
 
+    }
+
+    public function pending(Request $request) {
+        $courses = Course::where('status', 'inactive')->get();
+        return view('admin.course_list', compact('courses'));
+    }
+
+    public function coursedetails(Request $request) {
+        $course = Course::find($request->course_id);
+        return view('admin.course_details', compact('course'));
     }
 
     /**
@@ -95,7 +134,34 @@ class AdminController extends Controller
         $request->session()->put('isAdmin', true);
 
         return redirect()->route('admin_dashboard');
-    }       
+    }
+
+    public function ajaxStore(Request $request) {
+        $request->validate([
+            'firstname' => ['required', 'max:40'],
+            'lastname' => ['required', 'max:40'],
+            'username' => ['required', 'max:20'],
+            'password' => ['required', 'max:20'],
+        ]);
+        
+        
+        if (Admin::where('username', $request->username)->first()) {
+            $request->session()->flash('message', 'Username has already been in use');
+            $request->session()->flash('message-type', 'bg-red-400');
+    
+            return response()->json(['status' => 'Username has already been in use.']);
+        }
+        $admin =Admin::create([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'username' => $request->username,
+            'password' => Hash::make($request->password),
+        ]);
+        $request->session()->flash('message', 'New admin added successfully.');
+        $request->session()->flash('message-type', 'bg-green-400');
+
+        return response()->json(['status'=>'Admin added successfully']);
+    }
 
     public function logout() {
         Auth::guard('admin')->user()->tokens()->delete();

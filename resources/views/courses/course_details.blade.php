@@ -9,8 +9,13 @@
             <p class="text-gray-800 dark:text-white lg:text-4xl text-3xl font-extrabold leading-9">{{$course->name}}</p>
         </div>
         <div class="flex justify-center items-center mt-10 ">
-            <img class="w-full" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380"
-             alt="laptops" />
+          @if ($course->image != null)
+          <img id="image" src="{{asset('storage/images/courses_thumbnail/'.$course->image)}}"
+          tabindex="0" class="focus:outline-none w-full h-96" />
+          @else 
+          <img alt="course stock image" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380" 
+          tabindex="0" class="focus:outline-none w-full h-96" />
+          @endif
         </div>
       </div>
       <div class="flex justify-center lg:w-2/5 mt-10 md:mt-0">
@@ -22,8 +27,12 @@
                 </div>
                 <div class="absolute -mt-20 w-full flex justify-center">
                     <div class="h-32 w-32">
-                      @if ($educator_profile->picture != null)
-                        <img src="{{asset('storage/images/profile/'.$educator_profile->user_id.'/'.$educator_profile->picture)}}" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md" />
+                      @if ($educator_profile)
+                        @if ($educator_profile->picture != null)
+                          <img src="{{asset('storage/images/profile/'.$educator_profile->user_id.'/'.$educator_profile->picture)}}" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md" />
+                        @else
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md">
+                        @endif
                       @else 
                         <img src="https://upload.wikimedia.org/wikipedia/commons/a/ac/Default_pfp.jpg" alt="Educator Picture" role="img" class="rounded-full object-cover h-full w-full shadow-md">
                       @endif
@@ -31,11 +40,23 @@
                 </div>
                 <div class="px-6 mt-16">
                     <h1 class="font-bold text-3xl text-center mb-1">{{$educator->firstname.' '.$educator->lastname}}</h1>
-                    <p class="text-gray-800 text-sm text-center">Product Design Head</p>
+                    
                     <hr>
                     <p class="text-center text-gray-600 text-base pt-3 font-normal text-3xl">About</p>
                     <div class="w-full flex justify-center pt-5 pb-5">
+                      @if ($educator_profile)
+                      @if ($educator_profile->about != null)
                       {{$educator_profile->about}}
+                      @else 
+                      <div class="font-semibold text-red-400">
+                      The educator has not finished setting up their profile yet!
+                      </div>
+                      @endif
+                      @else
+                      <div class="font-semibold text-red-400">
+                      The educator has not finished setting up their profile yet!
+                      </div>
+                      @endif
                     </div>
                 </div>
             </div>
@@ -54,37 +75,9 @@
         </div>
         <div class="mt-8 flex justify-start items-start flex-col">
           <div>
-            <p class="text-gray-800 dark:text-white lg:text-base text-sm font-semibold leading-none">Estimated Duration of Course</p>
+            <p class="text-gray-800 dark:text-white lg:text-base text-sm font-semibold leading-none">Estimated Duration of Course: </p><span class="text-gray-800 dark:text-white text-3xl font-semibold leading-none">{{$course->duration}} total hours</span>
           </div>
-          <div class="text-gray-800 dark:text-white mt-4 lg:text-base text-sm leading-normal">
-            <ul>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Mauris ullamcorper neque sed mauris gravida, vel mollis velit molestie.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Donec iaculis erat in vulputate venenatis.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Vestibulum et velit et metus commodo iaculis.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Sed et urna a felis accumsan commodo vel vel nibh.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Praesent sollicitudin nulla non sollicitudin varius.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">
-                <div>-</div>
-                <div>Integer convallis orci sed diam volutpat feugiat.</div>
-              </li>
-              <li class="flex justify-start items-start space-x-1 flex-row">- Donec posuere arcu non semper maximus.</li>
-            </ul>
-          </div>
+          
         </div>
       </div>
       

@@ -1,4 +1,4 @@
-@extends('layouts.student_app')
+@extends('layouts.app')
 
 @section('content')
 <div class="container mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 pt-6 gap-8">
@@ -6,12 +6,13 @@
     <ul class="gap-5">
         <li><button onclick="location.href='{{route('viewlesson', [$id,$moduleid,$lessonid])}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to lesson</button></li>
         <li><button onclick="location.href='{{route('viewcourse', $id)}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to course dashboard</button></li>
+        <li><button onclick="location.href='{{route('managequiz', [$id, $moduleid,$lessonid])}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Edit Quiz</button></li>
     </ul>
     </div>
     
     <!-- Remove class [ h-24 ] when adding a card block -->
     <!-- Remove class [ border-gray-300  dark:border-gray-700 border-dashed border-2 ] to remove dotted border -->
-    @if (!Auth::user()->progress()->where('lesson_id', $lessonid)->where('quiz_completed', 1)->first())
+    
     @foreach ($quizzes as $quiz)
     <div id="question{{$quiz->id}}" class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 px-3 py-2">
         <h1 tabindex="0"  class="focus:outline-none text-xl font-medium pr-2 leading-5 text-gray-800">{{$quiz->question}}</h1>
@@ -24,20 +25,8 @@
             
     </div>
     @endforeach 
-    @else 
-    @foreach ($quizzes as $quiz)
-    <div id="question{{$quiz->id}}" class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 px-3 py-2">
-        <h1 tabindex="0"  class="focus:outline-none text-xl font-medium pr-2 leading-5 text-gray-800">{{$quiz->question}}</h1>
-            @foreach ($quiz->options as $option)
-            <label for="{{$option->id}}" class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg hover: cursor-pointer hover:bg-white" >
-                <input id="{{$option->id}}" type="radio" disabled class="option hidden">{{$option->option}}
-            </label>
-            @endforeach
-            
-            
-    </div>
-    @endforeach
-    <div class=" py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out fixed z-10 inset-0 overflow-y-auto" id="modal">
+    
+    <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-y-auto" id="modal">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
             <div class="relative py-8 px-8 md:px-16 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded border border-gray-400">
                 
@@ -55,7 +44,7 @@
             </div>
         </div>
     </div>
-    @endif
+    
     
     
     <!-- Remove class [ h-24 ] when adding a card block -->
@@ -69,24 +58,7 @@
     <div class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-24"></div>
 
     
-    <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed  inset-0 overflow-y-auto" id="modal">
-        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
-            <div class="relative py-8 px-8 md:px-16 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded border border-gray-400">
-                
-                <div class="w-full flex justify-center text-green-400 mb-4">
-                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/centre_aligned_short-svg1.svg" alt="icon"/>
-                    
-                </div>
-                <h1 tabindex="0" class="focus:outline-none text-center text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight mb-4">Congratulations!</h1>
-                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You have passed the quiz for the lesson. You may proceed with the next lesson</p>
-                <div class="flex items-center justify-center w-full">
-                    <button onclick=completeQuiz() class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Complete the lesson.</button>
-                    
-                </div>
-                
-            </div>
-        </div>
-    </div>
+    
 
     <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-y-auto" id="failed_modal">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">

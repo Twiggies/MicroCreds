@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Quiz;
 use App\Models\Course;
 use App\Models\Progress;
 use Illuminate\Http\Request;
@@ -39,18 +40,21 @@ class ProgressController extends Controller
     {
         //
         $user = Auth::user();
-        Progress::create([
+        $progress = Progress::create([
             'user_id' => $user->id,
             'course_id' => $request->id,
             'module_id' => $request->moduleid,
             'lesson_id' => $request->lessonid,
             'quiz_completed' => false,
         ]);
-
+        if (!Quiz::where('lesson_id', $request->lessonid)->first()) {
+            $progress->quiz_completed = 1;
+            $progress->update();
+        }
         $course = Course::find($request->id); 
         foreach ($course->modules as $module) {
             foreach ($module->lessons as $lesson) {
-            if (!Auth::user()->progress()->where('lesson_id' , $lesson->id)->first()) {
+            if (!Auth::user()->progress()->where('lesson_id' , $lesson->id)->where('quiz_completed',1)->first()) {
                 return redirect()->back();
             }
         }

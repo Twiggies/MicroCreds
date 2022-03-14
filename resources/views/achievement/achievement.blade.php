@@ -36,7 +36,7 @@
                 {{$date}}
                 </td>
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="{{route('downloadcert', [$certificate->cert_name.'.pdf'])}}" class="text-indigo-600 hover:text-indigo-900">Download</a>
+                <a href="{{route('downloadcert', [$certificate->cert_name])}}" class="text-indigo-600 hover:text-indigo-900">Download</a>
               </td>
               
             </tr>

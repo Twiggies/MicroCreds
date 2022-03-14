@@ -203,6 +203,13 @@ Route::post('/{lessonid}/attachmaterials', [MaterialController::class, 'attach']
 Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-edit/{material_id}-deattach', [MaterialController::class, 'deattach'])->name('deattach');
 
 //Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+/*
+|--------------------------------------------------------------------------
+| Route for Certificates (Educator)
+|--------------------------------------------------------------------------
+| Routes for Educator navigating to materials related pages
+|
+*/
 
 Route::get('create-cert-file', [CredentialController::class, 'index']);
 
@@ -231,4 +238,16 @@ Route::get('/admin-list', [AdminController::class, 'admins'])->name('adminlist')
 
 Route::post('/add-admin', [AdminController::class, 'store'])->name('createadmin');
 
+Route::post('/ajax-add-admin', [AdminController::class, 'ajaxStore'])->name('ajax-add-admin');
+
 Route::get('/admin-dashboard', [AdminController::class, 'dashboard'])->name('admin_dashboard');
+
+Route::get('/pending-courses', [AdminController::class, 'pending'])->name('pendingcourses');
+
+Route::get('/course-details/{course_id}', [AdminController::class, 'coursedetails'])->name('admin_coursedetails');
+
+Route::get('/educator-list', [AdminController::class, 'educators'])->name('educatorlist');
+
+Route::get('/edit-educator/{user_id}', [AdminController::class, 'editeducator'])->name('editeducator');
+
+Route::get('/student-list', [AdminController::class, 'students'])->name('studentlist');

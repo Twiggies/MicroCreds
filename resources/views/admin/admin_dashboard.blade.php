@@ -38,7 +38,7 @@
                         <table class="text-left w-full border-collapse"> <!--Border collapse doesn't work on this site yet but it's available in newer tailwind versions -->
                             <thead>
                               <tr>
-                                <th class="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-grey-dark border-b border-gray-400">City</th>
+                                <th class="py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-grey-dark border-b border-gray-400">Course Name</th>
                                 <th class="text-right py-4 px-6 bg-gray-200 font-bold uppercase text-sm text-grey-dark border-b border-gray-400">Actions</th>
                               </tr>
                             </thead>

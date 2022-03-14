@@ -74,10 +74,13 @@ class LoginController extends Controller
 
     public function logout(Request $request) {
         
+        if (!auth()->user()->tokens()) {
+            dd(session()->all());
+        }
         auth()->user()->tokens()->delete();
         Session::flush();
         auth()->logout();
         
-        return redirect()->route('adminlogin');
+        return redirect()->route('home');
     }
 }

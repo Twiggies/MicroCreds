@@ -12,6 +12,7 @@ use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Carbon;
 
 class CredentialController extends Controller
 {
@@ -95,6 +96,10 @@ class CredentialController extends Controller
         $fpdi->setFont("helvetica", "", 14);
         $fpdi->setXY(90,130);
         $fpdi->MultiCell(120,7,$course,0,'C');
+        $fpdi->setFont("helvetica", "", 16);
+        $fpdi->setXY(128,155);
+        $fpdi->MultiCell(40,2,date('Y-m-d'),0,'C');
+        $fpdi->setFont("helvetica", "", 14);
         $fpdi->setXY(80,175);
         $fpdi->MultiCell(50,5,$educator,0,'C');
         $fpdi->setXY(80,185);
@@ -110,7 +115,7 @@ class CredentialController extends Controller
     public function download($cert_name) {
         $document = Achievement::where('cert_name', $cert_name)->first();
         $user_id = $document->user_id;
-        return Storage::download('public/files/certificates/'.$user_id.'/'.$cert_name);
+        return Storage::download('public/files/certificates/'.$user_id.'/'.$cert_name.'.pdf');
     }
 
     public function list(Request $request) {

@@ -115,6 +115,9 @@ class QuizController extends Controller
             $quiz->options = $quiz->options;
         }
         //dd($quizzes);
+        if (session()->get('isEducator') == true) {
+        return view('quiz.test_quiz', compact('quizzes', 'id', 'moduleid', 'lessonid'));
+        }
         return view('quiz.quiz', compact('quizzes', 'id', 'moduleid', 'lessonid'));
     }
 

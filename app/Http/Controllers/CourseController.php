@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Resources\CourseResource;
+use Illuminate\Support\Facades\Storage;
 
 class CourseController extends Controller
 {
@@ -17,7 +18,8 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-    }
+        
+    }   
 
     public function viewCourses() {
         $user = Auth::user();
@@ -103,7 +105,18 @@ class CourseController extends Controller
         $course->name = $request->coursename;
         $course->description = $request->description;
         $course->duration = $request->duration;
+        if ($request->hasFile('image')) {
+            Storage::delete('public/images/courses_thumbnail/'.$course->image);
+            $destination_path = 'public/images/courses_thumbnail';
+            $image = $request->file('image');
+            $extension = $image->getClientOriginalExtension();
+            $image_name = uniqid().'.'.$extension;
+            $path = $request->file('image')->storeAs($destination_path, $image_name);
+            $course->image = $image_name;
+        }
         $course->update();
+        $request->session()->flash('message', 'Changes saved');
+        $request->session()->flash('message-type', 'bg-green-400');
         return redirect()->route('viewcourse', $request->id)->with('status', 'Course details updated successfully');
     }
 
@@ -129,4 +142,7 @@ class CourseController extends Controller
         }
         return view('courses.enrolled_courses', compact('enrolled'));
     }
+
+
+    
 }
