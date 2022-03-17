@@ -13,10 +13,10 @@
         </ul>
     </div>
     @if (session('message'))
-<div class="{{session('message-type')}} w-8/12 font-semibold p-3 rounded-lg mb-3">
+    <div class="{{session('message-type')}} w-8/12 font-semibold p-3 rounded-lg my-3">
     {{session('message')}}
-</div>
-@endif
+    </div>
+    @endif
     <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
         <form action="{{route('addmodule', $data['id'])}}" method="get">
             @csrf
