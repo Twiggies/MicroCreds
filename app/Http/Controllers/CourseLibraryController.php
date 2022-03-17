@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Course;
-use App\Models\CourseLibrary;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\CourseLibrary;
 use Illuminate\Support\Facades\DB;
+use App\Models\CourseLibraryBridge;
+use Illuminate\Support\Facades\Auth;
 
 
 class CourseLibraryController extends Controller
@@ -23,6 +24,7 @@ class CourseLibraryController extends Controller
         $libraries = $user->libraries()->get();
         return view('course_libraries.course_libraries', compact('libraries'));
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -45,7 +47,8 @@ class CourseLibraryController extends Controller
     {
         //
         $request->validate([
-            'libraryname' => 'required | max:40'
+            'libraryname' => 'required | max:40',
+            'description' => 'nullable | max:150',
         ]);
 
         $user = Auth::user();
@@ -67,7 +70,33 @@ class CourseLibraryController extends Controller
     {
         //
         $library = CourseLibrary::find($courseLibrary);
-        return view('course_libraries.view_library', compact('library'));
+        $courses = Auth::user()->courses;
+        $library_bridges = CourseLibraryBridge::where('library_id', $library->id)->get();
+        $added_courses = [];
+        foreach ($library_bridges as $bridge) {
+            $added_course = Course::find($bridge->course_id);
+            $added_courses[] = $added_course;
+        }
+        return view('course_libraries.view_library', compact('library', 'added_courses', 'courses'));
+    }
+
+    public function addcourse(Request $request) {
+        $library = $request->library;
+        $selectedCourse = $request->selectedCourse;
+        CourseLibraryBridge::create([
+            'course_id' => $selectedCourse,
+            'library_id' => $library,
+        ]);
+        $request->session()->flash('message', 'Course has been added');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return response('Attached', 200);
+    }
+
+    public function deletecourse(Request $request) {
+        $library_id = $request->library;
+        $courseid = $request->course;
+        CourseLibraryBridge::where('library_id', $library_id)->where('course_id', $courseid)->first()->delete();
+        return redirect()->back();
     }
 
     /**
@@ -76,9 +105,11 @@ class CourseLibraryController extends Controller
      * @param  \App\Models\CourseLibrary  $courseLibrary
      * @return \Illuminate\Http\Response
      */
-    public function edit(CourseLibrary $courseLibrary)
+    public function edit(Request $request)
     {
         //
+        $library = CourseLibrary::find($request->library);
+        return view('course_libraries.edit_library', compact('library'));
     }
 
     /**
@@ -88,19 +119,31 @@ class CourseLibraryController extends Controller
      * @param  \App\Models\CourseLibrary  $courseLibrary
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, CourseLibrary $courseLibrary)
+    public function update(Request $request)
     {
         //
+        $library = CourseLibrary::find($request->library);
+        $request->validate([
+            'libraryname' => 'required | max:40',
+            'description' => 'nullable | max:150',
+        ]);
+        $library->name = $request->libraryname;
+        $library->description = $request->description;
+        $library->update();
+        $request->session()->flash('message', 'Changes saved');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->route('viewlibrary', $library);
     }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\CourseLibrary  $courseLibrary
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CourseLibrary $courseLibrary)
+    public function delete(Request $request)
     {
         //
+        CourseLibrary::find($request->library)->delete();
+        return redirect()->route('courselibraries');
     }
 }

@@ -12,7 +12,7 @@
     </div>
 </div>
 
-<div id="lessoncontent" class="flex flex-wrap justify-center h-auto">
+<div id="lessoncontent" class="flex flex-col items-center justify-center h-auto">
     
 <div class="w-8/12 bg-white p-6 h-full rounded-lg">
     @foreach ($materials as $material)
@@ -23,12 +23,14 @@
     <div>
     {!!$lesson->content!!}
     </div>
-    <div class="mt-10 border-t-2 border-gray-300 text-right h-auto">
+    
+</div>
+<div class="w-full mt-10 border-t-2 border-gray-300 text-right h-auto">
     <button onclick="location.href='{{route('showquiz', [$id, $moduleid, $lessonid])}}'" class="font-bold mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Proceed to Quiz
     </button>
     </div>
 </div>
-</div>
+
 
 @endsection
 @section('scripts')

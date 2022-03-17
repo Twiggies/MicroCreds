@@ -72,7 +72,7 @@
             <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
                 <div class="form-item w-1/3">
                     <label class="text-xl">Institute</label>
-                    <input type="text" name="institute" id="institute" value="Institute" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+                    <input type="text" name="institute" id="institute" value="{{$profile->institute}}" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
                 </div>
             </div>    
             @endif
@@ -84,7 +84,9 @@
   
             <div class="form-item w-full">
               <label class="text-xl ">Biography</label>
-              <textarea cols="30" name="about" id="about" rows="10" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem natus nobis odio. Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, eveniet fugiat? Explicabo assumenda dignissimos quisquam perspiciatis corporis sint commodi cumque rem tempora!</textarea>
+              <textarea cols="30" name="about" id="about" rows="10" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+                {{$profile->about}}
+              </textarea>
             </div>
   
             <div>
@@ -94,7 +96,7 @@
   
             <div class="form-item">
               <label class="text-xl ">LinkedIn</label>
-              <input type="text" name="linkedin" id="linkedin" value="https://instagram.com/" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+              <input type="text" name="linkedin" id="linkedin" value="{{$profile->linkedin}}" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
             </div>
             
             <div class="text-right">

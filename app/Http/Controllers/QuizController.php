@@ -97,7 +97,7 @@ class QuizController extends Controller
             
         }
 
-        return response('Request received');
+        return response('Changes saved');
     }
 
     /**

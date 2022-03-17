@@ -14,9 +14,6 @@ class CourseLibrary extends Model
         'description'
     ];
 
-    public function courses() {
-        return $this->hasMany(Course::class);
-    }
 
     public function bridge() {
         return $this->hasMany(CourseLibraryBridge::class);

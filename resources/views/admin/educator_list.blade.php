@@ -58,7 +58,7 @@
                         $date = date('M d, Y', $newdate);
                     @endphp
                     <td class="border p-3 px-5">{{$institute}}</td>
-                    <td class="border p-3 px-5"> <button onclick="location.href='{{route('editeducator', ['user_id' => $educator->id])}}'" class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button></td>
+                    <td class="border p-3 px-5"> <button onclick="location.href='{{route('edituser', ['user_id' => $educator->id])}}'" class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button></td>
 
                 </tr>
                 @endforeach

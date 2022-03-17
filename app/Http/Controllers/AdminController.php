@@ -9,6 +9,7 @@ use App\Models\Profile;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
@@ -68,14 +69,55 @@ class AdminController extends Controller
         return view('admin.student_list', compact('students'));
     }
 
-    public function editeducator(Request $request) {
-        $educator = User::find($request->user_id);
+
+    public function edituser(Request $request) {
+        $user = User::find($request->user_id);
         $profile = Profile::where('user_id', $request->user_id)->first();
         if (!$profile) {
-            $request->session()->now('message', 'This user has not set up their profile yet. Therefore only their name and email are available.');
-            $request->session()->now('message-type', 'bg-red-400');
+            $request->session()->now('errormessage', 'This user has not set up their profile yet. Therefore only their name and email are available.');
+            $request->session()->now('error-message-type', 'bg-red-400');
         }
-        return view('admin.edit_educator', compact('profile','educator'));
+        return view('admin.edit_user', compact('profile','user'));
+    }
+
+    public function saveuser(Request $request) {
+        $request->validate([
+            'firstname' => 'max:40',
+            'lastname' => 'max:50',
+            'about' => 'max:300 | nullable',
+            'institute' => 'max:50 | nullable',
+            'picture' => 'nullable | image |mimes:jpeg,png,jpg |max:2048'
+        ],
+        [
+            'picture' => "Image should only be 2MB max in size",
+        ]
+        );
+        
+        $user = User::find($request->user_id);
+        $profile = Profile::find($user->id);
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        if ($profile) {
+        $profile->about = $request->about;
+        $profile->institute = $request->institute;
+        $profile->linkedin = $request->linkedin;
+        if ($request->hasFile('picture')) {
+            $destination_path = 'public/images/profile/'.$user->id;
+            if (!File::exists($destination_path)) {
+                File::makeDirectory($destination_path, $mode=0777, true, true);
+            }
+            $image = $request->file('picture');
+            $extension = $image->getClientOriginalExtension();
+            $image_name = uniqid().'.'.$extension;
+            $path = $request->file('picture')->storeAs($destination_path, $image_name);
+            $profile->picture = $image_name;
+        }
+        $profile->update();
+        }
+        $user->update();
+        $request->session()->flash('message', 'Changes saved successfully');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->back();
     }
     /**
      * Show the form for creating a new resource.
@@ -89,13 +131,24 @@ class AdminController extends Controller
     }
 
     public function pending(Request $request) {
-        $courses = Course::where('status', 'inactive')->get();
+        $courses = Course::where('status', 'pending')->get();
         return view('admin.course_list', compact('courses'));
     }
 
     public function coursedetails(Request $request) {
         $course = Course::find($request->course_id);
-        return view('admin.course_details', compact('course'));
+        $educator = User::find($course->user_id);
+        $educator_profile = Profile::where('user_id', $educator->id)->first();
+        return view('admin.course_details', compact('course','educator', 'educator_profile'));
+    }
+
+    public function approve(Request $request) {
+        $course = Course::find($request->course_id);
+        $course->status = 'published';
+        $course->update();
+        $request->session()->flash('message', $course->name.' published successfully.');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->route('pendingcourses');
     }
 
     /**
@@ -164,9 +217,11 @@ class AdminController extends Controller
     }
 
     public function logout() {
+        if(Auth::guard('admin')->user()) {
         Auth::guard('admin')->user()->tokens()->delete();
         Session::flush();
         Auth::guard('admin')->logout();
+        }
         
         return redirect()->route('adminlogin');
     }

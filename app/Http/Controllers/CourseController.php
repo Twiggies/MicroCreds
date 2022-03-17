@@ -33,7 +33,7 @@ class CourseController extends Controller
 
     public function browse() {
 
-        $data = Course::where('status', 'inactive')->paginate(10);
+        $data = Course::where('status', 'published')->paginate(10);
         return view('courses.browse_courses', compact('data'));
     }
 
@@ -118,6 +118,15 @@ class CourseController extends Controller
         $request->session()->flash('message', 'Changes saved');
         $request->session()->flash('message-type', 'bg-green-400');
         return redirect()->route('viewcourse', $request->id)->with('status', 'Course details updated successfully');
+    }
+
+    public function setPending(Request $request) {
+        $course = Course::find($request->id);
+        $course->status = 'pending';
+        $course->update();
+        $request->session()->flash('message', 'Your course is now pending approval from admins.');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->route('viewcourse', $request->id);
     }
 
     public function viewCourse($id) {

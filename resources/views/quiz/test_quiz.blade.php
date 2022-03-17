@@ -35,7 +35,7 @@
                     
                 </div>
                 <h1 tabindex="0" class="focus:outline-none text-center text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight mb-4">Congratulations!</h1>
-                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You have already passed the quiz for this lesson.</p>
+                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You have passed the quiz for this lesson.</p>
                 <div class="flex items-center justify-center w-full">
                     <button onclick=modalHandler() class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Complete the lesson.</button>
                     
@@ -69,7 +69,7 @@
                     
                 </div>
                 <h1 tabindex="0" class="focus:outline-none text-center text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight mb-4">Unfortunately</h1>
-                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You did not pass the quiz as at least 80% is required. You will have to reattempt the quiz again.</p>
+                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You did not pass the quiz as at least 80% accuracy is required. You will have to reattempt the quiz again.</p>
                 <div class="flex items-center justify-center w-full">
                     <button onclick=location.reload() class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Retry the quiz.</button>
                     

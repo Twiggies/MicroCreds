@@ -14,7 +14,7 @@
     <script>
         tinymce.init({
           selector: '#tinymce',
-          plugins: 'a11ychecker advcode casechange export formatpainter linkchecker autolink lists checklist media mediaembed pageembed permanentpen powerpaste table advtable tinycomments tinymcespellchecker image',
+          plugins: 'autolink lists media  table image',
       toolbar: 'a11ycheck addcomment showcomments casechange checklist code export formatpainter pageembed permanentpen table image',
       toolbar_mode: 'floating',
       tinycomments_mode: 'embedded',
@@ -143,7 +143,7 @@
             
         </ul>
     </nav>
-    <div>
+    <div class="">
     @yield('content')
     </div>
     </div>

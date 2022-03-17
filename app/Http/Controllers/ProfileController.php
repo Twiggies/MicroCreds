@@ -37,6 +37,7 @@ class ProfileController extends Controller
             'firstname' => 'max:40',
             'lastname' => 'max:50',
             'about' => 'max:300',
+            'institute' => 'max:50 | nullable',
             'picture' => 'nullable | image |mimes:jpeg,png,jpg |max:2048'
         ],
         [

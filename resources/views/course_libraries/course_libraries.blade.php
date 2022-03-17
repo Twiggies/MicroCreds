@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="flex flex-wrap justify-center h-96">
-    <div class="w-8/12 bg-white p-6 rounded-lg">
+    <div class="w-8/12 bg-white p-6 rounded-lg text-3xl font-semibold">
         Course Libraries
     </div>
     <div class="w-8/12 bg-white p-6 mt-10 h-full rounded-lg">

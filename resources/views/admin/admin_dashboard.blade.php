@@ -7,13 +7,13 @@
                     <div class="w-full lg:w-1/2 pr-0 lg:pr-2">
                         
                         <div class="w-full grid grid-cols-3 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                            <a aria-label="card 1" href="#" class="col-span-3 bg-white dark:bg-gray-800 rounded  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:outline-none focus:bg-gray-100 hover:bg-gray-100">
+                            <a aria-label="card 1" href="{{route('pendingcourses')}}" class="col-span-3 bg-white dark:bg-gray-800 rounded  focus:ring-2 focus:ring-offset-2 focus:ring-indigo-700 focus:outline-none focus:bg-gray-100 hover:bg-gray-100">
                                 <div class="shadow px-8 py-6 flex items-center">
                                     
                                     
                                         <div class="ml-6">
                                             @php
-                                                $courses = App\Models\Course::where('status', 'inactive')->orderBy('created_at', 'desc')->get();
+                                                $courses = App\Models\Course::where('status', 'pending')->orderBy('created_at', 'desc')->get();
                                             @endphp
                                             <h3 class="mb-1 leading-5 text-gray-800 dark:text-gray-100 font-bold text-2xl">{{$courses->count()}}
                                             </h3>
@@ -49,7 +49,8 @@
                               <tr class="hover:bg-grey-lighter">
                                 <td class="py-4 px-6 border-b border-gray-400">{{$course->name}}</td>
                                 <td class="text-right py-4 px-6 border-b border-gray-400">
-                                <button class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button>
+                                <button onclick="location.href='{{route('admin_coursedetails', ['course_id' => $course->id])}}'"
+                                 class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button>
                                 </td>
                               </tr>
                                @endforeach

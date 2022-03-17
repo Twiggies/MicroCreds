@@ -2,16 +2,17 @@
 
 
 @section('content')
-<div class="flex flex-wrap justify-center h-full">
-    <div class="flex justify-between w-8/12 p-6 h-full rounded-lg">
-        <h1 class="font-bold text-2xl">
-        Manage Quiz
-        </h1>
+<div class="flex flex-col items-center justify-center h-full">
+    <div class="w-8/12 p-6 rounded-lg">
         <div class="flex items-right">
             
             <a class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700"
              href="{{route('viewlesson', [$id, $moduleid, $lessonid])}}">Go back to lesson page</a>
         </div>
+        <h1 class="font-bold text-2xl">
+        Manage Quiz
+        </h1>
+        
         
     </div>
     <div class="w-8/12 justify-between py-4 px-10 h-auto rounded-lg">
@@ -176,7 +177,7 @@
             );
                 $('#manageoptionsarea-'+ i ).append(
                     '<div class="w-9/12">' +
-                        '<a id=' + i +  ' class="addNewChoice">+Add new choice</a>' +
+                        '<a id=' + i +  ' class="cursor-pointer addNewChoice">+Add new choice</a>' +
                     '</div>'
                     );
 

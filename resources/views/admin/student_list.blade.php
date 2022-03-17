@@ -46,7 +46,7 @@
                     <td class="border p-3 px-5">{{$student->email}}</td>
                     <td class="border p-3 px-5">{{$student->firstname}}</td>
                     <td class="border p-3 px-5">{{$student->lastname}}</td>
-                    <td class="border p-3 px-5"> <button class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button></td>
+                    <td class="border p-3 px-5"> <button onclick="location.href='{{route('edituser', ['user_id' => $student->id])}}'" class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">View</button></td>
                     
                 </tr>
                 @endforeach

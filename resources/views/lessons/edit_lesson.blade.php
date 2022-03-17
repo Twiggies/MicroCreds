@@ -28,11 +28,11 @@
     <div>{{$attachfile->file}} <a onclick ="location.href='{{route('deattach', [$id, $moduleid, $lessonid, 'material_id' => $attachfile->id])}}'" class="cursor-pointer underline text-red-500 hover:text-red-800">Remove</a></div>
     @endforeach
     <div class="w-full bg-white p-6 mt-3 h-full rounded-lg">
-        <textarea id="summernote" name="content">{!!$lesson->content!!}</textarea>
+        <textarea id="tinymce" name="content">{!!$lesson->content!!}</textarea>
             <div>
                 <div class="my-4 text-right">
                     <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
-                    <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded font-large w-auto">
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded text-lg w-auto">
                         Save
                     </button>
                 </div>

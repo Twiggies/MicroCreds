@@ -1,8 +1,9 @@
 @extends('layouts.student_app')
 
 @section('content')
-    <div class="mt-10 flex justify-center">
-        <div class="w-3/12 bg-white p-4 rounded-lg">
+    <div class="mt-10 justify-center flex flex-col items-center">
+        <h1 class="text-center text-4xl font-bold p-2 my-4">Login as Student</h1>
+        <div class="w-3/12 bg-white p-4 rounded-lg ">
             <div class="text-center text-xl mb-6">Login Account</div>
             @if (session('status'))
                 <div class="bg-red-400 p-3 rounded-lg mb-3 text-center">
@@ -36,9 +37,11 @@
                         </div>                        
                     @enderror
                 </div>
-                
+                <div onclick="location.href='{{route('studentregister')}}'"class="cursor-pointer my-3 text-left underline text-blue-500 hover:text-blue-600">
+                    Don't have an account? Sign up here.
+                </div>
                 <div class="my-4 text-center">
-                    <button type="submit" class="bg-green-400 text-white px-4 py-3 rounded rounded font-large w-auto">
+                    <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-3 rounded rounded font-large w-auto">
                         Login
                     </button>
                 </div>

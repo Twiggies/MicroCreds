@@ -88,11 +88,15 @@ Route::get('/addnewcourse', [CourseController::class, 'addCourse'])->name('addco
 
 Route::post('/addnewcourse', [CourseController::class, 'addNewCourse'])->name('addnewcoursereq');
 
+Route::middleware('course_access')->group(function () {
 Route::get('/course/{id}', [CourseController::class, 'viewCourse'])->name('viewcourse')->middleware('course_access');
 
 Route::get('/editcourse/{id}',[CourseController::class, 'editCourse'])->name('editcourse');
 
 Route::put('/editcourse/{id}', [CourseController::class, 'updateCourse'])->name('updatecourse');
+
+Route::put('/course-pending/{id}', [CourseController::class, 'setPending'])->name('publishcourse');
+});
 
 Route::get('/browsecourses', [CourseController::class, 'browse'])->name('browsecourses');
 
@@ -180,6 +184,15 @@ Route::post('/addnewlibrary', [CourseLibraryController::class, 'store'])->name('
 
 Route::get('/viewlibrary/{library}', [CourseLibraryController::class, 'show'])->name('viewlibrary');
 
+Route::post('/viewlibrary/{library}/add-course', [CourseLibraryController::class, 'addcourse'])->name('addcoursetolibrary');
+
+Route::get('/viewlibrary/{library}/delete-course-{course}', [CourseLibraryController::class, 'deletecourse'])->name('deletecoursefromlibrary');
+
+Route::get('/editlibrary/{library}', [CourseLibraryController::class, 'edit'])->name('editlibrary');
+
+Route::get('/deletelibrary/{library}', [CourseLibraryController::class, 'delete'])->name('deletelibrary');
+
+Route::put('/editlibrary/{library}', [CourseLibraryController::class, 'update'])->name('librarychanges');
 
 /*
 |--------------------------------------------------------------------------
@@ -246,8 +259,16 @@ Route::get('/pending-courses', [AdminController::class, 'pending'])->name('pendi
 
 Route::get('/course-details/{course_id}', [AdminController::class, 'coursedetails'])->name('admin_coursedetails');
 
+Route::get('/course-details/{course_id}/approve', [AdminController::class, 'approve'])->name('approvecourse');
+
 Route::get('/educator-list', [AdminController::class, 'educators'])->name('educatorlist');
 
 Route::get('/edit-educator/{user_id}', [AdminController::class, 'editeducator'])->name('editeducator');
 
 Route::get('/student-list', [AdminController::class, 'students'])->name('studentlist');
+
+Route::get('/edit-student/{user_id}', [AdminController::class, 'editstudent'])->name('editstudent');
+
+Route::get('/edit-user/{user_id}', [AdminController::class, 'edituser'])->name('edituser');
+
+Route::put('/save-user-changes/{user_id}', [AdminController::class, 'saveuser'])->name('admin_saveprofile');

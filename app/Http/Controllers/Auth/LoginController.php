@@ -74,12 +74,12 @@ class LoginController extends Controller
 
     public function logout(Request $request) {
         
-        if (!auth()->user()->tokens()) {
-            dd(session()->all());
+        if (auth()->user()) {
+            $request->user()->tokens()->delete();
+            Session::flush();
+            auth()->logout();
         }
-        auth()->user()->tokens()->delete();
-        Session::flush();
-        auth()->logout();
+        
         
         return redirect()->route('home');
     }

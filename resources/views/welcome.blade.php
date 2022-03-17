@@ -10,37 +10,27 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100">
-    <div class="mt-40 place-content-center">
-        <p class="text-6xl text-center mb-10">MicroLearn</p>
-        <div class="grid grid-rows-3 grid-cols-7 gap-2">
-            <div class=" col-start-3 col-end-4 h-80 bg-gray-300 text-center float-left p-5 ml-3 rounded-lg">
-                <div class="text-4xl mb-3">Educator</div>
-                <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded my-10" onclick="window.location.href='{{url('educatorregister')}}'">
-                        Register
+<body class="h-screen">
+    
+    <div class="h-full bg-gradient-to-tl from-green-400 to-blue-200 w-full py-16 px-4">
+        <div class="flex flex-col h-full items-center justify-center">
+           <img class="h-64 w-64" src="{{asset('public/54a71fdd2b6645b694cae74f8c22c66a.png')}}" alt="logo">
+
+            <div class="bg-white shadow rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-16">
+                <p tabindex="0" class="focus:outline-none text-center text-2xl font-extrabold leading-6 text-gray-800">Login to your account</p>
+                
+                <button onclick="location.href='{{route('educatorlogin')}}'" aria-label="Continue with google" role="button" class="hover:text-white hover:bg-blue-400 text-xl font-medium hover:border-blue-400 text-gray-700 transition duration-200 text-center focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-4">
+                   
+                    Login as Educator
                 </button>
-                </div>
-                <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded" onclick="window.location.href='{{route('educatorlogin')}}'">
-                        Login
+                <button onclick="location.href='{{route('studentlogin')}}'" aria-label="Continue with github" role="button" class="hover:text-white hover:bg-blue-400 text-xl font-medium hover:border-blue-400 text-gray-700 transition duration-200 text-center focus:outline-none  focus:ring-2 focus:ring-offset-1 focus:ring-gray-700 py-3.5 px-4 border rounded-lg border-gray-700 flex items-center w-full mt-4">
+                                             
+                    Login as Student
                 </button>
-                </div>
-            </div>
-            <div class="flex-auto col-start-5 col-end-6 bg-gray-300 text-center float-left p-5 ml-3 rounded-lg">
-                <div class="text-4xl mb-3">Learner</div>
-                <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded my-10" onclick="window.location.href='{{route('studentregister')}}'">
-                        Register
-                </button>
-                </div>
-                <div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white text-2xl p-3 w-full font-bold py-2 px-4 rounded" onclick="window.location.href='{{route('studentlogin')}}'">
-                        Login
-                </button>
-                </div>
+                
             </div>
         </div>
     </div>
+    
 </body>
 </html>
