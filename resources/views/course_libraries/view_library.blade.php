@@ -11,7 +11,11 @@
         <div class="shadow sm:rounded-md sm:overflow-hidden">
             <div class="md:grid md:grid-cols-2  px-4 py-5 bg-white sm:p-6">
                 <div class="md:col-span-1">
-                    <span class=" text-2xl font-semibold text-gray-700">{{$library->name}}</span>
+                    <span class=" text-2xl font-semibold text-gray-700">{{$library->name}}
+                        <div class="flex font-sans font-normal text-base">
+                            {{$library->description}}
+                        </div>
+                    </span>
                 </div>
                 <div class="md:col-span-1 text-right">
                     <button onclick="location.href='{{route('editlibrary', $library)}}'" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 focus:bg-gray-400 hover:bg-gray-400 focus:text-white hover:text-white font-normal bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-indigo-600 focus:outline-none transition duration-150 

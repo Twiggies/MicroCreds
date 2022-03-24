@@ -67,12 +67,12 @@
             </div>
   
             <div>
-              <h3 class="text-2xl font-semibold">My Social Media</h3>
+              <h3 class="text-2xl font-semibold">My Linkedin</h3>
               <hr>
             </div>
   
             <div class="form-item">
-              <label class="text-xl ">LinkedIn</label>
+              <label class="text-xl ">Linkedin</label>
               <input type="text" value="{{$profile->linkedin}}" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " disabled>
             </div>
   

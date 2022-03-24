@@ -61,7 +61,7 @@
             </div>
   
             <div>
-              <h3 class="text-2xl font-semibold">My Social Media</h3>
+              <h3 class="text-2xl font-semibold">My Linkedin</h3>
               <hr>
             </div>
   

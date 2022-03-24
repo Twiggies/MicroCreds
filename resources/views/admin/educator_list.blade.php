@@ -4,6 +4,8 @@
     <!-- component -->
 <div class="text-gray-900 bg-white p-4 mb-10">
     <div class="pt-2 relative mx-auto text-gray-600">
+        <form action="{{route('educatorlist')}}" method="get" role="search">
+        
         <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
           type="search" name="search" placeholder="Search">
     
@@ -11,7 +13,7 @@
         <button type="submit" class="mt-4 ml-4 bg-blue-500 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700">
           Search
         </button>
-        
+        </form>
     </div>
 </div>
 

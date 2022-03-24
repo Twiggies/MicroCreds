@@ -96,6 +96,10 @@ Route::get('/editcourse/{id}',[CourseController::class, 'editCourse'])->name('ed
 Route::put('/editcourse/{id}', [CourseController::class, 'updateCourse'])->name('updatecourse');
 
 Route::put('/course-pending/{id}', [CourseController::class, 'setPending'])->name('publishcourse');
+
+Route::put('/course-archive/{id}', [CourseController::class, 'setArchive'])->name('archivecourse');
+
+Route::get('/course-delete/{id}', [CourseController::class, 'deleteCourse'])->name('deletecourse');
 });
 
 Route::get('/browsecourses', [CourseController::class, 'browse'])->name('browsecourses');
@@ -124,6 +128,8 @@ Route::middleware('course_access')->group(function () {
 
     Route::get('/course/{id}/editmodule/{moduleid}', [ModuleController::class, 'edit'])->name('editmodule');
 
+    Route::get('/course/{id}/deletemodule/{moduleid}', [ModuleController::class, 'delete'])->name('deletemodule');
+
     Route::put('/course/{id}/editmodule/{moduleid}', [ModuleController::class, 'update'])->name('updatemodule');
 });
 /*
@@ -139,6 +145,8 @@ Route::middleware('course_access')->group(function () {
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-edit', [LessonController::class, 'edit'])->name('editlesson');
 
     Route::put('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-edit', [LessonController::class, 'store'])->name('updatelesson');
+
+    Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}-delete', [LessonController::class, 'delete'])->name('deletelesson');
 
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}', [LessonController::class, 'index'])->name('viewlesson');
 

@@ -3,10 +3,13 @@
 @section('content')
 <div class="container mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 pt-6 gap-8">
     <div >
-    <ul class="gap-5">
+    <ul class="gap-5 flex">
         <li><button onclick="location.href='{{route('viewlesson', [$id,$moduleid,$lessonid])}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to lesson</button></li>
         <li><button onclick="location.href='{{route('viewcourse', $id)}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to course dashboard</button></li>
     </ul>
+    </div>
+    <div>
+        <h1 class="font-medium text-4xl text-indigo-900">Quiz</h1>
     </div>
     
     <!-- Remove class [ h-24 ] when adding a card block -->

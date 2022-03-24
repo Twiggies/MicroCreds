@@ -60,7 +60,7 @@
                     Browse Courses
                 </p>
                   <p class="text-base text-body-color leading-loose mb-1">
-                     All of your courses in one place. You may create new courses or manage your existing courses and lessons.
+                     Discover and enroll new courses
                   </p>
                   
                </div>
@@ -122,7 +122,7 @@
                     Enrolled Courses
                 </p>
                   <p class="text-base text-body-color leading-loose mb-1">
-                     A library for you to upload any of your extra teaching materials.
+                     All of your enrolled courses.
                   </p>
                   
                </div>
@@ -144,7 +144,7 @@
                   transition
                   "
                   >
-               Go to your materials
+               Go to your courses
                </a>
             </div>
                
@@ -184,7 +184,7 @@
                     Your Earned Credentials
                 </p>
                   <p class="text-base text-body-color leading-loose mb-1">
-                     A feature for you to create libraries that could categorize several courses together.
+                     All of your earned credentials from completed courses.
                   </p>
                   
                </div>
@@ -206,7 +206,7 @@
                   transition
                   "
                   >
-               Go to your courses
+               Go to your credentials
                </a>
             </div>
                

@@ -238,7 +238,7 @@
                 url: "{{route('updatequiz', [$id, $moduleid, $lessonid])}}",
                 success: function(response) {
                     alert(response);
-                    location.reload();
+                    window.location = "{{route('viewlesson', [$id, $moduleid, $lessonid])}}";
                 },
                 error: (error) => {
                      console.log(JSON.stringify(error));

@@ -27,15 +27,12 @@
                     <div class="p-4">
                         <div class="flex items-center">
                             <h2 tabindex="0" class="focus:outline-none text-lg font-semibold">{{$course->name}}</h2>
-                            <p tabindex="0" class="focus:outline-none text-xs text-gray-600 pl-5">4 days ago</p>
+                            
                         </div>
                         <p tabindex="0" class="focus:outline-none text-xs text-gray-600 mt-2">{{$course->description}}</p>
                         <div class="flex mt-4">
                             <div>
-                                <p tabindex="0" class="focus:outline-none text-xs text-gray-600 px-2 bg-gray-200 py-1">Duration</p>
-                            </div>
-                            <div class="pl-2">
-                                <p tabindex="0" class="focus:outline-none text-xs text-gray-600 px-2 bg-gray-200 py-1">{{$course->duration}}</p>
+                                <p tabindex="0" class="focus:outline-none text-gray-600 px-2 text-lg py-1">Duration: <p tabindex="0" class="focus:outline-none text-md text-gray-600 px-2 bg-gray-200 py-1">{{$course->duration}}</p></p>
                             </div>
                         </div>
                         <div class="flex items-center justify-between py-4">

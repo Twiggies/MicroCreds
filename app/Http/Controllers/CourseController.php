@@ -23,7 +23,7 @@ class CourseController extends Controller
 
     public function viewCourses() {
         $user = Auth::user();
-        if ($data = $user->courses()->paginate(5)) {
+        if ($data = $user->courses()->paginate(10)) {
         return view('courses.created_courses', compact('data'));
         }
         else {
@@ -74,7 +74,7 @@ class CourseController extends Controller
             $extension = $image->getClientOriginalExtension();
             $image_name = uniqid().'.'.$extension;
             $path = $request->file('image')->storeAs($destination_path, $image_name);
-            $request->user()->courses()->create([
+            $course = $request->user()->courses()->create([
                     'name' => $request->coursename,
                     'description' => $request->description,
                     'duration' => $request->duration,
@@ -84,14 +84,14 @@ class CourseController extends Controller
         }
 
         else {
-             $request->user()->courses()->create([
+            $course = $request->user()->courses()->create([
             'name' => $request->coursename,
             'description' => $request->description,
             'duration' => $request->duration,
             'status' => 'inactive',
             ]);
         }
-        return redirect()->route('createdcourses');
+        return $this->viewCourse($course->id);
     }
 
     public function editCourse($id) {
@@ -127,6 +127,20 @@ class CourseController extends Controller
         $request->session()->flash('message', 'Your course is now pending approval from admins.');
         $request->session()->flash('message-type', 'bg-green-400');
         return redirect()->route('viewcourse', $request->id);
+    }
+
+    public function setArchive(Request $request) {
+        $course = Course::find($request->id);
+        $course->status = 'archived';
+        $course->update();
+        $request->session()->flash('message', "Your course is now archived and won't accept anymore enrollment until republish.");
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->route('viewcourse', $request->id);
+    }
+
+    public function deleteCourse(Request $request) {
+        Course::find($request->id)->delete();
+        return redirect()->route('createdcourses');
     }
 
     public function viewCourse($id) {

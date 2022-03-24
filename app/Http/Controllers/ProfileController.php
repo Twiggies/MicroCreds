@@ -12,7 +12,8 @@ class ProfileController extends Controller
     //
     public function index() {
         $user = Auth::user();
-        if (!$profile = Profile::find($user->id)) {
+        $profile = Profile::where('user_id',$user->id)->first();
+        if ($profile == null) {
             $profile = Profile::create([
                 'user_id' => $user->id
             ]);

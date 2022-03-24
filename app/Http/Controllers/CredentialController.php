@@ -58,8 +58,8 @@ class CredentialController extends Controller
         $author_id = $course->user_id;
         $author = User::find($author_id);
         $name = ucfirst($user->firstname).' '.ucfirst($user->lastname);
-        
         $credential = Credential::where('course_id', $course_id)->first();
+        if ($credential != null) {
         $institute = $credential->institute_name;
         $educator = ucfirst($author->firstname).' '.ucfirst($author->lastname);
         $position = $credential->educator_title;
@@ -79,6 +79,7 @@ class CredentialController extends Controller
 
         //return response()->file($outputFile);
         return redirect()->back();
+        }
     }
 
     public function createPDF($file, $outputFile, $name, $institute, $educator, $position, $course) {

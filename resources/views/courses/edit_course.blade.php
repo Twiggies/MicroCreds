@@ -9,8 +9,8 @@
             @method('PUT')
             <div>
                 <span>Course Name</span>
-                    <textarea name="coursename" id="coursename"
-                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('coursename') border-red-500 @enderror" value="">{{$course->name}}</textarea>
+                    <input type="text" name="coursename" id="coursename"
+                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('coursename') border-red-500 @enderror" value="{{$course->name}}">
                     @error('coursename')
                         <div class="text-red-500 mt-2 text-sm text-left">
                             {{ $message }}
@@ -60,10 +60,18 @@
                         @enderror
             </div>
             <div class="my-4 text-right">
+            @if ($course->status != 'published')
             <button formaction='{{route('publishcourse', ['id' => $course->id])}}'
                 class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">Publish</button>
+            @else 
+            <button formaction='{{route('archivecourse', ['id' => $course->id])}}'
+                class="bg-blue-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-blue-700 transition duration-300">Archive</button>
+            @endif
+            
             </div>
-            <div class="my-4 text-right">
+            <div class="relative my-4 text-right">
+                <button type="button" onclick="modalHandler(true)"
+                    class="absolute left-0 bg-red-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-red-700 transition duration-300">Delete</button>
                 <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
                 <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded hover:bg-green-500 transition duration-300  font-large w-auto">
                     Update
@@ -73,4 +81,57 @@
         </div>
     </div>
 </div>
+
+<div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-y-auto" id="modal">
+    <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+        <div class="relative py-8 px-8 md:px-16 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded border border-gray-400">
+            
+            <div class="w-full flex justify-center text-green-400 mb-4">
+                <img width="56" height="56" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Warning_sign_font_awesome-red.svg" alt="icon"/>
+                
+            </div>
+            <h1 tabindex="0" class="focus:outline-none text-center text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight mb-4">Alert!</h1>
+            <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You're about to delete this course and this action cannot be undone. Are you sure?</p>
+            <div class="flex items-center justify-between w-full">
+                <button type="button" onclick="modalHandler()" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-gray-600 bg-gray-400 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Cancel</button>
+                <button type="button" onclick="location.href='{{route('deletecourse', $course->id)}}'" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Yes</button>
+            </div>
+            
+        </div>
+    </div>
+</div>
+@endsection
+
+@section('scripts')
+    <script>
+        let modal = document.getElementById("modal");
+        function modalHandler(val) {
+            if (val) {
+                fadeIn(modal);
+            } else {
+                fadeOut(modal);
+            }
+        }
+        function fadeOut(el) {
+            el.style.opacity = 1;
+            (function fade() {
+                if ((el.style.opacity -= 0.1) < 0) {
+                    el.style.display = "none";
+                } else {
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+        function fadeIn(el, display) {
+            el.style.opacity = 0;
+            el.style.display = display || "flex";
+            (function fade() {
+                let val = parseFloat(el.style.opacity);
+                if (!((val += 0.2) > 1)) {
+                    el.style.opacity = val;
+                    requestAnimationFrame(fade);
+                }
+            })();
+        }
+    </script>
 @endsection

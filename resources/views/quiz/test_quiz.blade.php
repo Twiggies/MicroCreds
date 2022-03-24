@@ -2,19 +2,21 @@
 
 @section('content')
 <div class="container mx-auto grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-1 pt-6 gap-8">
-    <div >
-    <ul class="gap-5">
+    <div>
+    <ul class="gap-5 flex">
         <li><button onclick="location.href='{{route('viewlesson', [$id,$moduleid,$lessonid])}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to lesson</button></li>
         <li><button onclick="location.href='{{route('viewcourse', $id)}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Go back to course dashboard</button></li>
         <li><button onclick="location.href='{{route('managequiz', [$id, $moduleid,$lessonid])}}'" class="my-2 bg-white transition duration-150 ease-in-out font-semibold hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-4 py-2  focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Edit Quiz</button></li>
     </ul>
     </div>
-    
+    <div>
+        <h1 class="font-medium text-4xl text-indigo-900">Quiz</h1>
+    </div>
     <!-- Remove class [ h-24 ] when adding a card block -->
     <!-- Remove class [ border-gray-300  dark:border-gray-700 border-dashed border-2 ] to remove dotted border -->
     
     @foreach ($quizzes as $quiz)
-    <div id="question{{$quiz->id}}" class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 px-3 py-2">
+    <div id="question{{$quiz->id}}" class="rounded border-gray-500 dark:border-gray-700 border-dashed border-2 px-3 py-2">
         <h1 tabindex="0"  class="focus:outline-none text-xl font-medium pr-2 leading-5 text-gray-800">{{$quiz->question}}</h1>
             @foreach ($quiz->options as $option)
             <label for="{{$option->id}}" class="block mt-4 border border-gray-300 rounded-lg py-2 px-6 text-lg hover: cursor-pointer hover:bg-white" >
@@ -47,15 +49,7 @@
     
     
     
-    <!-- Remove class [ h-24 ] when adding a card block -->
-    <!-- Remove class [ border-gray-300  dark:border-gray-700 border-dashed border-2 ] to remove dotted border -->
-    <div class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-24"></div>
-    <!-- Remove class [ h-24 ] when adding a card block -->
-    <!-- Remove class [ border-gray-300  dark:border-gray-700 border-dashed border-2 ] to remove dotted border -->
-    <div class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-24"></div>
-    <!-- Remove class [ h-24 ] when adding a card block -->
-    <!-- Remove class [ border-gray-300  dark:border-gray-700 border-dashed border-2 ] to remove dotted border -->
-    <div class="rounded border-gray-300 dark:border-gray-700 border-dashed border-2 h-24"></div>
+    
 
     
     

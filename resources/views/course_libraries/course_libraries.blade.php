@@ -13,12 +13,17 @@
         <div>
             @if ($libraries)
             @foreach ($libraries as $library)
-            <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">
+            <div 
+            class="relative shadow-md cursor-pointer
+            hover:bg-blue-500 transition duration-300 hover:text-white hover:border-blue-500 w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-800 border-1 font-mono text-2xl font-semibold">
+                
                 <a href="{{route('viewlibrary', $library)}}">{{$library->name}}</a>
-                <ul class="flex items-center">
-                    <a href="#">Edit</a>
-                </ul>
+                
+                <a class="mr-2 absolute right-24 px-2 hover:bg-white hover:text-black rounded-full"href="{{route('editlibrary', $library)}}">Edit</a>
+                <a class="mr-2 absolute right-0 px-2 hover:bg-white hover:text-black rounded-full"href="{{route('deletelibrary', $library)}}">Delete</a>
+                
             </div>
+            
             @endforeach
             @else
             <div class="flex justify-between w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-600 border-2 font-mono text-2xl font-semibold">

@@ -62,13 +62,13 @@ class ModuleController extends Controller
             'description' => 'required'
         ]);
 
-        $request->user()->courses()->find($request->id)->modules()->create([
+        $module = $request->user()->courses()->find($request->id)->modules()->create([
             'name' => $request->modulename,
             'description' => $request->description,
             
         ]);
         
-        return redirect()->route('viewcourse', $request->id);
+        return redirect()->route('viewmodule', [$request->id, 'moduleid'=> $module->id]);
     }
 
     /**
@@ -91,7 +91,7 @@ class ModuleController extends Controller
     public function edit($id, $moduleid)
     {
         //
-        $module = Module::find($id);
+        $module = Module::find($moduleid);
         return view('modules.edit_module', compact('id', 'moduleid', 'module'));
     }
 
@@ -120,8 +120,11 @@ class ModuleController extends Controller
      * @param  \App\Models\Module  $module
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Module $module)
+    public function delete(Request $request) 
     {
         //
+        Module::find($request->moduleid)->delete();
+        $id = $request->id;
+        return redirect()->route('viewcourse', compact('id'));
     }
 }

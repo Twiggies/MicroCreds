@@ -8,12 +8,13 @@
          <ul class="flex items-right">
             <a class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700" href="{{route('managequiz', [$id, $moduleid,$lessonid])}}">Manage Quiz</a>
             <button onclick="modalHandler(true)" class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700">Attach Materials</button>
-         </ul>
+            <a onclick="deleteHandler(true)" class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer  focus:ring-indigo-700">Delete this page</a>
+        </ul>
     </div> 
     <form action="{{route('updatelesson', [$id, $moduleid, $lessonid])}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
-    <div>
+    <div class="px-6">
     
     
     <input type="text" name="lessonname" id="lessonname"
@@ -51,21 +52,8 @@
                     
                     <h1 class="text-left text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight ml-2">Attach Materials</h1>
                 </div>
-                <p class="mb-5 text-sm text-gray-600 dark:text-gray-400 text-left font-normal">Upload from your computer</p>
-                <div class="flex items-center justify-start w-full mb-8 border border-dashed border-indigo-700 rounded-lg p-3">
-                    <div class="cursor-pointer text-indigo-700 dark:text-indigo-600">
-                        <img class="dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/left_aligned_file_upload-svg3.svg" alt="icon"/>
-                       <img class="hidden dark:hidden" src="https://tuk-cdn.s3.amazonaws.com/can-uploader/left_aligned_file_upload-svg3dark.svg" alt="icon"/>
-                       
-                    </div>
-                    <p class="text-base font-normal tracking-normal text-gray-800 dark:text-gray-100 text-left ml-4">
-                        
-                        <a href="javascript:void(0)" class="cursor-pointer text-indigo-700 dark:text-indigo-600">Browse</a>
-                    </p>
-                </div>
-                <div class="flex justify-between items-center w-full"> 
-                    <p class="mb-5 text-md text-gray-600 dark:text-gray-400 text-left font-normal">OR</p>
-                </div>
+                
+                
                 <p class="mb-5 text-sm text-gray-600 dark:text-gray-400 text-left font-normal">Attach from your uploaded materials list</p>
                 <div class="flex justify-left">
                     <div class="mb-3 xl:w-96">
@@ -109,7 +97,24 @@
     </div>
     
   
-  
+    <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed inset-0 overflow-y-auto" id="deletemodal">
+        <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
+            <div class="relative py-8 px-8 md:px-16 bg-white dark:bg-gray-800 dark:border-gray-700 shadow-md rounded border border-gray-400">
+                
+                <div class="w-full flex justify-center text-green-400 mb-4">
+                    <img width="56" height="56" src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Warning_sign_font_awesome-red.svg" alt="icon"/>
+                    
+                </div>
+                <h1 tabindex="0" class="focus:outline-none text-center text-gray-800 dark:text-gray-100 font-lg font-bold tracking-normal leading-tight mb-4">Alert!</h1>
+                <p tabindex="0" class="focus:outline-none mb-5 text-sm text-gray-600 dark:text-gray-400 text-center font-normal">You're about to delete this lesson page and this action cannot be undone. Are you sure?</p>
+                <div class="flex items-center justify-between w-full">
+                    <button type="button" onclick="deleteHandler()" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-gray-600 bg-gray-400 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Cancel</button>
+                    <button type="button" onclick="location.href='{{route('deletelesson', [$id, $moduleid,$lessonid])}}'" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 focus:outline-none transition duration-150 ease-in-out hover:bg-indigo-600 bg-indigo-700 rounded text-white px-4 sm:px-8 py-2 text-xs sm:text-sm">Yes</button>
+                </div>
+                
+            </div>
+        </div>
+    </div>
 
 </div>
 </div>
@@ -120,57 +125,88 @@
     <script>
         let modal = document.getElementById("modal");
         function modalHandler(val) {
-    if (val) {
-        fadeIn(modal);
-    } else {
-        fadeOut(modal);
-    }
-}
-function fadeOut(el) {
-    el.style.opacity = 1;
-    (function fade() {
-        if ((el.style.opacity -= 0.1) < 0) {
-            el.style.display = "none";
+        if (val) {
+            fadeIn(modal);
         } else {
-            requestAnimationFrame(fade);
+            fadeOut(modal);
         }
-    })();
-}
-function fadeIn(el, display) {
-    el.style.opacity = 0;
-    el.style.display = display || "flex";
-    (function fade() {
-        let val = parseFloat(el.style.opacity);
-        if (!((val += 0.2) > 1)) {
-            el.style.opacity = val;
-            requestAnimationFrame(fade);
-        }
-    })();
-}
-
-function attach() {
-    
-    let selectedFile = $('#attach-form').find(":selected").val();
-    
-    $.ajaxSetup({
-            headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+    function fadeOut(el) {
+        el.style.opacity = 1;
+        (function fade() {
+            if ((el.style.opacity -= 0.1) < 0) {
+                el.style.display = "none";
+            } else {
+                requestAnimationFrame(fade);
             }
-            });
-    $.ajax({
-        type: "POST",
-        data: {selectedFile:JSON.stringify(selectedFile)},
-        url: "{{route('attachmaterials', $lessonid)}}",
+        })();
+    }
+    function fadeIn(el, display) {
+        el.style.opacity = 0;
+        el.style.display = display || "flex";
+        (function fade() {
+            let val = parseFloat(el.style.opacity);
+            if (!((val += 0.2) > 1)) {
+                el.style.opacity = val;
+                requestAnimationFrame(fade);
+            }
+        })();
+    }
+
+    function attach() {
         
-        success: function(response) {
-            location.reload();
-        },
-        error: function(error) {
-            console.log(JSON.stringify(error));
+        let selectedFile = $('#attach-form').find(":selected").val();
+        
+        $.ajaxSetup({
+                headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+                });
+        $.ajax({
+            type: "POST",
+            data: {selectedFile:JSON.stringify(selectedFile)},
+            url: "{{route('attachmaterials', $lessonid)}}",
+            
+            success: function(response) {
+                location.reload();
+            },
+            error: function(error) {
+                console.log(JSON.stringify(error));
+            }
+        });
+    }
+
+
+    </script>
+    <script>
+        let deletemodal = document.getElementById("deletemodal");
+        function deleteHandler(val) {
+        if (val) {
+            fadeIn(deletemodal);
+        } else {
+            fadeOut(deletemodal);
         }
-    });
-}
-
-
+    }
+    function fadeOut(el) {
+        el.style.opacity = 1;
+        (function fade() {
+            if ((el.style.opacity -= 0.1) < 0) {
+                el.style.display = "none";
+            } else {
+                requestAnimationFrame(fade);
+            }
+        })();
+    }
+    function fadeIn(el, display) {
+        el.style.opacity = 0;
+        el.style.display = display || "flex";
+        (function fade() {
+            let val = parseFloat(el.style.opacity);
+            if (!((val += 0.2) > 1)) {
+                el.style.opacity = val;
+                requestAnimationFrame(fade);
+            }
+        })();
+    }
     </script>
 @endsection

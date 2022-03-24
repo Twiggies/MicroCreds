@@ -102,5 +102,12 @@ class LessonController extends Controller
         return view('lessons.edit_lesson', compact('id', 'moduleid','lessonid', 'lesson', 'materials', 'attached'));
     }
 
+    public function delete(Request $request) {
+        Lesson::find($request->lessonid)->delete();
+        $id = $request->id;
+        $moduleid = $request->moduleid;
+        return redirect()->route('viewmodule', compact('id','moduleid'));
+    }
+
     
 }

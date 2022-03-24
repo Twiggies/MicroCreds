@@ -55,17 +55,27 @@ class AdminController extends Controller
     }
 
     public function admins(Request $request) {
+        
         $admins = Admin::all();
+        if ($request->has('search')) {
+            $admins = Admin::where('username', 'LIKE', '%'.$request->search.'%')->get();
+        }
         return view('admin.admin_list', compact('admins'));
     }
 
     public function educators(Request $request) {
         $educators = User::where('type', 'educator')->get();
+        if ($request->has('search')) {
+            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')->orWhere('firstname', 'LIKE', '%'.$request->search.'%')->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','educator')->get();
+        }
         return view('admin.educator_list', compact('educators'));
     }
 
     public function students(Request $request) {
         $students = User::where('type', 'student')->get();
+        if ($request->has('search')) {
+            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')->orWhere('firstname', 'LIKE', '%'.$request->search.'%')->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','student')->get();
+        }
         return view('admin.student_list', compact('students'));
     }
 
@@ -132,6 +142,9 @@ class AdminController extends Controller
 
     public function pending(Request $request) {
         $courses = Course::where('status', 'pending')->get();
+        if ($request->has('search')) {
+            $courses = Course::where('status', 'pending')->where('name', 'LIKE', '%'.$request->search.'%')->get();
+        }
         return view('admin.course_list', compact('courses'));
     }
 

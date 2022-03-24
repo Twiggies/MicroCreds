@@ -2,6 +2,12 @@
 
 @section('content')
 <!-- component -->
+@if ($user->type == 'educator')
+<a onclick="location.href='{{route('educatorlist')}}'" class="cursor-pointer hover:text-purple-700 text-2xl underline">Go Back to Educator List</a>
+@else 
+<a onclick="location.href='{{route('studentlist')}}'" class="cursor-pointer hover:text-purple-700 text-2xl underline">Go Back to Student List</a>
+@endif
+
 <div class="w-full relative mt-4 shadow-2xl rounded my-24 overflow-visible">
   @if (session('errormessage'))
     <div class="{{session('error-message-type')}} p-3 rounded-lg mb-3">
@@ -13,7 +19,7 @@
         {{session('message')}}
     </div>
     @endif
-    <div class="top h-64 w-full bg-blue-600 overflow-visible relative" >
+    <div class="top h-64 w-full overflow-visible relative" >
         
       <div class="flex flex-col justify-center items-center relative h-full bg-black bg-opacity-50 text-white">
         @if ($profile)
@@ -82,7 +88,7 @@
             
 
             @if ($profile)
-            @if ($user->user_type == "educator")
+            @if ($user->type == "educator")
             <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
                 <div class="form-item w-1/3">
                     <label class="text-xl">Institute</label>
@@ -96,9 +102,7 @@
   
             <div class="form-item w-full">
               <label class="text-xl ">Biography</label>
-              <textarea cols="30" name="about" id="about" rows="10" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " >
-              {{$profile->about}}
-              </textarea>
+              <textarea name="about" id="about" rows="10" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200">{{$profile->about}}</textarea>
             </div>
   
             

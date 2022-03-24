@@ -12,7 +12,7 @@
             tabindex="0" class="focus:outline-none w-auto h-48" />
             @else 
             <img alt="course stock image" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380" 
-            tabindex="0" class="focus:outline-none w-full h-96" />
+            tabindex="0" class="focus:outline-none w-full h-48" />
             @endif
             </div>
         </div>

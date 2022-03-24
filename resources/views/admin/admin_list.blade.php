@@ -4,16 +4,18 @@
     <!-- component -->
 <div class="text-gray-900 bg-white p-4 mb-10">
     <div class="pt-2 relative mx-auto text-gray-600">
+        <form action="{{route('adminlist')}}" method="get" role="search">
         <input class="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
           type="search" name="search" placeholder="Search">
-    
-        
         <button type="submit" class="mt-4 ml-4 bg-blue-500 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700">
           Search
         </button>
-        <button onclick="popuphandler(true)" class="absolute right-0 mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700">
+        
+        
+        <button type="button" onclick="popuphandler(true)" class="absolute right-0 mt-4 bg-blue-500 text-white px-4 py-2 rounded-md text-1xl font-medium hover:bg-blue-700">
             Add New Admin
         </button>
+    </form>
     </div>
 </div>
 
@@ -101,7 +103,7 @@
                     </form>
                 <div class="flex items-center justify-between mt-9">
                         <button role="button" aria-label="close button" onclick="popuphandler(false)" class="focus:ring-2 focus:ring-offset-2 focus:bg-gray-600 focus:ring-gray-600 focus:outline-none px-6 py-3 bg-gray-600 hover:bg-gray-500 shadow rounded text-sm text-white">Cancel</button>
-                        <button aria-label="add user" role="button" id="add_admin" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 focus:outline-none px-6 py-3 bg-indigo-700 hover:bg-opacity-80 shadow rounded text-sm text-white">Add User</button>
+                        <button aria-label="add user" role="button" id="add_admin" class="focus:ring-2 focus:ring-offset-2 focus:ring-indigo-800 focus:outline-none px-6 py-3 bg-indigo-700 hover:bg-opacity-80 shadow rounded text-sm text-white">Add Admin</button>
                     </div>
                 </div>
             </div>

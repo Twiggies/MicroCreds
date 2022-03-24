@@ -36,7 +36,7 @@
               </td>
               
               <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                <a href="{{route('downloadFile', [$material->file])}}" class="text-indigo-600 hover:text-indigo-900">Download</a>
+                <a href="{{route('downloadFile', [$material->file])}}" class="text-indigo-600 hover:text-indigo-900 mx-2">Download</a>
                 <a href="{{route('deleteFile', [$material->file, $material->id])}}" class="text-red-500 hover:text-red-900">Delete</a>
               </td>
               
