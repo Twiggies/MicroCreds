@@ -32,7 +32,7 @@
         <textarea id="tinymce" name="content">{!!$lesson->content!!}</textarea>
             <div>
                 <div class="my-4 text-right">
-                    <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
+                    <a href="javascript:history.back()" class="btn btn-default underline">Cancel</a>
                     <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded text-lg w-auto">
                         Save
                     </button>
@@ -43,7 +43,7 @@
     </form>
     
 
-    <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
+    <div class="hidden py-12 bg-gray-700 dark:bg-gray-900 transition duration-150 ease-in-out z-10 fixed  top-0 right-0 bottom-0 left-0" id="modal">
         <div role="alert" class="container mx-auto w-11/12 md:w-2/3 max-w-lg">
             <div class="relative p-4 md:p-8 bg-white dark:bg-gray-800 shadow-md rounded border border-gray-400">
                 <div aria-label="upload icon" role="img" class="w-full flex items-center justify-start text-gray-600 dark:text-gray-400 mb-5">

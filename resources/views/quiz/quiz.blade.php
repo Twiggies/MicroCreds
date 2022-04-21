@@ -146,7 +146,6 @@
                             break;
                         
                         case false:
-                            alert(response.response);
                             $("#"+answer_id).parent().closest('label').addClass('bg-red-300 hover:bg-red-400');
                             var correct_answers = response.correct_answers;
 
@@ -227,6 +226,7 @@
                 url: "{{route('completequiz', [$id, $moduleid, $lessonid])}}",
                 success: function(response) {
                     modalHandler(false);
+                    window.location = "{{route('checkforcompletecourse', [$id, $moduleid, $lessonid])}}";
                 },
                 error: function(error) {
                     console.log(error);

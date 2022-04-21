@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Profile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -47,7 +48,7 @@ class ProfileController extends Controller
         );
         
         $user = Auth::user();
-        $profile = Profile::find($user->id);
+        $profile = Profile::where('user_id',$user->id)->first();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
         $profile->about = $request->about;
@@ -68,5 +69,14 @@ class ProfileController extends Controller
         $profile->update();
 
         return redirect()->route('myprofile');
+    }
+
+    public function view(Request $request) {
+        $profile = Profile::where('user_id',$request->user_id)->first();
+        $user = User::where('id', $request->user_id)->first();
+        if (auth()->user()->type == "educator")
+        return view('profiles.view_profile', compact('profile', 'user'));
+
+        return view('profiles.student_view_profile', compact('profile','user'));
     }
 }

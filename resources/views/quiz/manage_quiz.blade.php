@@ -27,12 +27,12 @@
         
         
         <div class="w-9/12">
-            <a href="#" class="addNewQues">+Add new question</a>
+            <a href="#" class="hover:text-indigo-700 underline text-lg addNewQues">+Add new question</a>
         </div>
         <div>
             <div class="w-11/12 my-4 text-right">
-                <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
-                <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded font-large w-auto">
+                <a href="javascript:history.back()" class="btn btn-default underline">Cancel</a>
+                <button type="submit" class="bg-green-400 hover:bg-green-500 text-white font-bold p-2 rounded font-large w-auto">
                     Save
                 </button>
             </div>
@@ -63,8 +63,8 @@
                     });
                     
                     $('#managequizarea').append(
-                    '<div class="shadow-lg questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + (i+1) +'>' +
-                    '<div class="flex text-right"><span id='+ (i+1) +' class="deleteQues cursor-pointer p-3 h-auto">&times;</span></div>'+
+                    '<div class="shadow-lg questionbody flex bg-gray-300 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + (i+1) +'>' +
+                    '<div class="flex flex-col text-right"><span id='+ (i+1) +' class="deleteQues hover:bg-white transition duration-75 rounded-lg mx-2 text-lg cursor-pointer px-2 h-auto">&times;</span></div>'+
                     '<table id=question-'+(i+1)+'>'+
                     '<thead>'+
                     '<tr>' +
@@ -79,7 +79,7 @@
                     );
                     $('#manageoptionsarea-'+ (i+1) ).append(
                     '<div class="w-9/12">' +
-                        '<a href="#" id=' + (i+1) +  ' class="addNewChoice">+Add new choice</a>' +
+                        '<a href="#" id=' + (i+1) +  ' class="cursor-pointer hover:text-indigo-800 underline addNewChoice">+Add new choice</a>' +
                     '</div>'
                     );
 
@@ -104,7 +104,7 @@
                     }
        
                 }
-                console.log(questions);
+                
             }
         });
         
@@ -130,7 +130,7 @@
                             j -= questions[x].options.length;
                         }
                         questions[i-1].options[j-1].is_answer = !questions[i-1].options[j-1].is_answer;
-                        console.log(questions);
+                        
                     
                 });
                 
@@ -141,13 +141,13 @@
                         j -= questions[x].options.length;
                     }
                     questions[i-1].options[j-1].option = this.value;
-                    console.log(questions);
+                    
                 });
                 
                 $('body').on('change', '.question', function() {
                     var i = $(this).index('.question')+1;
                     questions[i-1].question = this.value;
-                    console.log(questions);
+                    
                 });
         function addNewQues() {
             questions.push({
@@ -159,8 +159,8 @@
             })
             var i = questions.length;
             $('#managequizarea').append(
-                '<div class="shadow-lg questionbody flex bg-gray-400 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
-                '<div class="flex text-right"><span id='+ i +' class="deleteQues cursor-pointer p-3">&times;</span></div>'+
+                '<div class="shadow-lg questionbody flex bg-gray-300 border-3 border-black p-2 h-auto rounded-md mb-5" id=q' + i +'>' +
+                '<div class="flex flex-col text-right"><span id='+ i +' class="deleteQues hover:bg-white transition duration-75 rounded-lg mx-2 text-lg cursor-pointer px-2 w-autos">&times;</span></div>'+
                 '<table id=question-'+i+'>'+
                 '<thead>'+
                 '<tr>' +
@@ -177,7 +177,7 @@
             );
                 $('#manageoptionsarea-'+ i ).append(
                     '<div class="w-9/12">' +
-                        '<a id=' + i +  ' class="cursor-pointer addNewChoice">+Add new choice</a>' +
+                        '<a id=' + i +  ' class="cursor-pointer hover:text-indigo-800 underline addNewChoice">+Add new choice</a>' +
                     '</div>'
                     );
 
@@ -213,20 +213,33 @@
                         '</td>' +
                     '</tr>'
                 );
-            console.log(questions);
+            
         };
 
         function deleteQuestion() {
             var i = $(this).attr('id');
-            console.log(i);
             questions[i-1].is_removed = true;
             $('#q' + i).remove();
         };
         
 
         $('#quizform').submit(function(e) {
+            for (x = 0; x < questions.length; x++) {
+                if (questions[x].is_removed == true) {
+                    continue;
+                }
+                var has_answer = 0;
+                for (y = 0; y < questions[x].options.length; y++) {
+                    if (questions[x].options[y].is_answer == true || questions[x].options[y].is_answer == 1) {
+                        has_answer = 1;
+                    }
+                }
+                if (has_answer == 0) {
+                    alert('You did not select a correct choice for one of the questions.');
+                   return false;
+                }
+            }
             e.preventDefault();
-            console.log(JSON.stringify(questions));
             $.ajaxSetup({
             headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

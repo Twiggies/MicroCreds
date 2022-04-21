@@ -40,6 +40,9 @@
                 <div onclick="location.href='{{route('educatorregister')}}'"class="cursor-pointer my-3 text-left underline text-blue-500 hover:text-blue-600">
                     Don't have an account? Sign up here.
                 </div>
+                <div onclick="location.href='{{route('forgotpassword')}}'"class="cursor-pointer my-3 text-left underline text-blue-500 hover:text-blue-600">
+                    Forgot your password?
+                </div>
                 <div class="my-4 text-center">
                     <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white px-4 py-3 rounded rounded font-large w-auto">
                         Login

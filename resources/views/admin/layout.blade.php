@@ -56,10 +56,7 @@
                 Logout
             </a>
         </nav>
-        <a href="#" class="absolute w-full upgrade-btn bottom-0 active-nav-link text-white flex items-center justify-center py-4">
-            <i class="fas fa-arrow-circle-up mr-3"></i>
-            Upgrade to Pro!
-        </a>
+        
     </aside>
 
     <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
@@ -94,11 +91,11 @@
                 @yield('content')
             </main>
     
-            <footer class="w-full bg-white text-right p-4">
-                Built by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
-            </footer>
+            
         </div>
-        
+        <footer class="w-full bg-white text-right p-4">
+            Layout by <a target="_blank" href="https://davidgrzyb.com" class="underline">David Grzyb</a>.
+        </footer>
     </div>
 
     <!-- AlpineJS -->

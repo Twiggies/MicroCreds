@@ -166,6 +166,15 @@ class CourseController extends Controller
         return view('courses.enrolled_courses', compact('enrolled'));
     }
 
-
+    public function students(Request $request, Course $course) {
+        $enrollments = Enrollment::where('course_id', $request->id)->get();
+        $course = Course::find($request->id);
+        $students = [];
+        foreach ($enrollments as $enroll) {
+            $student = User::find($enroll->user_id);
+            $students[] = $student;
+        }
+        return view('courses.students', compact('students', 'course'));
+    }
     
 }

@@ -19,11 +19,11 @@
                 </div>
                 <div class="md:col-span-1 text-right">
                     <button onclick="location.href='{{route('editlibrary', $library)}}'" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 focus:bg-gray-400 hover:bg-gray-400 focus:text-white hover:text-white font-normal bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-indigo-600 focus:outline-none transition duration-150 
-                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-sm">Edit</button>
+                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-xs">Edit</button>
                     <button onclick="modalHandler(true)" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 focus:bg-gray-400 hover:bg-gray-400 focus:text-white hover:text-white font-normal bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-indigo-600 focus:outline-none transition duration-150 
-                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-sm">Add course to library</button>
+                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-xs">Add course to library</button>
                     <button onclick="location.href='{{route('deletelibrary', $library)}}'" class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-400 focus:bg-gray-400 hover:bg-gray-400 focus:text-white hover:text-white font-normal bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-indigo-600 focus:outline-none transition duration-150 
-                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-sm">Delete</button>
+                    ease-in-out hover:bg-gray-300 rounded text-indigo-600 px-6 py-2 text-xs">Delete</button>
                 </div>
             </div>
             
@@ -33,11 +33,11 @@
 
 <div class="mt-5 md:grid md:grid-cols-8 md:gap-5">
     <div class="md:mt-0 md:col-span-6 md:col-start-3 ">
-        <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-mono text-2xl font-semibold">
+        <div class="w-8/12 bg-white p-3 mt-4 h-full rounded-lg border-2 font-sans text-2xl font-semibold">
             <div>
             @foreach ($added_courses as $added_course)
             <div class="border-2 relative shadow-md cursor-pointer
-            hover:bg-blue-500 transition duration-300 hover:text-white hover:border-blue-500 w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-800 border-1 font-mono text-2xl font-semibold">
+            hover:bg-blue-500 transition duration-300 hover:text-white hover:border-blue-500 w-8/13 bg-white p-3 mt-4 h-full rounded-lg border-gray-800 border-1 font-sans text-2xl font-semibold">
 
                 <a href="{{route('viewcourse', $added_course->id)}}">{{$added_course->name}}</a>
                 <a href="{{route('deletecoursefromlibrary', [$library, 'course' => $added_course->id])}}" class="mr-2 absolute right-0 px-2 hover:bg-white hover:text-black  rounded-full" href="">Delete</a> 

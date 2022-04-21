@@ -16,6 +16,11 @@
         <div class="flex flex-col h-full items-center justify-center">
            <img class="h-64 w-64" src="{{asset('public/54a71fdd2b6645b694cae74f8c22c66a.png')}}" alt="logo">
 
+           @if (session('message'))
+            <div class="font-semibold p-3 text-2xl rounded-lg my-3">
+                {{session('message')}}
+            </div>
+           @endif
             <div class="bg-white shadow rounded lg:w-1/3  md:w-1/2 w-full p-10 mt-16">
                 <p tabindex="0" class="focus:outline-none text-center text-2xl font-extrabold leading-6 text-gray-800">Login to your account</p>
                 

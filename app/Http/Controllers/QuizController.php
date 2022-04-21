@@ -84,6 +84,7 @@ class QuizController extends Controller
                 }
             }
             else if ($data->is_removed != true && !isset($data->id)) {
+                if ($data->question != "") {
                 $quiz = $lesson->quiz()->create([
                     'question' => $data->question
                 ]);
@@ -92,6 +93,7 @@ class QuizController extends Controller
                         'option' => $option->option,
                         'is_answer' => $option->is_answer
                     ]);
+                }
                 }
             }
             

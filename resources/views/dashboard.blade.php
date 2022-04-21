@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-wrap justify-center h-96">
-        <div class="w-10/12 bg-white p-6 rounded-lg font-mono text-2xl font-semibold">
+        <div class="w-10/12 bg-white p-6 rounded-lg font-sans text-2xl font-semibold shadow-sm">
             Welcome, {{ucfirst(auth()->user()->firstname)}}
         </div>
         <!-- component -->
@@ -11,6 +11,7 @@
 <!-- ====== Pricing Section Start -->
 <section
    class="
+   shadow-lg
    bg-white
    pt-10
    my-10
@@ -110,7 +111,7 @@
                   border-b border-[#F2F2F2]
                   "
                   >
-                  <img src="https://media.istockphoto.com/photos/school-picture-id1016131800?b=1&k=20&m=1016131800&s=612x612&w=0&h=GGIw22ciOn7UckwP6jTAkf44TUAW2XY8Ev8516W7gro=">
+                  <img src="https://media.istockphoto.com/photos/large-stack-of-files-documents-paperwork-on-desk-picture-id904268154?k=20&m=904268154&s=170667a&w=0&h=jkn4UvVyE49o1OkOx4pKo6Xw2RlQun4Q67vDmNrpH4E=">
                </p>
                <div class="py-10
                px-8
@@ -172,7 +173,7 @@
                   border-b border-[#F2F2F2]
                   "
                   >
-                  <img src="https://media.istockphoto.com/photos/school-picture-id1016131800?b=1&k=20&m=1016131800&s=612x612&w=0&h=GGIw22ciOn7UckwP6jTAkf44TUAW2XY8Ev8516W7gro=">
+                  <img src="https://media.istockphoto.com/photos/books-picture-id949118068?k=20&m=949118068&s=612x612&w=0&h=e8tiaCdluEA9IS_I7ytStcx--toLbovf3U74v-LfNAk=">
                </p>
                <div class="py-10
                px-8

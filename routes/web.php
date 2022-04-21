@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
@@ -41,6 +42,14 @@ Route::get('/add-new-admin', function() {
     return view('admin.addnewadmin');
 });
 
+Route::get('/forgot-password', [ForgotPasswordController::class, 'index'])->name('forgotpassword')->middleware('guest');
+
+Route::post('/forgot-password', [ForgotPasswordController::class, 'postForgot'])->name('forgotpassword.post');
+
+Route::get('/reset-password/{token}/{email}', [ForgotPasswordController::class, 'indexReset'])->name('resetpassword')->middleware('guest');
+
+Route::post('/reset-password', [ForgotPasswordController::class, 'postReset'])->name('resetpassword.post')->middleware('guest');
+
 Route::get('/student_dashboard', [StudentController::class, 'index'])->name('student_dashboard')->middleware('auth');
 
 Route::get('/profile', [ProfileController::class, 'index'])->name('myprofile')->middleware('auth');
@@ -48,6 +57,8 @@ Route::get('/profile', [ProfileController::class, 'index'])->name('myprofile')->
 Route::get('/editprofile', [ProfileController::class, 'edit'])->name('editprofile')->middleware('auth');
 
 Route::put('/editprofile', [ProfileController::class, 'update'])->name('saveprofile')->middleware('auth');
+
+Route::get('/view_profile/{user_id}', [ProfileController::class, 'view'])->name('viewprofile');
 /*
 |--------------------------------------------------------------------------
 | Route for Auth
@@ -55,19 +66,19 @@ Route::put('/editprofile', [ProfileController::class, 'update'])->name('saveprof
 | Routes for Authentication such as Register/Login 
 |
 */
-Route::get('/educatorregister', [RegisterController::class, 'index'])->name('educatorregister');
+Route::get('/educatorregister', [RegisterController::class, 'index'])->name('educatorregister')->middleware('guest');
 
 Route::post('/educatorregister', [RegisterController::class, 'store'])->name('educator_register_request');
 
 Route::get('/educatorlogin', function() {
     return view('auth.educator_login');
-})->name('educatorlogin');
+})->name('educatorlogin')->middleware('guest');
 
-Route::get('/studentregister', [RegisterController::class, 'student_index'])->name('studentregister');
+Route::get('/studentregister', [RegisterController::class, 'student_index'])->name('studentregister')->middleware('guest');
 
 Route::post('/studentregister', [RegisterController::class, 'studentreg'])->name('student_register_request');
 
-Route::get('/studentlogin', [LoginController::class,'student_index'])->name('studentlogin');
+Route::get('/studentlogin', [LoginController::class,'student_index'])->name('studentlogin')->middleware('guest');
 
 Route::post('/studentlogin', [LoginController::class,'student_login'])->name('student_login_request');
 
@@ -100,6 +111,8 @@ Route::put('/course-pending/{id}', [CourseController::class, 'setPending'])->nam
 Route::put('/course-archive/{id}', [CourseController::class, 'setArchive'])->name('archivecourse');
 
 Route::get('/course-delete/{id}', [CourseController::class, 'deleteCourse'])->name('deletecourse');
+
+Route::get('/course/{id}/students', [CourseController::class, 'students'])->name('students');
 });
 
 Route::get('/browsecourses', [CourseController::class, 'browse'])->name('browsecourses');
@@ -153,6 +166,8 @@ Route::middleware('course_access')->group(function () {
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/complete', [ProgressController::class, 'store'])->name('completelesson');
     
     Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/completequiz', [ProgressController::class, 'complete'])->name('completequiz');
+
+    Route::get('/course/{id}/viewmodule={moduleid}/lesson/{lessonid}/check-complete', [ProgressController::class, 'check'])->name('checkforcompletecourse');
 });
 
 

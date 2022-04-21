@@ -71,11 +71,23 @@ class ProgressController extends Controller
     }
 
     public function complete(Request $request) {
-        $progress = Progress::where('lesson_id', $request->lessonid)->first();
+        $user = auth()->user();
+        $progress = Progress::where('user_id',$user->id)->where('lesson_id', $request->lessonid)->first();
         $progress->quiz_completed = 1;
         $progress->update();
-
         return response('Successful');
+    }
+
+    public function check(Request $request) {
+        $course = Course::find($request->id); 
+        foreach ($course->modules as $module) {
+            foreach ($module->lessons as $lesson) {
+            if (!Auth::user()->progress()->where('lesson_id' , $lesson->id)->where('quiz_completed',1)->first()) {
+                return redirect()->back();
+            }
+        }
+        }
+        return redirect()->route('generate', ['id' => $request->id]);
     }
 
     /**

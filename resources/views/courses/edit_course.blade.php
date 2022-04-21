@@ -72,7 +72,7 @@
             <div class="relative my-4 text-right">
                 <button type="button" onclick="modalHandler(true)"
                     class="absolute left-0 bg-red-500 text-white px-3 py-2 rounded-md text-md font-medium hover:bg-red-700 transition duration-300">Delete</button>
-                <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
+                <a href="javascript:history.back()" class="btn btn-default underline">Cancel</a>
                 <button type="submit" class="bg-green-400 text-white font-bold p-2 rounded hover:bg-green-500 transition duration-300  font-large w-auto">
                     Update
                 </button>

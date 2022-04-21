@@ -7,7 +7,10 @@
 <div tabindex="0" class="focus:outline-none">
     <!-- Remove py-8 -->
     <div class="mx-auto container py-8">
-        <div class="flex flex-wrap items-center lg:justify-between justify-center">
+        <div>
+            <h1 class="font-bold text-4xl text-blue-900">Browse Courses</h1>
+        </div>
+        <div class="flex flex-wrap items-center ">
             <!-- Card 1 -->
             @foreach ($data as $course)
             <div tabindex="0" class="focus:outline-none mx-2 my-2 w-72 xl:mb-0 mb-8 shadow-md">
@@ -26,10 +29,10 @@
                     </div>
                     <div class="p-4">
                         <div class="flex items-center">
-                            <h2 tabindex="0" class="focus:outline-none text-lg font-semibold">{{$course->name}}</h2>
+                            <h2 tabindex="0" class="focus:outline-none text-xl font-semibold">{{$course->name}}</h2>
                             
                         </div>
-                        <p tabindex="0" class="focus:outline-none text-xs text-gray-600 mt-2">{{$course->description}}</p>
+                        <p tabindex="0" class="focus:outline-none text-sm text-gray-600 mt-2">{{$course->description}}</p>
                         <div class="flex mt-4">
                             <div>
                                 <p tabindex="0" class="focus:outline-none text-gray-600 px-2 text-lg py-1">Duration: <p tabindex="0" class="focus:outline-none text-md text-gray-600 px-2 bg-gray-200 py-1">{{$course->duration}}</p></p>

@@ -6,17 +6,18 @@
         <div>
         <form action="{{route('addnewcoursereq')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <div>
+            <div class="my-3">
                 <span>Course Name</span>
                     <input type="text" name="coursename" id="coursename"
-                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full @error('coursename') border-red-500 @enderror" value="{{old('coursename')}}">
+                    class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm 
+                    border-gray-300 @error('coursename') border-red-500 @enderror" value="{{old('coursename')}}">
                     @error('coursename')
                         <div class="text-red-500 mt-2 text-sm text-left">
                             {{ $message }}
                         </div>                        
                     @enderror
             </div>
-            <div>
+            <div class="my-3">
                 <span>Image</span>
                 <label class="block">
                 <span class="sr-only">Choose image</span>
@@ -29,20 +30,21 @@
                 "/>
                 </label>
             </div>
-            <div>
+            <div class="my-3">
             <span>Description</span>
                     <textarea  name="description" id="description"
-                    class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full h-128 @error('description') border-red-500 @enderror" value="{{old('description')}}"></textarea>
+                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md @error('description') border-red-500 @enderror" value="{{old('description')}}"></textarea>
                     @error('description')
                         <div class="text-red-500 mt-2 text-sm text-left">
                             {{ $message }}
                         </div>                        
                     @enderror
             </div>
-            <div>
+            <div class="my-3">
                 <span>Duration</span>
                         <input type="text"  name="duration" id="duration"
-                        class="bg-gray-100 border-2 border-gray-500 p-4 rounded-lg w-full h-128 @error('duration') border-red-500 @enderror" value="{{old('duration')}}">
+                        class="focus:ring-indigo-500 focus:border-indigo-500 flex-1 block w-full rounded-md sm:text-sm 
+                        border-gray-300 @error('duration') border-red-500 @enderror" value="{{old('duration')}}">
                         @error('duration')
                             <div class="text-red-500 mt-2 text-sm text-left">
                                 {{ $message }}
@@ -50,7 +52,7 @@
                         @enderror
             </div>
             <div class="my-4 text-right">
-                <a href="{{url()->previous()}}" class="btn btn-default underline">Cancel</a>
+                <a href="{{route('createdcourses')}}" class="btn btn-default underline">Cancel</a>
                 <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white font-bold p-2 rounded rounded font-large w-auto">
                     Create
                 </button>

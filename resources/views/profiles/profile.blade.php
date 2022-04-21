@@ -33,12 +33,12 @@
   
               <div class="form-item w-full">
                 <label class="text-xl ">Firstname</label>
-                <input type="text" name="firstname"  id="firstname" disabled value="{{ucfirst(auth()->user()->firstname)}}" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+                <input type="text" name="firstname"  id="firstname" disabled value="{{ucfirst(auth()->user()->firstname)}}" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " >
               </div>
               
               <div class="form-item w-full">
                 <label class="text-xl ">Lastname</label>
-                <input type="text" name="lastname" id="lastname" disabled value="{{ucfirst(auth()->user()->lastname)}}" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+                <input type="text" name="lastname" id="lastname" disabled value="{{ucfirst(auth()->user()->lastname)}}" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " >
               </div>
               
             </div>
@@ -46,7 +46,7 @@
             <div class="flex flex-col space-y-4 md:space-y-0 md:flex-row md:space-x-4">
                 <div class="form-item w-1/3">
                     <label class="text-xl">Email</label>
-                    <input type="text" disabled value="{{auth()->user()->email}}" class="w-full appearance-none text-black text-opacity-50 rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 text-opacity-25 " >
+                    <input type="text" disabled value="{{auth()->user()->email}}" class="w-full appearance-none text-black rounded shadow py-1 px-2 mr-2 focus:outline-none focus:shadow-outline focus:border-blue-200 " >
                 </div>
             </div>
 

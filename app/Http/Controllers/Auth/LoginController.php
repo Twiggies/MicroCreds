@@ -23,11 +23,7 @@ class LoginController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if ($user->type == "educator") {
-        $token = $user->createToken('usertoken', ['educator'])->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
+        
         $request->session()->put('user', $user);
         $request->session()->put('isEducator', true);
         //return $request->session()->all();
@@ -49,10 +45,12 @@ class LoginController extends Controller
             'email' => ['required', 'email', 'max:255'],
             'password' => ['required', 'max:20'],
         ]);
-
+        
         if (!auth()->attempt($request->only('email','password'))) {
             return back()->with('status', 'Invalid Login Credentials');
         }
+
+
 
         $user = User::where('email', $request->email)->first();
         if ($user->type == "student") {

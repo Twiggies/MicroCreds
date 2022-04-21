@@ -81,19 +81,19 @@
         </div>
       </div>
       
-      <div class="px-4 lg:px-16 mt-10 xl:mt-0 h-full xl:w-2/5 w-full flex justify-center items-center bg-gradient-to-l from-indigo-600 to-indigo-700">
+      <div class="px-4  mt-10 xl:mt-0 h-full xl:w-2/5 w-full flex justify-center items-center bg-gradient-to-l from-indigo-600 to-indigo-700">
         
-        <div class="flex flex-col lg:justify-start justify-center lg:items-start items-center my-10">
+        <div class="flex flex-col lg:justify-center justify-center lg:items-center items-center my-10">
           <div class=" justify-start items-center space-x-4 w-full">
             @if (Auth::user()->enrolls->where('course_id', $course->id)->first())
             <form action="{{route('viewcourse', ['id' => $course->id])}}" method="get">
               @csrf
-                <button class="w-40 btn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 text- lg:text-base border border-white py-2 px-4 md:py-4 md:px-8 text-white rounded-sm hover:bg-white hover:text-indigo-700">Go to Course</button>
+                <button class="w-40 btn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 text-xl lg:text-lg border border-white py-2 px-4 md:py-4 md:px-8 text-white rounded-sm hover:bg-white hover:text-indigo-700">Go to Course</button>
             </form>
             @else
               <form action="{{route('enroll', ['course_id' => $course->id])}}" method="post">
                 @csrf
-                  <button class="w-40 btn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 text- lg:text-base border border-white py-2 px-4 md:py-4 md:px-8 text-white rounded-sm hover:bg-white hover:text-indigo-700">Enroll</button>
+                  <button class="w-40 btn focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-800 text-xl lg:text-lg border border-white py-2 px-4 md:py-4 md:px-8 text-white rounded-sm hover:bg-white hover:text-indigo-700">Enroll</button>
               </form>
             @endif
           </div>

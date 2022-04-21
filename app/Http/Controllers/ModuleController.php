@@ -111,6 +111,8 @@ class ModuleController extends Controller
         $module->update();
         $moduleid = $request->moduleid;
         $id = $module->course_id;
+        $request->session()->flash('message', 'Changes saved');
+        $request->session()->flash('message-type', 'bg-green-400');
         return redirect()->route('viewmodule', compact('id', 'moduleid'))->with('status', 'Course details updated successfully');
     }
 

@@ -78,7 +78,14 @@ class CredentialController extends Controller
         ]);
 
         //return response()->file($outputFile);
-        return redirect()->back();
+        $request->session()->flash('message', 'You have completed this course and been awarded with a credential.');
+        $request->session()->flash('message-type', 'bg-green-400');
+        return redirect()->route('viewcourse',$request->id);
+        }
+        else {
+            $request->session()->flash('message', 'You have completed this course.');
+            $request->session()->flash('message-type', 'bg-green-400');
+            return redirect()->route('viewcourse',$request->id);
         }
     }
 

@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="flex flex-wrap justify-center h-96">
-        <div class="w-10/12 bg-white p-6 rounded-lg font-mono text-2xl font-semibold">
+        <div class="w-10/12 bg-white p-6 rounded-lg font-sans text-2xl font-semibold">
             Welcome, {{ucfirst(auth()->user()->firstname)}}
         </div>
         <!-- component -->
@@ -48,7 +48,7 @@
                   border-b border-[#F2F2F2]
                   "
                   >
-                  <img src="https://media.istockphoto.com/photos/school-picture-id1016131800?b=1&k=20&m=1016131800&s=612x612&w=0&h=GGIw22ciOn7UckwP6jTAkf44TUAW2XY8Ev8516W7gro=">
+                  <img src="https://thumbs.dreamstime.com/b/online-courses-free-e-certificate-concept-people-watching-course-web-tutorials-webinar-digital-classroom-vector-illustration-205586260.jpg">
                </p>
                <div class="py-10
                px-8
@@ -110,7 +110,7 @@
                   border-b border-[#F2F2F2]
                   "
                   >
-                  <img src="https://media.istockphoto.com/photos/school-picture-id1016131800?b=1&k=20&m=1016131800&s=612x612&w=0&h=GGIw22ciOn7UckwP6jTAkf44TUAW2XY8Ev8516W7gro=">
+                  <img src="http://www.juniordpsdarbhanga.com/uploads/gallery/media/jdps.jpg">
                </p>
                <div class="py-10
                px-8
@@ -172,7 +172,7 @@
                   border-b border-[#F2F2F2]
                   "
                   >
-                  <img src="https://media.istockphoto.com/photos/school-picture-id1016131800?b=1&k=20&m=1016131800&s=612x612&w=0&h=GGIw22ciOn7UckwP6jTAkf44TUAW2XY8Ev8516W7gro=">
+                  <img src="https://phar.uokufa.edu.iq/wp-content/uploads/2020/05/diploma-certificate-award-icon-vector-18362404.jpg">
                </p>
                <div class="py-10
                px-8
@@ -180,7 +180,7 @@
                lg:py-10 lg:px-6
                xl:p-12">
                <div class="mb-7 pb-10">
-                <p class="text-3xl font-semibold text-center text-body-color leading-loose mb-1">
+                <p class="text-2xl font-semibold text-center text-body-color leading-loose mb-1">
                     Your Earned Credentials
                 </p>
                   <p class="text-base text-body-color leading-loose mb-1">

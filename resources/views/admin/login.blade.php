@@ -18,6 +18,11 @@
       <h2 class="mb-12 text-center text-5xl font-extrabold">MicroLearn Admin System</h2>
       <form action="{{route('loginadmin')}}" method="POST">
         @csrf 
+        @if (session('status'))
+        <div class="text-lg text-red-500 text-center">
+          {{session('status')}}
+        </div>
+        @endif
         <div class="mb-4">
           <label class="block mb-1" for="username">Username</label>
           <input id="username" type="text" name="username" class="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full" />

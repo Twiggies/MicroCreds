@@ -66,7 +66,9 @@ class AdminController extends Controller
     public function educators(Request $request) {
         $educators = User::where('type', 'educator')->get();
         if ($request->has('search')) {
-            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')->orWhere('firstname', 'LIKE', '%'.$request->search.'%')->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','educator')->get();
+            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','educator')->get();
         }
         return view('admin.educator_list', compact('educators'));
     }
@@ -74,7 +76,9 @@ class AdminController extends Controller
     public function students(Request $request) {
         $students = User::where('type', 'student')->get();
         if ($request->has('search')) {
-            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')->orWhere('firstname', 'LIKE', '%'.$request->search.'%')->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','student')->get();
+            $educators = User::where('email', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('firstname', 'LIKE', '%'.$request->search.'%')
+            ->orWhere('lastname', 'LIKE', '%'.$request->search.'%')->where('type','student')->get();
         }
         return view('admin.student_list', compact('students'));
     }
@@ -104,14 +108,17 @@ class AdminController extends Controller
         );
         
         $user = User::find($request->user_id);
-        $profile = Profile::find($user->id);
+        $profile = Profile::where('user_id',$user->id)->first();
         $user->firstname = $request->firstname;
         $user->lastname = $request->lastname;
+        
         if ($profile) {
         $profile->about = $request->about;
         $profile->institute = $request->institute;
         $profile->linkedin = $request->linkedin;
+        
         if ($request->hasFile('picture')) {
+            
             $destination_path = 'public/images/profile/'.$user->id;
             if (!File::exists($destination_path)) {
                 File::makeDirectory($destination_path, $mode=0777, true, true);

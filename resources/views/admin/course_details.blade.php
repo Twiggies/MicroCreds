@@ -2,17 +2,17 @@
 
 @section('content')
 <h1 class="text-3xl text-black pb-6">{{$course->name}}</h1>
-<div class="flex flex-wrap sm:flex-no-wrap h-5/6 items-start justify-between w-full">
+<div class="flex flex-wrap sm:flex-no-wrap items-start justify-between w-full">
     
-    <div class="w-full sm:w-3/4 h-full shadow bg-white dark:bg-gray-800">
+    <div class="w-full sm:w-3/4 h-full shadow bg-white dark:bg-gray-800 p-2">
         <div class="flex flex-col justify-start items-start lg:w-1/5 px-2 lg:px-0">
-            <div class="flex justify-center items-center border p-2">
+            <div class="flex justify-center items-center border p-0">
             @if ($course->image != null)
             <img id="image" src="{{asset('storage/images/courses_thumbnail/'.$course->image)}}"
-            tabindex="0" class="focus:outline-none w-auto h-48" />
+            tabindex="0" class="focus:outline-none w-auto h-auto" />
             @else 
             <img alt="course stock image" src="https://img.freepik.com/free-vector/students-watching-webinar-computer-studying-online_74855-15522.jpg?t=st=1646212180~exp=1646212780~hmac=8623cbe2b9978c9e95924211171c9d39e45333f62cf51a0fbe509fd8b057465a&w=1380" 
-            tabindex="0" class="focus:outline-none w-full h-48" />
+            tabindex="0" class="focus:outline-none w-full h-auto" />
             @endif
             </div>
         </div>
