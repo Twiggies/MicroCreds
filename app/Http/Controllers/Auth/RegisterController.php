@@ -42,16 +42,11 @@ class RegisterController extends Controller
             'type' => 'educator',
         ]);
         
-        $token = $user->createToken('usertoken', ['educator'])->plainTextToken;
         auth()->attempt([
             'email' => $request->email,
             'password' => $request->password,
         ]);
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-        //return response()
+        
         $request->session()->put('user', $user);
         $request->session()->put('isEducator', true);
         return redirect()->route('dashboard');
