@@ -1,8 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<a class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-sm underline focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700" href="{{route('viewmodule', [$id,$moduleid])}}">Go back to lesson module</a>
-<div class="flex flex-wrap justify-center h-auto">
+@php
+    $module_name = App\Models\Module::find($moduleid)->name;
+@endphp
+<a class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 p-2 text-sm underline focus:outline-none focus:ring-2 focus:ring-offset-2  focus:ring-indigo-700" href="{{route('viewmodule', [$id,$moduleid])}}">Go back to {{$module_name}}</a>
+<div class="mt-5 flex flex-wrap justify-center h-auto">
     
     <div class="flex justify-between w-8/12 h-1/6 bg-white border-3 p-3 mb-3 shadow-sm">
         <ul class="flex justify-right">

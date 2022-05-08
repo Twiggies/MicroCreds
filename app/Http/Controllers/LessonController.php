@@ -75,6 +75,9 @@ class LessonController extends Controller
     public function store(Request $request, $id, $moduleid, $lessonid)
     {
         //
+        $request->validate([
+            'lessonname' => "required | max:30",
+        ]);
         $lesson = Lesson::find($request->lessonid);
         $lesson->name = $request->lessonname;
         $lesson->content = $request->content;

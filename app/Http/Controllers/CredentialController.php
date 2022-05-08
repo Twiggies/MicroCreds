@@ -34,6 +34,10 @@ class CredentialController extends Controller
     }
 
     public function store(Request $request) {
+        $request->validate([
+            'institute' => "required | max:50",
+            'certificate' => "required | max:70",
+        ]);
         if ($credential = Credential::where('course_id', $request->id)->first()) {
             $credential->institute_name = $request->institute;
             $credential->certificate_name = $request->certificate;

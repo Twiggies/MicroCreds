@@ -27,7 +27,7 @@
   
               <div>
                 <label for="certificate" class="block text-sm font-medium text-gray-700"> Course name on certificate</label>
-                <div class="mt-1 mb-5">
+                <div class="mt-1">
                   <input type="text" id="certificate" name="certificate" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md" placeholder="Name" 
                   @if ($credential != null) 
                   value="{{$credential->certificate_name}}"
@@ -36,7 +36,11 @@
                   @endif
                   >
                 </div>
-                
+                @error('certificate')
+                            <div class="text-red-500 text-sm text-left">
+                                {{ $message }}
+                            </div>                        
+                @enderror
               </div>
 
               <div>
@@ -57,7 +61,7 @@
             </div>
 
             <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
-                <a class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md" href="javascript:history.back()">Cancel</a>
+                <a class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md" href="{{route('viewcourse', $id)}}">Cancel</a>
               <button type="submit" class="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Save</button>
             </div>
           </div>

@@ -29,7 +29,7 @@
                         @enderror
                 </div>
                 <div class="my-4 text-right">
-                    <a href="{{route('courselibraries')}}" class="btn btn-default underline">Cancel</a>
+                    <a href="{{route('viewcourse', compact('id'))}}" class="btn btn-default underline">Cancel</a>
                     <button type="submit" class="inline-flex justify-center p-2 border border-transparent shadow-sm text-lg font-medium rounded-md text-white bg-blue-500 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Create
                     </button>

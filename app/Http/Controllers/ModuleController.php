@@ -105,6 +105,10 @@ class ModuleController extends Controller
     public function update(Request $request)
     {
         //
+        $request->validate([
+            'modulename' => 'required',
+            'description' => 'nullable'
+        ]);
         $module = Module::find($request->moduleid);
         $module->name = $request->modulename;
         $module->description = $request->description;

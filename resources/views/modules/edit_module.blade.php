@@ -30,7 +30,7 @@
                 </div>
                 <div class="my-4 relative text-right">
                     <button class="absolute left-0 text-left bg-red-400 hover:bg-red-500 text-white font-bold p-2 rounded" type="button" onclick="modalHandler(true)">Delete</button>
-                    <a href="javascript:history.back()" class="btn btn-default underline">Cancel</a>
+                    <a href="{{route('viewmodule', [$id, $moduleid])}}" class="btn btn-default underline">Cancel</a>
                     <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold p-2 rounded w-auto">
                         Update
                     </button>

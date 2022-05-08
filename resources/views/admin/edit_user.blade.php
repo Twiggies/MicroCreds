@@ -8,7 +8,7 @@
 <a onclick="location.href='{{route('studentlist')}}'" class="cursor-pointer hover:text-purple-700 text-2xl underline">Go Back to Student List</a>
 @endif
 
-<div class="w-full relative mt-4 shadow-2xl rounded my-24 overflow-visible">
+<div class="mt-4 shadow-2xl rounded my-24 overflow-visible">
   @if (session('errormessage'))
     <div class="{{session('error-message-type')}} p-3 rounded-lg mb-3">
         {{session('errormessage')}}
@@ -121,6 +121,6 @@
   
   
     </div>
-  </div>
+  
 @endsection
 

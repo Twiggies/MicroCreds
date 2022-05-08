@@ -11,7 +11,7 @@
             <a onclick="deleteHandler(true)" class="mx-2 my-2 bg-white transition duration-150 ease-in-out hover:bg-gray-100 hover:text-white hover:bg-indigo-500 rounded border border-indigo-700 text-indigo-700 px-6 py-2 text-lg focus:outline-none focus:ring-2 focus:ring-offset-2 cursor-pointer  focus:ring-indigo-700">Delete this page</a>
         </ul>
     </div> 
-    <form action="{{route('updatelesson', [$id, $moduleid, $lessonid])}}" method="POST" enctype="multipart/form-data">
+    <form id="lessonform" action="{{route('updatelesson', [$id, $moduleid, $lessonid])}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
     <div class="px-6">
@@ -32,7 +32,7 @@
         <textarea id="tinymce" name="content">{!!$lesson->content!!}</textarea>
             <div>
                 <div class="my-4 text-right">
-                    <a href="javascript:history.back()" class="btn btn-default underline">Cancel</a>
+                    <a href="{{route('viewlesson', [$id, $moduleid, $lessonid])}}" class="btn btn-default underline">Cancel</a>
                     <button type="submit" class="bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 rounded text-lg w-auto">
                         Save
                     </button>
@@ -122,7 +122,16 @@
 @endsection
 
 @section('scripts')
+<script>
+    $('#lessonform').submit(function(e) {
+        if ( $('#lessonname').val() == "") {
+            alert('Lesson name cannot be empty.')
+            return false;
+        }
+    })
+</script>
     <script>
+
         let modal = document.getElementById("modal");
         function modalHandler(val) {
         if (val) {
@@ -130,7 +139,7 @@
         } else {
             fadeOut(modal);
         }
-    }
+        }
     function fadeOut(el) {
         el.style.opacity = 1;
         (function fade() {

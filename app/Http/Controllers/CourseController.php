@@ -101,6 +101,16 @@ class CourseController extends Controller
     }
 
     public function updateCourse(Request $request) {
+        $request->validate([
+            'coursename' => 'required',
+            'description' => 'required',
+            'duration' => 'required',
+            'image' => 'nullable | image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+        ],
+        [
+            'image.max' => "Image should only be 2MB max in size",
+        ]
+        );
         $course = Course::find($request->id);
         $course->name = $request->coursename;
         $course->description = $request->description;
